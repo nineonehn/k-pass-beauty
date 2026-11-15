@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<!--
+  K-Pass Beauty — 영문 원페이지 랜딩 (2026-11-15)
+  · 대상: 싱가포르·미국·홍콩 방한 외국인 / 목적: 세신·K-웰니스 스파 예약 대행 전환
+  · 예약 폼: https://tally.so/r/vXr0r0  (이 파일에서 바꿀 곳은 아래 3개뿐)
+  · 가격: $9.90 얼리버드 (정상가 $15.00) — 결제는 PayPal Goods & Services
+    * PayPal 주소는 페이지에 인쇄하지 않았습니다(스크래핑 방지). 폼 확인 화면·자동회신 메일이 전달합니다.
+  · 사업자등록번호 662-38-01061 표기 — 전자상거래법상 판매자 정보 표시
+  · 게시 방법: 이 파일 하나를 그대로 정적 호스팅(Netlify drop / GitHub Pages / Cloudflare Pages)에 올리면 끝.
+    외부 폰트·이미지·스크립트 의존이 0이라 업로드 즉시 모바일에서 열립니다.
+  · 게시 전 확인: Tally 폼에 Private Korean scrub / K-wellness spa 선택지가 실제로 있는지(없으면 폼 먼저 수정).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#12151a">
+<title>K-Pass Beauty — Book a Seoul scrub or K-wellness spa in English</title>
+<meta name="description" content="Korean scrubs and K-wellness spas in Seoul book only in Korean. We call, confirm, and send you an English voucher plus a Korean card to show at the counter. Flat $9.90 booking fee, fully refunded if we can't get you in.">
+<style>
+  :root{
+    --ink:#12151a; --ink2:#2a2f38; --sub:#5b6472; --line:#e5e8ee;
+    --bg:#fbfaf7; --card:#ffffff; --soft:#f4f2ec; --accent:#b4552d; --accent2:#1f5eff;
+    --ok:#1c7a4a; --radius:16px;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue","Apple SD Gothic Neo","Noto Sans KR",Roboto,sans-serif;
+    line-height:1.62; font-size:16px;
+    padding-bottom:calc(86px + env(safe-area-inset-bottom));
+  }
+  .wrap{max-width:640px; margin:0 auto; padding:0 20px;}
+  h1,h2,h3{letter-spacing:-.02em; line-height:1.22; margin:0;}
+  p{margin:0;}
+  a{color:inherit;}
+  .btn{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    background:var(--ink); color:#fff; text-decoration:none;
+    font-weight:700; font-size:17px; letter-spacing:-.01em;
+    padding:17px 22px; border-radius:14px; width:100%;
+    box-shadow:0 6px 18px rgba(18,21,26,.16);
+  }
+  .btn:active{transform:translateY(1px);}
+  .btn .price{font-weight:800;}
+  .btn.ghost{background:#fff; color:var(--ink); box-shadow:none; border:1.5px solid var(--ink);}
+
+  /* ---------- hero ---------- */
+  header{padding:34px 0 30px; background:
+      radial-gradient(120% 90% at 82% -10%, #f0e3d6 0%, rgba(240,227,214,0) 62%),
+      radial-gradient(90% 70% at 0% 0%, #e8eee9 0%, rgba(232,238,233,0) 58%);}
+  .brand{display:flex; align-items:center; gap:9px; font-size:12px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--sub);}
+  .brand i{width:9px; height:9px; border-radius:50%; background:var(--accent); display:block;}
+  h1{font-size:clamp(30px,8.4vw,40px); margin:16px 0 14px; font-weight:800;}
+  h1 em{font-style:normal; color:var(--accent);}
+  .lead{font-size:16.5px; color:var(--ink2);}
+  .lead b{background:linear-gradient(transparent 62%, #f6ddc9 62%);}
+  .chips{display:flex; flex-wrap:wrap; gap:7px; margin:20px 0 22px;}
+  .chip{font-size:12.5px; font-weight:700; color:var(--ink2); background:#fff; border:1px solid var(--line); border-radius:999px; padding:6px 11px;}
+  .fineprint{font-size:12.5px; color:var(--sub); margin-top:12px; text-align:center;}
+
+  /* ---------- sections ---------- */
+  section{padding:38px 0; border-top:1px solid var(--line);}
+  .kicker{font-size:11.5px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:9px;}
+  h2{font-size:clamp(22px,6vw,27px); font-weight:800; margin-bottom:10px;}
+  .sub{color:var(--sub); font-size:15px;}
+
+  .two{display:grid; gap:14px; margin-top:20px;}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:20px 18px;}
+  .card h3{font-size:18.5px; font-weight:800; margin-bottom:2px;}
+  .card .kr{font-size:13px; color:var(--sub); font-weight:600; margin-bottom:11px;}
+  .card ul{margin:0; padding:0; list-style:none; font-size:14.5px;}
+  .card li{position:relative; padding-left:19px; margin-bottom:7px; color:var(--ink2);}
+  .card li::before{content:""; position:absolute; left:0; top:9px; width:7px; height:7px; border-radius:50%; background:var(--accent); opacity:.55;}
+  .card li.no::before{background:#a8adb7;}
+  .card .tagline{margin-top:13px; padding-top:13px; border-top:1px dashed var(--line); font-size:13px; color:var(--sub);}
+  .card .tagline b{color:var(--ink);}
+
+  ol.steps{margin:20px 0 0; padding:0; list-style:none; counter-reset:s;}
+  ol.steps li{position:relative; padding:0 0 20px 46px; counter-increment:s;}
+  ol.steps li::before{
+    content:counter(s); position:absolute; left:0; top:1px;
+    width:29px; height:29px; border-radius:50%; background:var(--ink); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:800;
+  }
+  ol.steps li:last-child{padding-bottom:0;}
+  ol.steps b{display:block; font-size:16px;}
+  ol.steps span{font-size:14.5px; color:var(--sub);}
+
+  /* ---------- flashcard ---------- */
+  .flashwrap{background:var(--soft); border-radius:var(--radius); padding:16px; margin-top:20px;}
+  .flashlabel{display:flex; justify-content:space-between; align-items:center; font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--sub); margin-bottom:11px;}
+  .flash{
+    background:#fff; border:1.5px solid var(--ink); border-radius:12px; padding:18px 16px 16px;
+    box-shadow:4px 4px 0 rgba(18,21,26,.9);
+  }
+  .flash .fname{font-size:10.5px; font-weight:800; letter-spacing:.16em; color:var(--accent); text-transform:uppercase; margin-bottom:10px;}
+  .flash p.k{font-size:16px; font-weight:700; line-height:1.5; margin-bottom:8px; word-break:keep-all;}
+  .flash p.k:last-of-type{margin-bottom:0;}
+  .flash hr{border:0; border-top:1px dashed var(--line); margin:14px 0 11px;}
+  .flash .en{font-size:12.5px; color:var(--sub); line-height:1.55;}
+  .flash .en b{color:var(--ink2);}
+
+  /* ---------- price ---------- */
+  .pricebox{background:var(--ink); color:#fff; border-radius:20px; padding:26px 20px; margin-top:20px;}
+  .pricebox .amt{font-size:46px; font-weight:800; letter-spacing:-.03em; line-height:1;}
+  .pricebox .amt small{font-size:16px; font-weight:600; letter-spacing:0; opacity:.75; display:block; margin-top:9px;}
+  .pricebox ul{margin:20px 0 0; padding:0; list-style:none; font-size:14.5px;}
+  .pricebox li{position:relative; padding-left:22px; margin-bottom:9px; color:#e7e9ee;}
+  .pricebox li::before{content:"✓"; position:absolute; left:0; top:0; color:#9fd3b4; font-weight:800;}
+  .pricebox li.no::before{content:"✕"; color:#e6a99a;}
+  .pricebox li b{color:#fff;}
+  .pricebox .paynote{margin-top:18px; padding-top:16px; border-top:1px solid rgba(255,255,255,.16); font-size:12.5px; color:#b8bdc7;}
+
+  /* ---------- faq ---------- */
+  details{border-bottom:1px solid var(--line); padding:15px 0;}
+  details summary{
+    list-style:none; cursor:pointer; font-weight:700; font-size:15.5px; letter-spacing:-.01em;
+    display:flex; justify-content:space-between; gap:14px; align-items:flex-start;
+  }
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{content:"+"; font-size:20px; font-weight:400; color:var(--sub); line-height:1; flex:0 0 auto;}
+  details[open] summary::after{content:"–";}
+  details .a{font-size:14.5px; color:var(--ink2); margin-top:9px; padding-right:26px;}
+  details .a p+p{margin-top:9px;}
+
+  .note{background:#fff; border-left:3px solid var(--accent); border-radius:0 10px 10px 0; padding:14px 16px; font-size:14px; color:var(--ink2); margin-top:20px;}
+
+  footer{padding:34px 0 40px; border-top:1px solid var(--line); font-size:12px; color:var(--sub); line-height:1.7;}
+  footer b{color:var(--ink2);}
+  footer .disclaimer{margin-top:12px;}
+
+  /* ---------- sticky cta ---------- */
+  .sticky{
+    position:fixed; left:0; right:0; bottom:0; z-index:50;
+    padding:11px 20px calc(11px + env(safe-area-inset-bottom));
+    background:rgba(251,250,247,.94); backdrop-filter:blur(12px);
+    border-top:1px solid var(--line);
+  }
+  .sticky .inner{max-width:640px; margin:0 auto;}
+  .sticky .sub2{font-size:11.5px; color:var(--sub); text-align:center; margin-top:6px;}
+
+  @media (min-width:600px){
+    .two{grid-template-columns:1fr 1fr;}
+    body{padding-bottom:96px;}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand"><i></i> K-Pass Beauty · Seoul</div>
+    <h1>The Seoul spa you found online <em>only books in Korean.</em></h1>
+    <p class="lead">Korean scrubs and K-wellness spas run on Naver booking, Instagram DMs and a Korean bank transfer. We call them in Korean, confirm your slot, and send you an <b>English voucher plus a Korean card to show at the counter.</b></p>
+    <div class="chips">
+      <span class="chip">No Korean number</span>
+      <span class="chip">No Korean card</span>
+      <span class="chip">Reply within 2 hours</span>
+      <span class="chip">Voucher in 2–4 hours</span>
+    </div>
+    <a class="btn" href="https://tally.so/r/vXr0r0">Book a slot · <span class="price">$9.90</span> flat</a>
+    <p class="fineprint">Regular $15.00 · Full refund if we can’t get you in</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Pick your track</div>
+    <h2>Two different kinds of “Korean spa”</h2>
+    <p class="sub">They are not the same experience, and they don’t fail in the same way. Choose the one you actually saw online.</p>
+
+    <div class="two">
+      <div class="card">
+        <h3>Private Korean scrub</h3>
+        <div class="kr">1인 프라이빗 세신 · 60–90 min</div>
+        <ul>
+          <li>One-person room, warm bath first, then a scrub mitt over your whole body</li>
+          <li>Usually only bookable on Naver (needs a Korean phone number) or by Korean bank deposit</li>
+          <li>Firmer than most massages — you choose soft, medium or strong <b>before</b> we confirm</li>
+          <li class="no">No shared bathhouse floor booked by mistake: we say “1인” for you</li>
+        </ul>
+        <div class="tagline"><b>Best for</b> first-timers who want it to be private and understandable.</div>
+      </div>
+
+      <div class="card">
+        <h3>K-wellness spa</h3>
+        <div class="kr">한방·홍삼 스파 · e.g. SPA 1978, Daechi</div>
+        <ul>
+          <li>Hanbang (herbal) or red-ginseng spas, 60–150 min programmes</li>
+          <li>Most big names already have an English site and sell tickets through KKday — you buy the ticket yourself</li>
+          <li>What we add: <b>couple/private room confirmation</b>, the pre-visit questionnaire (pressure, allergies, pregnancy), and a written answer in English</li>
+          <li class="no">We never resell or mark up their tickets</li>
+        </ul>
+        <div class="tagline"><b>Best for</b> people who booked fine but don’t want to gamble on the room and the forms.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">How it works</div>
+    <h2>Three steps, all in English</h2>
+    <ol class="steps">
+      <li>
+        <b>Send the request</b>
+        <span>Venue, link, three possible times, the treatment, and — for scrubs and spas — pressure, tattoos, menstruation and allergies. Two minutes. Three time options are required so we can actually get you in.</span>
+      </li>
+      <li>
+        <b>We call the venue in Korean</b>
+        <span>You hear back from us within 2 hours (09:00–22:00 KST, every day). If the venue is full, we try your second and third option before coming back to you.</span>
+      </li>
+      <li>
+        <b>You get the voucher</b>
+        <span>English voucher with the booking ID, the Korean address for the taxi driver, Naver and Kakao map links, and the Korean card. Usually within 2–4 hours. If none of your times work, the $9.90 comes back in full.</span>
+      </li>
+    </ol>
+    <div class="note">We don’t escort you or interpret in person. We work by phone and document — that’s why the fee can stay at $9.90.</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The part nobody else sends</div>
+    <h2>A Korean card for the counter</h2>
+    <p class="sub">You don’t need to explain anything with a translation app. You show this. It is printed in Korean, matched to your booking, and attached to your voucher.</p>
+
+    <div class="flashwrap">
+      <div class="flashlabel"><span>Sample · card 5 of 8</span><span>세신 예약 확인용</span></div>
+      <div class="flash">
+        <div class="fname">Private Korean scrub — therapist card</div>
+        <p class="k">안녕하세요! 외국인 고객님의 세신 예약 확인서입니다.</p>
+        <p class="k">예약자 성함: <u>NAME</u> / 예약 시간: <u>12월 5일(토) 오후 2시</u> / 인원: <u>1</u>명 / 예약번호: <u>KBP-202611-003</u></p>
+        <p class="k">이 고객님은 세신이 처음입니다. <b>압은 <u>보통</u>으로 해주세요.</b></p>
+        <p class="k">세신 중 불편하거나 아프면 말로 알려주시면 감사하겠습니다. 고객님은 번역기를 사용합니다.</p>
+        <hr>
+        <p class="en"><b>In English:</b> “Hello — this is the booking confirmation for a foreign guest. Name / time / 1 person / booking ID. It’s their first scrub — please use <b>medium</b> pressure. If anything hurts, please tell them out loud; they’re using a translation app.”</p>
+      </div>
+    </div>
+    <p class="fineprint" style="text-align:left;margin-top:12px;">The other seven cards cover the counter check-in, changing plans, the deposit, tattoos, menstruation and allergies — each one only states what the venue has actually confirmed to us.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Price</div>
+    <h2>One flat fee. The venue is paid at the venue.</h2>
+    <div class="pricebox">
+      <div class="amt">$9.90 <small>Early-bird booking fee · regular $15.00</small></div>
+      <ul>
+        <li><b>Included:</b> Korean phone call, slot confirmation, English voucher, Korean cards, map links, rebooking if the venue cancels</li>
+        <li><b>Included:</b> pressure / tattoo / menstruation / allergy questions asked <b>before</b> you pay the venue anything</li>
+        <li><b>Refunded in full</b> if none of your three times can be confirmed</li>
+        <li class="no">Not included: the treatment itself. You pay the spa directly, at their normal local price. We add <b>zero</b> markup</li>
+        <li class="no">Not included: hotel, flights, tours, KTX, concert tickets, or cheap public jjimjilbang day passes — we don’t book those at all</li>
+      </ul>
+      <p class="paynote">Payment by PayPal (Goods &amp; Services). The exact address is on your form’s confirmation screen and in our reply — we don’t print it here so it can’t be scraped.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Before you book</div>
+    <h2>Questions people actually ask</h2>
+
+    <details>
+      <summary>Is $9.90 the price of the scrub or the spa?</summary>
+      <div class="a"><p>No. $9.90 is our fee for getting you a confirmed booking, in English, with the paperwork. The treatment is paid to the venue on the day, at their published price. We take no cut from the spa.</p></div>
+    </details>
+
+    <details>
+      <summary>Do I need a Korean phone number or a Korean card?</summary>
+      <div class="a"><p>No. That’s the whole point — the venue’s booking page asks for both, and we’re the ones who get past it. You need WhatsApp or email, and PayPal for the $9.90.</p></div>
+    </details>
+
+    <details>
+      <summary>I have tattoos. Can I still go?</summary>
+      <div class="a"><p>Many Korean bathhouses and scrub rooms restrict tattoos, and it varies by venue. We ask the specific venue before booking and tell you the real answer — including “no”. We never promise access we haven’t confirmed.</p></div>
+    </details>
+
+    <details>
+      <summary>Will I be naked? Who is in the room?</summary>
+      <div class="a"><p>It depends on the venue: some scrub rooms are one-person and private, others are on a shared floor, and some provide disposable underwear. We ask about the room type, what you wear, and whether the therapist is the same sex as you, and we put their answer in the voucher. We never guess.</p></div>
+    </details>
+
+    <details>
+      <summary>Can I choose how hard the scrub is?</summary>
+      <div class="a"><p>Yes — soft, medium or “시원하게” (strong). You pick it on the form, it goes on the therapist’s card in Korean, and you can still change your mind on the day.</p></div>
+    </details>
+
+    <details>
+      <summary>What if I’m on my period, pregnant, or have allergies?</summary>
+      <div class="a"><p>Tell us on the form. Many venues ask guests to use a tampon or menstrual cup, and some decline guests who are menstruating. We confirm before booking so you aren’t turned away at the counter. Allergies and pregnancy go to the therapist in Korean.</p></div>
+    </details>
+
+    <details>
+      <summary>Do you come with me?</summary>
+      <div class="a"><p>No. We don’t escort or interpret in person — you go alone with the voucher and the Korean card, and the staff read it in one second. If something goes wrong on site, message us and we call the venue for you.</p></div>
+    </details>
+
+    <details>
+      <summary>How fast is it, really?</summary>
+      <div class="a"><p>You hear from us within 2 hours between 09:00 and 22:00 KST, seven days a week. The confirmed voucher comes in 2–4 hours, and it needs all three of your time options. Requests sent overnight are answered by 11:00.</p></div>
+    </details>
+
+    <details>
+      <summary>What if the venue is fully booked?</summary>
+      <div class="a"><p>You get 100% of the $9.90 back the same day, or we keep trying another venue if you’d rather. There’s no “we’ll see what we can do” middle state.</p></div>
+    </details>
+
+    <details>
+      <summary>Which areas and which places?</summary>
+      <div class="a"><p>Seoul — Hongdae, Yeonnam, Hapjeong, Seongsu, Gangnam, plus brand spas such as SPA 1978 in Daechi. If you already have a venue in mind, send the Instagram or Naver Map link and we check that exact branch. If you don’t, we suggest two or three that fit your budget and area.</p></div>
+    </details>
+
+    <details>
+      <summary>Is this a spa? Do you guarantee results?</summary>
+      <div class="a"><p>We’re a booking desk, not a spa, a clinic or a medical service. We describe what happens at the venue, in their words — no detox claims, no “cures”, no before-and-after promises. If you want medical treatment, this is the wrong service and we’d rather say so.</p></div>
+    </details>
+
+    <details>
+      <summary>What do you do with my details?</summary>
+      <div class="a"><p>Your name as on your passport, country, WhatsApp, email — plus the answers we need for the venue. Never your passport number, ID number, or card details. We share your name, party size and contact with that one venue for that one booking, and we delete the request and messages 90 days after the voucher is issued.</p></div>
+    </details>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Start here</div>
+    <h2>Send the venue link. We take it from there.</h2>
+    <p class="sub">Two minutes on the form, then you can put your phone down — we come back with a confirmed slot or your money.</p>
+    <div style="margin-top:20px;">
+      <a class="btn" href="https://tally.so/r/vXr0r0">Open the booking form · <span class="price">$9.90</span></a>
+    </div>
+    <p class="fineprint">No Korean phone number · No Korean bank account · PayPal only</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <b>K-Pass Beauty</b> — booking assistance for hair salons, personal-colour studios, head spas, nails, private Korean scrubs and K-wellness spas in Seoul.<br>
+    Seoul, Republic of Korea · <a href="mailto:slij2005@gmail.com">slij2005@gmail.com</a> · Business registration 662-38-01061 (Bogeo Market)<br>
+    <p class="disclaimer">We are an independent booking service and are not affiliated with, endorsed by, or acting as an agent of any venue named on this page. Venue prices, availability, tattoos, clothing and same-sex therapist policies are set by each venue and confirmed case by case. Treatment fees are paid directly to the venue. We do not provide medical, therapeutic or diagnostic services and make no health claims. Booking fees are charged for reservation assistance only; if we cannot confirm any of your three requested times, the fee is refunded in full.</p>
+  </div>
+</footer>
+
+<div class="sticky">
+  <div class="inner">
+    <a class="btn" href="https://tally.so/r/vXr0r0">Book a Seoul scrub or spa · $9.90</a>
+    <p class="sub2">Refunded in full if we can’t confirm your slot</p>
+  </div>
+</div>
+
+</body>
+</html>
