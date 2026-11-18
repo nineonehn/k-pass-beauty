@@ -119,6 +119,28 @@
   .flash .en{font-size:12.5px; color:var(--sub); line-height:1.55;}
   .flash .en b{color:var(--ink2);}
 
+  /* ---------- editor's pick ---------- */
+  .pick{position:relative; background:var(--card); border:1.5px solid var(--ink); border-radius:18px; padding:22px 18px 18px; margin-top:20px;}
+  .pick .ribbon{display:inline-flex; align-items:center; font-size:10.5px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:#fff; background:var(--accent); border-radius:999px; padding:5px 10px;}
+  .pickhead{display:flex; justify-content:space-between; align-items:flex-start; gap:14px; margin-top:13px;}
+  .pickhead h3{font-size:23px; font-weight:800; letter-spacing:-.02em; line-height:1.15;}
+  .pickkr{font-size:12.5px; color:var(--sub); font-weight:600; margin-top:4px; line-height:1.45;}
+  .rating{flex:0 0 auto; text-align:right;}
+  .rating .num{font-size:21px; font-weight:800; letter-spacing:-.02em; line-height:1;}
+  .rating .num span{color:var(--accent); font-size:14px; margin-left:2px;}
+  .rating small{display:block; font-size:10px; color:var(--sub); margin-top:5px; letter-spacing:.01em;}
+  .pick ul{margin:16px 0 0; padding:0; list-style:none; font-size:14.5px;}
+  .pick li{position:relative; padding-left:21px; margin-bottom:8px; color:var(--ink2);}
+  .pick li::before{content:"✓"; position:absolute; left:0; top:0; color:var(--ok); font-weight:800;}
+  .pick li b{color:var(--ink);}
+  .meta{margin:16px 0 0; padding:15px 0 0; border-top:1px dashed var(--line); display:grid; gap:9px; font-size:13.5px;}
+  .meta div{display:flex; gap:10px;}
+  .meta dt{flex:0 0 66px; color:var(--sub); font-weight:800; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; padding-top:3px;}
+  .meta dd{margin:0; color:var(--ink2);}
+  .picklinks{display:flex; flex-wrap:wrap; gap:8px; margin-top:16px;}
+  .picklinks a{display:inline-flex; align-items:center; font-size:12.5px; font-weight:700; text-decoration:none; border:1px solid var(--line); background:var(--soft); color:var(--ink2); border-radius:999px; padding:8px 13px;}
+  .picknote{font-size:12.5px; color:var(--sub); margin-top:14px;}
+
   /* ---------- price ---------- */
   .pricebox{background:var(--ink); color:#fff; border-radius:20px; padding:26px 20px; margin-top:20px;}
   .pricebox .amt{font-size:46px; font-weight:800; letter-spacing:-.03em; line-height:1;}
@@ -213,6 +235,45 @@
         </ul>
         <div class="tagline"><b>Best for</b> people who booked fine but don’t want to gamble on the room and the forms.</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="salon">
+  <div class="wrap">
+    <div class="kicker">Editor’s pick · Hair &amp; head spa</div>
+    <h2>No salon in mind yet? Start here.</h2>
+    <p class="sub">Most guests send us an Instagram account they found. If you don’t have one, this is the salon in Gangnam we book first — a private one-chair studio where the stylist works in English.</p>
+
+    <div class="pick">
+      <span class="ribbon">Recommended partner</span>
+      <div class="pickhead">
+        <div>
+          <h3>MY SPRING, HAIR</h3>
+          <div class="pickkr">나의봄헤어 · Sinsa, Gangnam · 2–3 min walk from Sinsa Station</div>
+        </div>
+        <div class="rating">
+          <div class="num">5.0<span>★</span></div>
+          <small>Google · 46 reviews</small>
+        </div>
+      </div>
+      <ul>
+        <li><b>Private 1:1</b> — one chair, one stylist. No shared floor and no other guests in the room.</li>
+        <li><b>English spoken</b> — you explain the cut or the colour yourself, no translation app at the chair.</li>
+        <li><b>Scalp clinic &amp; hair treatment</b> is the main work here: head spa, scalp care, treatment for damaged hair. Cut, perm and colour as well.</li>
+      </ul>
+      <dl class="meta">
+        <div><dt>Address</dt><dd>1F, 7 Gangnam-daero 146-gil, Gangnam-gu, Seoul (7 강남대로146길)</dd></div>
+        <div><dt>Hours</dt><dd>Mon · Wed · Fri · Sat 11:00–20:00 / Tue 09:00–17:00</dd></div>
+        <div><dt>Closed</dt><dd>Thursday &amp; Sunday — we only book the days above</dd></div>
+        <div><dt>Menu</dt><dd>Head spa · scalp clinic · hair treatment · cut · perm · colour</dd></div>
+      </dl>
+      <div class="picklinks">
+        <a href="https://naver.me/Grg9alAx" target="_blank" rel="noopener">Naver Map</a>
+        <a href="https://maps.app.goo.gl/rNZXJ5LSqJRRkNmG9?g_st=ic" target="_blank" rel="noopener">Google Maps</a>
+        <a href="https://www.instagram.com/mybom_sujung/" target="_blank" rel="noopener">@mybom_sujung</a>
+      </div>
+      <p class="picknote">Don’t want to choose? Pick “Not sure yet — recommend a salon” on the form and we book this one for you. Treatment prices are the salon’s own; we add nothing to them, and the $9.90 booking fee stays the same.</p>
     </div>
   </div>
 </section>
@@ -331,7 +392,7 @@
 
     <details>
       <summary>Which areas and which places?</summary>
-      <div class="a"><p>Seoul — Hongdae, Yeonnam, Hapjeong, Seongsu, Gangnam, plus brand spas such as SPA 1978 in Daechi. If you already have a venue in mind, send the Instagram or Naver Map link and we check that exact branch. If you don’t, we suggest two or three that fit your budget and area.</p></div>
+      <div class="a"><p>Seoul — Hongdae, Yeonnam, Hapjeong, Seongsu, Gangnam, plus brand spas such as SPA 1978 in Daechi. If you already have a venue in mind, send the Instagram or Naver Map link and we check that exact branch. If you don’t, we suggest two or three that fit your budget and area. For hair and scalp work we usually start with <b>MY SPRING, HAIR</b> in Sinsa (private 1:1, English spoken, closed Thu &amp; Sun) — you can simply pick “Not sure yet” on the form.</p></div>
     </details>
 
     <details>
