@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<!--
+  연말 연차·미사용 수당 1분 계산기 (2026-11-19)
+  · 대상: 일반 직장인 / 목적: 계산 결과를 확인하고 복대리 서식·가이드로 이동
+  · 근거: 근로기준법 제60조(연차 유급휴가), 제61조(연차 유급휴가의 사용 촉진)
+  · 통상시급 환산: 주 40시간 기준 월 209시간 = (주 40시간 + 주휴 8시간) x 4.345주
+  · 외부 의존 0 (폰트·이미지·스크립트 모두 인라인). 파일 하나로 동작.
+  · CTA 링크는 litt.ly/bok_o_official 실제 페이지에서 확인한 값만 사용.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>연말 연차수당 1분 계산기 · 남은 연차, 돈으로 얼마</title>
+<meta name="description" content="월급과 남은 연차 일수만 넣으면 미사용 연차수당이 바로 계산됩니다. 연차촉진 서면 3문항으로 0원 소멸 여부도 3초 만에 확인하세요.">
+<link rel="canonical" href="https://nineonehn.github.io/k-pass-beauty/annual-leave-calc/">
+<meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#08090c" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="복대리 연차 계산기">
+<meta property="og:url" content="https://nineonehn.github.io/k-pass-beauty/annual-leave-calc/">
+<meta property="og:title" content="남은 연차, 돈으로 얼마일까요">
+<meta property="og:description" content="월급과 남은 연차 일수만 넣으면 1분 만에 미사용 연차수당이 나옵니다. 연차촉진 서면이 없으면 소멸되지 않습니다.">
+<meta property="og:image" content="https://nineonehn.github.io/k-pass-beauty/annual-leave-calc/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="남은 연차, 돈으로 얼마일까요">
+<meta name="twitter:description" content="1분이면 끝나는 연차수당 계산기. 연차촉진 서면 3문항으로 0원 소멸 여부도 확인.">
+<meta name="twitter:image" content="https://nineonehn.github.io/k-pass-beauty/annual-leave-calc/og.png">
+<meta name="robots" content="index,follow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230b63f6'/%3E%3Ctext x='32' y='44' font-size='34' font-family='-apple-system,sans-serif' font-weight='700' fill='white' text-anchor='middle'%3E%EC%97%B0%3C/text%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#f5f6f8;
+    --card:#ffffff;
+    --ink:#0a0a0c;
+    --sub:#6d7480;
+    --line:rgba(10,10,12,.075);
+    --accent:#0b63f6;
+    --accent-soft:#eaf1ff;
+    --green:#00875a;
+    --green-soft:#e7f7ef;
+    --red:#d93a3f;
+    --red-soft:#fdecec;
+    --field:#f2f3f6;
+    --shadow:0 1px 2px rgba(10,10,12,.04), 0 10px 30px rgba(10,10,12,.06);
+    color-scheme:light;
+  }
+  html[data-theme="dark"]{
+    --bg:#08090c;
+    --card:#131419;
+    --ink:#f4f5f7;
+    --sub:#9aa1ad;
+    --line:rgba(255,255,255,.085);
+    --accent:#4d8dff;
+    --accent-soft:rgba(77,141,255,.14);
+    --green:#2fcf8f;
+    --green-soft:rgba(47,207,143,.12);
+    --red:#ff6b6f;
+    --red-soft:rgba(255,107,111,.12);
+    --field:#1b1d24;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 34px rgba(0,0,0,.45);
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0; padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    letter-spacing:-0.01em;
+    -webkit-font-smoothing:antialiased;
+    transition:background .25s ease, color .25s ease;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:-20% -20% auto -20%; height:60vh; z-index:0; pointer-events:none;
+    background:radial-gradient(60% 60% at 50% 0%, rgba(11,99,246,.14), rgba(11,99,246,0) 70%);
+  }
+  html[data-theme="dark"] body::before{
+    background:radial-gradient(60% 60% at 50% 0%, rgba(77,141,255,.18), rgba(77,141,255,0) 70%);
+  }
+  .wrap{position:relative; z-index:1; max-width:560px; margin:0 auto; padding:18px 16px 44px;}
+  .top{display:flex; align-items:center; justify-content:space-between; margin-bottom:26px;}
+  .brand{display:flex; align-items:center; gap:9px; font-size:14px; font-weight:650; color:var(--sub); letter-spacing:-0.01em;}
+  .mark{
+    width:26px; height:26px; border-radius:8px; background:var(--accent); color:#fff;
+    display:grid; place-items:center; font-size:13px; font-weight:800; letter-spacing:0;
+  }
+  .icon-btn{
+    width:38px; height:38px; border-radius:50%; border:1px solid var(--line); background:var(--card);
+    color:var(--sub); display:grid; place-items:center; cursor:pointer; padding:0;
+    transition:transform .15s ease, background .2s ease;
+  }
+  .icon-btn:active{transform:scale(.94);}
+  .hero{margin-bottom:20px;}
+  .chip{
+    display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:650;
+    color:var(--accent); background:var(--accent-soft); border-radius:999px; padding:6px 11px; margin-bottom:14px;
+  }
+  h1{
+    font-size:clamp(28px, 8.4vw, 34px); line-height:1.26; letter-spacing:-0.035em;
+    margin:0 0 12px; font-weight:750;
+  }
+  h1 em{font-style:normal; color:var(--accent);}
+  .hero p{margin:0; color:var(--sub); font-size:15px; line-height:1.62; letter-spacing:-0.015em;}
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:22px;
+    padding:22px 20px; margin-bottom:14px; box-shadow:var(--shadow);
+  }
+  .card-head{display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:18px;}
+  h2{font-size:17px; margin:0; font-weight:700; letter-spacing:-0.025em; display:flex; align-items:center; gap:8px;}
+  .num{
+    width:21px; height:21px; border-radius:7px; background:var(--field); color:var(--sub);
+    display:grid; place-items:center; font-size:11.5px; font-weight:800; flex:none;
+  }
+  .hint{font-size:12px; color:var(--sub); flex:none;}
+  .seg{display:flex; gap:4px; background:var(--field); padding:4px; border-radius:13px; margin-bottom:18px;}
+  .seg button{
+    flex:1; border:0; background:transparent; color:var(--sub); font:inherit; font-size:14px; font-weight:650;
+    padding:9px 6px; border-radius:10px; cursor:pointer; transition:background .18s ease, color .18s ease;
+  }
+  .seg button[aria-pressed="true"]{background:var(--card); color:var(--ink); box-shadow:0 1px 3px rgba(10,10,12,.12);}
+  html[data-theme="dark"] .seg button[aria-pressed="true"]{box-shadow:0 1px 3px rgba(0,0,0,.5);}
+  .field{margin-bottom:16px;}
+  .field-label{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px;}
+  .field-label label, .field-label .label-plain{font-size:13.5px; font-weight:650; color:var(--sub);}
+  .field-label .small{font-size:12px; color:var(--sub); opacity:.85;}
+  .input-wrap{
+    display:flex; align-items:center; gap:8px; background:var(--field); border:1.5px solid transparent;
+    border-radius:14px; padding:0 15px; transition:border-color .18s ease, background .18s ease;
+  }
+  .input-wrap:focus-within{border-color:var(--accent); background:var(--card);}
+  .input-wrap input{
+    flex:1; min-width:0; border:0; background:transparent; color:var(--ink); font:inherit;
+    font-size:22px; font-weight:700; letter-spacing:-0.02em; padding:14px 0; outline:none;
+    font-variant-numeric:tabular-nums;
+  }
+  .input-wrap input::placeholder{color:var(--sub); opacity:.45; font-weight:600;}
+  .unit{font-size:14px; color:var(--sub); font-weight:600; flex:none;}
+  .chips{display:flex; gap:7px; margin-top:9px; flex-wrap:wrap;}
+  .chips button{
+    border:1px solid var(--line); background:var(--card); color:var(--sub); font:inherit; font-size:12.5px;
+    font-weight:600; padding:6px 11px; border-radius:999px; cursor:pointer; transition:all .15s ease;
+  }
+  .chips button:active{transform:scale(.96);}
+  .stepper{display:flex; align-items:center; background:var(--field); border-radius:14px; padding:4px; gap:4px;}
+  .stepper button{
+    width:44px; height:44px; border:0; border-radius:11px; background:var(--card); color:var(--ink);
+    font-size:20px; font-weight:600; cursor:pointer; display:grid; place-items:center;
+    box-shadow:0 1px 2px rgba(10,10,12,.08); transition:transform .12s ease;
+  }
+  .stepper button:active{transform:scale(.93);}
+  .stepper input{
+    flex:1; min-width:0; border:0; background:transparent; color:var(--ink); font:inherit;
+    font-size:20px; font-weight:700; text-align:center; outline:none; padding:10px 0;
+    font-variant-numeric:tabular-nums;
+  }
+  .stepper .unit{padding-right:12px;}
+  .result{border-top:1px solid var(--line); margin-top:4px; padding-top:20px;}
+  .result-label{font-size:13px; color:var(--sub); font-weight:650; margin-bottom:6px;}
+  .result-value{
+    display:flex; align-items:baseline; gap:4px; letter-spacing:-0.04em;
+    font-size:clamp(38px, 11.4vw, 50px); font-weight:780; line-height:1.1; font-variant-numeric:tabular-nums;
+    transition:color .2s ease;
+  }
+  .result-value .won{font-size:.44em; font-weight:700; color:var(--sub); letter-spacing:-0.01em;}
+  .result-value.empty{color:var(--sub); opacity:.45;}
+  .result-sub{font-size:13px; color:var(--sub); margin-top:8px; line-height:1.6;}
+  .breakdown{display:grid; gap:1px; background:var(--line); border-radius:14px; overflow:hidden; margin-top:16px;}
+  .breakdown[hidden]{display:none;}
+  .brow{display:flex; align-items:center; justify-content:space-between; gap:12px; background:var(--card); padding:12px 14px; font-size:13.5px;}
+  .brow .k{color:var(--sub);}
+  .brow .v{font-weight:700; font-variant-numeric:tabular-nums; letter-spacing:-0.015em;}
+  .formula{
+    margin:14px 0 0; font-size:12px; line-height:1.75; color:var(--sub);
+    background:var(--field); border-radius:12px; padding:12px 13px; letter-spacing:-0.005em;
+  }
+  .formula b{color:var(--ink); font-weight:700; display:block; margin-bottom:3px; font-size:12.5px;}
+  .share{
+    width:100%; margin-top:14px; border:1px solid var(--line); background:var(--card); color:var(--ink);
+    font:inherit; font-size:14px; font-weight:650; padding:13px; border-radius:13px; cursor:pointer;
+    transition:transform .12s ease;
+  }
+  .share:active{transform:scale(.985);}
+  .lead{font-size:13.5px; color:var(--sub); line-height:1.65; margin:0 0 16px;}
+  .q{display:flex; align-items:flex-start; gap:12px; padding:13px 0; border-top:1px solid var(--line);}
+  .q:first-of-type{border-top:0; padding-top:0;}
+  .q .qt{flex:1; font-size:14px; line-height:1.55; letter-spacing:-0.015em;}
+  .q .qt b{display:block; font-size:11.5px; color:var(--accent); font-weight:750; letter-spacing:0; margin-bottom:3px;}
+  .q .qt span{color:var(--sub); font-size:12.5px; display:block; margin-top:3px;}
+  .switch{position:relative; flex:none; width:50px; height:30px; margin-top:2px;}
+  .switch input{position:absolute; opacity:0; width:100%; height:100%; margin:0; cursor:pointer;}
+  .switch .track{
+    position:absolute; inset:0; border-radius:999px; background:var(--field);
+    border:1px solid var(--line); transition:background .2s ease, border-color .2s ease; pointer-events:none;
+  }
+  .switch .track::after{
+    content:""; position:absolute; top:3px; left:3px; width:22px; height:22px; border-radius:50%;
+    background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.25); transition:transform .2s cubic-bezier(.2,.8,.2,1);
+  }
+  .switch input:checked + .track{background:var(--green); border-color:transparent;}
+  .switch input:checked + .track::after{transform:translateX(20px);}
+  .switch input:focus-visible + .track{outline:2px solid var(--accent); outline-offset:2px;}
+  .verdict{margin-top:18px; border-radius:16px; padding:16px; border:1px solid transparent;}
+  .verdict.good{background:var(--green-soft); border-color:rgba(0,135,90,.18);}
+  .verdict.bad{background:var(--red-soft); border-color:rgba(217,58,63,.18);}
+  .verdict .vt{display:flex; align-items:center; gap:8px; font-size:15px; font-weight:750; letter-spacing:-0.02em; margin-bottom:6px;}
+  .verdict.good .vt{color:var(--green);}
+  .verdict.bad .vt{color:var(--red);}
+  .verdict p{margin:0; font-size:13px; line-height:1.68; color:var(--ink); opacity:.86; letter-spacing:-0.012em;}
+  .verdict .legal{display:block; margin-top:9px; font-size:11.5px; color:var(--sub); opacity:.9;}
+  .dot-i{width:18px; height:18px; border-radius:50%; display:grid; place-items:center; font-size:11px; font-weight:800; color:#fff; flex:none;}
+  .verdict.good .dot-i{background:var(--green);}
+  .verdict.bad .dot-i{background:var(--red);}
+  .cta-card{background:linear-gradient(160deg, var(--accent) 0%, #0847b8 100%); border:0; color:#fff; box-shadow:0 14px 34px rgba(11,99,246,.28);}
+  html[data-theme="dark"] .cta-card{background:linear-gradient(160deg, #1e56c8 0%, #0b2a63 100%); box-shadow:0 14px 34px rgba(0,0,0,.5);}
+  .cta-card h2{color:#fff; margin-bottom:8px;}
+  .cta-card p{margin:0 0 18px; font-size:13.5px; line-height:1.62; color:rgba(255,255,255,.82);}
+  .btn{
+    display:flex; align-items:center; justify-content:center; gap:8px; width:100%;
+    text-decoration:none; font-weight:700; font-size:15px; letter-spacing:-0.02em;
+    padding:15px; border-radius:14px; transition:transform .12s ease, background .2s ease;
+  }
+  .btn:active{transform:scale(.985);}
+  .btn.solid{background:#fff; color:#0b47a8; margin-bottom:9px;}
+  .btn-row{display:flex; gap:9px; margin-bottom:9px;}
+  .btn-row .btn{flex:1; background:rgba(255,255,255,.16); color:#fff; font-size:14px; padding:13px 8px;}
+  .btn.ghost{background:transparent; border:1px solid rgba(255,255,255,.28); color:rgba(255,255,255,.9); font-size:13.5px; padding:12px;}
+  .btn small{font-size:11.5px; font-weight:600; opacity:.6;}
+  .foot{text-align:center; font-size:11.5px; color:var(--sub); line-height:1.8; padding:8px 6px 0; letter-spacing:-0.005em;}
+  .foot a{color:var(--sub); text-decoration:underline; text-underline-offset:2px;}
+  .foot .sep{opacity:.4; padding:0 6px;}
+  @media (min-width:520px){
+    .wrap{padding:28px 20px 56px;}
+    .card{padding:26px 24px; border-radius:24px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important; animation:none !important;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand"><span class="mark">복</span>복대리 · 연차 도구</div>
+    <button class="icon-btn" id="themeBtn" type="button" aria-label="테마 바꾸기" title="테마 바꾸기">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.2"></circle>
+        <path d="M12 2.4v2.2M12 19.4v2.2M2.4 12h2.2M19.4 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"></path>
+      </svg>
+    </button>
+  </header>
+
+  <section class="hero">
+    <span class="chip">무료 · 회원가입 없음 · 1분</span>
+    <h1>남은 연차,<br><em>돈으로 얼마</em>인지<br>바로 계산합니다</h1>
+    <p>월급과 남은 일수만 넣으면 끝입니다. 12월에 몰아 쓰는 건 쉰 게 아니라 자리를 비운 겁니다.</p>
+  </section>
+
+  <!-- 1. 계산기 -->
+  <section class="card" aria-labelledby="calcTitle">
+    <div class="card-head">
+      <h2 id="calcTitle"><span class="num">1</span>연차수당 계산</h2>
+      <span class="hint">세전 기준</span>
+    </div>
+
+    <div class="seg" id="modeSeg" role="group" aria-label="입력 기준 선택">
+      <button type="button" data-mode="monthly" aria-pressed="true">월급</button>
+      <button type="button" data-mode="daily" aria-pressed="false">일급</button>
+      <button type="button" data-mode="hourly" aria-pressed="false">시급</button>
+    </div>
+
+    <div class="field">
+      <div class="field-label">
+        <label for="payInput" id="payLabel">월급 (세전)</label>
+        <span class="small" id="paySmall">주 40시간 기준</span>
+      </div>
+      <div class="input-wrap">
+        <input id="payInput" type="text" inputmode="numeric" autocomplete="off" placeholder="3,000,000" aria-describedby="payHelp">
+        <span class="unit">원</span>
+      </div>
+      <div class="chips" id="quickChips">
+        <button type="button" data-val="2500000">250만</button>
+        <button type="button" data-val="3000000">300만</button>
+        <button type="button" data-val="3500000">350만</button>
+        <button type="button" data-val="4000000">400만</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="field-label">
+        <label for="daysInput">남은 연차 일수</label>
+        <span class="small">반차는 0.5</span>
+      </div>
+      <div class="stepper">
+        <button type="button" id="minusBtn" aria-label="하루 줄이기">&#8722;</button>
+        <input id="daysInput" type="text" inputmode="decimal" value="5" autocomplete="off" aria-label="남은 연차 일수">
+        <span class="unit">일</span>
+        <button type="button" id="plusBtn" aria-label="하루 늘리기">&#43;</button>
+      </div>
+    </div>
+
+    <div class="field" style="margin-bottom:6px;">
+      <div class="field-label"><span class="label-plain">재직 기간</span></div>
+      <div class="seg" id="tenureSeg" role="group" aria-label="재직 기간 선택" style="margin-bottom:0;">
+        <button type="button" data-tenure="under" aria-pressed="true">1년 미만</button>
+        <button type="button" data-tenure="over" aria-pressed="false">1년 이상</button>
+      </div>
+    </div>
+
+    <div class="result">
+      <div class="result-label">예상 미사용 연차수당</div>
+      <div class="result-value empty" id="totalValue">
+        <span id="totalNum">0</span><span class="won">원</span>
+      </div>
+      <div class="result-sub" id="resultSub" aria-live="polite">금액을 넣으면 바로 계산됩니다.</div>
+
+      <div class="breakdown" id="breakdown" hidden>
+        <div class="brow"><span class="k">통상시급</span><span class="v" id="bHourly">-</span></div>
+        <div class="brow"><span class="k">1일분 (8시간)</span><span class="v" id="bDaily">-</span></div>
+        <div class="brow"><span class="k">남은 연차</span><span class="v" id="bDays">-</span></div>
+        <div class="brow"><span class="k">합계</span><span class="v" id="bTotal">-</span></div>
+      </div>
+
+      <p class="formula">
+        <b>계산식</b>
+        주 40시간 기준 월 209시간 = (주 40시간 + 주휴 8시간) x 4.345주<br>
+        통상시급 = 월급 ÷ 209 / 1일분 = 통상시급 x 8시간 / 수당 = 1일분 x 남은 일수<br>
+        일급은 ÷ 8시간, 시급은 x 8시간으로 환산합니다.
+      </p>
+
+      <button class="share" id="shareBtn" type="button">결과 공유하기</button>
+    </div>
+  </section>
+
+  <!-- 2. 연차촉진 체크 -->
+  <section class="card" aria-labelledby="checkTitle">
+    <div class="card-head">
+      <h2 id="checkTitle"><span class="num">2</span>0원 함정 체크</h2>
+      <span class="hint">3초</span>
+    </div>
+    <p class="lead">회사가 연차 사용 촉진 절차를 밟았는지 확인하세요. 서면이 하나라도 빠지면 미사용 연차는 소멸되지 않고 수당으로 남습니다.</p>
+
+    <div class="q">
+      <div class="qt">
+        <b>1단계</b>
+        소멸 6개월 전, 남은 일수와 사용 시기를 서면으로 통보받았나요?
+        <span>근로기준법 제61조 제1항. 1년 미만은 3개월 전 기준입니다.</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="q1" aria-label="소멸 6개월 전 서면 통보를 받았다">
+        <span class="track"></span>
+      </label>
+    </div>
+
+    <div class="q">
+      <div class="qt">
+        <b>2단계</b>
+        그 답이 없자, 소멸 2개월 전까지 회사가 사용 시기를 지정해 서면으로 통보했나요?
+        <span>1년 미만은 1개월 전 기준입니다.</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="q2" aria-label="소멸 2개월 전 지정 서면 통보를 받았다">
+        <span class="track"></span>
+      </label>
+    </div>
+
+    <div class="q">
+      <div class="qt">
+        <b>서면 여부</b>
+        두 통보가 모두 종이 문서나 전자결재였나요?
+        <span>카톡, 문자, 구두 한 줄은 이 절차로 인정되지 않습니다.</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="q3" aria-label="통보가 모두 서면이었다">
+        <span class="track"></span>
+      </label>
+    </div>
+
+    <div class="verdict bad" id="verdict">
+      <div class="vt"><span class="dot-i" id="vIcon">!</span><span id="vTitle">수당 청구 가능</span></div>
+      <p id="vText">서면 촉구가 확인되지 않습니다. 회사가 절차를 밟지 않았다면 미사용 연차는 소멸되지 않고, 퇴직이나 정산 시점에 수당으로 청구할 수 있습니다.</p>
+      <span class="legal" id="vLegal">근로기준법 제60조, 제61조. 확인 전에는 스위치를 그대로 두세요.</span>
+    </div>
+  </section>
+
+  <!-- 3. CTA -->
+  <section class="card cta-card" aria-labelledby="ctaTitle">
+    <h2 id="ctaTitle">연차·수당, 서류로 남기기</h2>
+    <p>복대리(@bok_o_hrga)가 인사총무 실무 서식과 체크리스트를 정리해 뒀습니다. 연차 사용 촉구 문구도 그대로 쓰실 수 있습니다.</p>
+    <a class="btn solid" href="https://litt.ly/bok_o_official" target="_blank" rel="noopener">무료 자료 받기 <small>리틀리</small></a>
+    <div class="btn-row">
+      <a class="btn" href="https://kmong.com/@%EB%93%A0%EB%93%A0%ED%95%9C%EB%A0%88%EC%9D%B8%EB%B3%B4%EC%9A%B02911" target="_blank" rel="noopener">크몽 가이드</a>
+      <a class="btn" href="https://www.threads.com/@bok_o_hrga" target="_blank" rel="noopener">스레드</a>
+    </div>
+    <a class="btn ghost" href="https://www.instagram.com/bok_o_hrga/" target="_blank" rel="noopener">인스타그램 @bok_o_hrga</a>
+  </section>
+
+  <footer class="foot">
+    이 계산기는 근로기준법 제60조·제61조를 기준으로 한 참고용 도구입니다. 통상임금 산정 범위, 소정근로시간, 회계연도 기준에 따라 실제 금액은 달라질 수 있습니다.<br>
+    정확한 판단이 필요하면 노무사 상담을 권합니다.
+    <div style="margin-top:10px;">
+      <a href="https://www.threads.com/@bok_o_hrga" target="_blank" rel="noopener">@bok_o_hrga</a>
+      <span class="sep">·</span>
+      <a href="https://litt.ly/bok_o_official" target="_blank" rel="noopener">리틀리</a>
+    </div>
+  </footer>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebApplication",
+  "name":"연말 연차수당 1분 계산기",
+  "url":"https://nineonehn.github.io/k-pass-beauty/annual-leave-calc/",
+  "applicationCategory":"BusinessApplication",
+  "operatingSystem":"Any",
+  "inLanguage":"ko",
+  "offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},
+  "description":"월급과 남은 연차 일수로 미사용 연차수당을 계산하고, 연차 사용 촉진 서면 여부를 3문항으로 확인합니다."
+}
+</script>
+
+<script>
+(function(){
+  "use strict";
+
+  var MONTH_HOURS = 209;   // 주 40시간 + 주휴 8시간, 4.345주
+  var DAY_HOURS = 8;
+
+  var state = { mode:"monthly", tenure:"under" };
+
+  var payInput = document.getElementById("payInput");
+  var payLabel = document.getElementById("payLabel");
+  var paySmall = document.getElementById("paySmall");
+  var daysInput = document.getElementById("daysInput");
+  var totalNum = document.getElementById("totalNum");
+  var totalValue = document.getElementById("totalValue");
+  var resultSub = document.getElementById("resultSub");
+  var breakdown = document.getElementById("breakdown");
+  var bHourly = document.getElementById("bHourly");
+  var bDaily = document.getElementById("bDaily");
+  var bDays = document.getElementById("bDays");
+  var bTotal = document.getElementById("bTotal");
+
+  var LABELS = {
+    monthly:{ label:"월급 (세전)", small:"주 40시간 기준", ph:"3,000,000" },
+    daily:{ label:"일급 (세전)", small:"1일 8시간 기준", ph:"120,000" },
+    hourly:{ label:"통상시급 (세전)", small:"1시간 기준", ph:"14,000" }
+  };
+
+  function digits(v){ return String(v).replace(/[^\d.]/g, ""); }
+  function toNum(v){
+    var raw = digits(v);
+    if (!raw) return 0;
+    var n = parseFloat(raw);
+    return isFinite(n) ? n : 0;
+  }
+  function comma(n){
+    var parts = String(n).split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
+  }
+  function commaInt(n){ return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+  function manwon(n){
+    var v = n / 10000;
+    if (v >= 100) return Math.round(v) + "만원";
+    return (Math.round(v * 10) / 10) + "만원";
+  }
+
+  var lastTotal = 0;
+  var currentTotal = 0;
+  function animateTo(target){
+    var start = lastTotal, delta = target - start, t0 = performance.now(), dur = 420;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) dur = 0;
+    lastTotal = target;
+    if (!dur){ totalNum.textContent = commaInt(target); return; }
+    function step(now){
+      var p = Math.min(1, (now - t0) / dur);
+      var e = 1 - Math.pow(1 - p, 3);
+      totalNum.textContent = commaInt(start + delta * e);
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function recalc(){
+    var pay = toNum(payInput.value);
+    var days = toNum(daysInput.value);
+    var hourly = 0, daily = 0;
+
+    if (state.mode === "monthly"){ hourly = pay / MONTH_HOURS; daily = hourly * DAY_HOURS; }
+    else if (state.mode === "daily"){ daily = pay; hourly = pay / DAY_HOURS; }
+    else { hourly = pay; daily = pay * DAY_HOURS; }
+
+    days = Math.min(99, days);
+    // 1일분 단위로 원 단위 반올림한 뒤 일수를 곱해 내역과 합계가 일치하도록 한다
+    var total = Math.round(daily) * days;
+    currentTotal = total;
+
+    if (!pay){
+      totalValue.classList.add("empty");
+      animateTo(0);
+      resultSub.textContent = "금액을 넣으면 바로 계산됩니다.";
+      breakdown.hidden = true;
+      return;
+    }
+    if (!days){
+      totalValue.classList.add("empty");
+      animateTo(0);
+      bHourly.textContent = comma(Math.round(hourly)) + "원";
+      bDaily.textContent = comma(Math.round(daily)) + "원";
+      bDays.textContent = "0일";
+      bTotal.textContent = "0원";
+      breakdown.hidden = false;
+      resultSub.textContent = "남은 연차가 0일이면 받을 수당도 0원입니다.";
+      return;
+    }
+
+    totalValue.classList.remove("empty");
+    animateTo(total);
+    bHourly.textContent = comma(Math.round(hourly)) + "원";
+    bDaily.textContent = comma(Math.round(daily)) + "원";
+    bDays.textContent = comma(days) + "일";
+    bTotal.textContent = commaInt(total) + "원";
+    breakdown.hidden = false;
+
+    var bits = ["1일분 " + comma(Math.round(daily)) + "원 x " + comma(days) + "일", "약 " + manwon(total)];
+    if (state.tenure === "under") bits.push("1년 미만은 개근 1개월당 1일, 최대 11일");
+    resultSub.textContent = bits.join(" · ");
+  }
+
+  // pay input: live thousands separator
+  payInput.addEventListener("input", function(){
+    var raw = digits(payInput.value);
+    if (raw.indexOf(".") >= 0){
+      var sp = raw.split(".");
+      raw = sp.shift() + "." + sp.join("").slice(0,2);
+    }
+    var clean = raw.replace(/^0+(?=\d)/, "");
+    var shown = clean === "" ? "" : comma(clean);
+    if (shown !== payInput.value) payInput.value = shown;
+    recalc();
+  });
+
+  daysInput.addEventListener("input", function(){
+    var raw = String(daysInput.value).replace(/[^\d.]/g, "");
+    var i = raw.indexOf(".");
+    if (i >= 0) raw = raw.slice(0, i + 1) + raw.slice(i + 1).replace(/\./g, "");
+    if (raw !== daysInput.value) daysInput.value = raw;
+    recalc();
+  });
+  daysInput.addEventListener("blur", function(){
+    if (daysInput.value === "") daysInput.value = "0";
+    recalc();
+  });
+
+  document.getElementById("plusBtn").addEventListener("click", function(){
+    var n = toNum(daysInput.value);
+    n = Math.min(99, n + 0.5);
+    daysInput.value = comma(n);
+    recalc();
+  });
+  document.getElementById("minusBtn").addEventListener("click", function(){
+    var n = toNum(daysInput.value);
+    n = Math.max(0, n - 0.5);
+    daysInput.value = comma(n);
+    recalc();
+  });
+
+  // mode segmented
+  document.getElementById("modeSeg").addEventListener("click", function(e){
+    var btn = e.target.closest("button[data-mode]");
+    if (!btn) return;
+    state.mode = btn.getAttribute("data-mode");
+    Array.prototype.forEach.call(this.querySelectorAll("button"), function(b){
+      b.setAttribute("aria-pressed", String(b === btn));
+    });
+    payLabel.textContent = LABELS[state.mode].label;
+    paySmall.textContent = LABELS[state.mode].small;
+    payInput.placeholder = LABELS[state.mode].ph;
+    var chips = document.getElementById("quickChips").querySelectorAll("button");
+    var sets = {
+      monthly:[2500000,3000000,3500000,4000000],
+      daily:[100000,120000,150000,200000],
+      hourly:[12000,14000,16000,20000]
+    };
+    Array.prototype.forEach.call(chips, function(c, i){
+      c.setAttribute("data-val", String(sets[state.mode][i]));
+      c.textContent = state.mode === "monthly" ? (sets[state.mode][i]/10000) + "만" : commaInt(sets[state.mode][i]);
+    });
+    recalc();
+  });
+
+  document.getElementById("quickChips").addEventListener("click", function(e){
+    var btn = e.target.closest("button[data-val]");
+    if (!btn) return;
+    payInput.value = comma(btn.getAttribute("data-val"));
+    recalc();
+  });
+
+  // tenure segmented
+  document.getElementById("tenureSeg").addEventListener("click", function(e){
+    var btn = e.target.closest("button[data-tenure]");
+    if (!btn) return;
+    state.tenure = btn.getAttribute("data-tenure");
+    Array.prototype.forEach.call(this.querySelectorAll("button"), function(b){
+      b.setAttribute("aria-pressed", String(b === btn));
+    });
+    updateVerdict();
+    recalc();
+  });
+
+  // 연차촉진 자가진단
+  var q1 = document.getElementById("q1");
+  var q2 = document.getElementById("q2");
+  var q3 = document.getElementById("q3");
+  var verdict = document.getElementById("verdict");
+  var vTitle = document.getElementById("vTitle");
+  var vText = document.getElementById("vText");
+  var vLegal = document.getElementById("vLegal");
+
+  var MSG = {
+    none:{
+      title:"미사용 시 소멸 위험",
+      text:"두 번의 서면 통보가 확인됩니다. 회사가 촉진 절차를 마쳤다면 기한 안에 쓰지 않은 연차는 소멸되고, 회사에 수당 지급 의무가 사라집니다. 남은 일수를 지금 서면으로 사용 계획에 넣으세요."
+    },
+    q1:{
+      title:"수당 청구 가능",
+      text:"소멸 6개월 전 서면 촉구가 없었다면 촉진 절차 자체가 성립하지 않습니다. 이 경우 미사용 연차는 소멸되지 않고 수당으로 청구할 수 있습니다."
+    },
+    q2:{
+      title:"수당 청구 가능",
+      text:"1차 촉구 뒤 회사가 사용 시기를 지정해 서면 통보하지 않았다면, 소멸 효력이 생기지 않습니다. 미사용분은 수당 청구 대상입니다."
+    },
+    q3:{
+      title:"수당 청구 가능",
+      text:"카톡, 문자, 구두는 근로기준법 제61조의 서면 통보로 인정되지 않습니다. 서면이 없다면 통보가 있었더라도 절차는 무효이고, 수당을 청구할 수 있습니다."
+    }
+  };
+
+  function updateVerdict(){
+    var a = q1.checked, b = q2.checked, c = q3.checked;
+    var key = "none";
+    if (!a) key = "q1";
+    else if (!b) key = "q2";
+    else if (!c) key = "q3";
+
+    var m = MSG[key];
+    var period = state.tenure === "under" ? "3개월 전" : "6개월 전";
+    var period2 = state.tenure === "under" ? "1개월 전" : "2개월 전";
+
+    vTitle.textContent = m.title;
+    vText.textContent = m.text;
+    verdict.className = "verdict " + (key === "none" ? "bad" : "good");
+    document.getElementById("vIcon").textContent = key === "none" ? "!" : "✓";
+
+    if (key === "none"){
+      vLegal.textContent = "기준: " + period + " 통보, " + period2 + " 지정 통보. 근로기준법 제61조.";
+    } else if (state.tenure === "under"){
+      vLegal.textContent = "1년 미만 기준: 소멸 3개월 전 촉구, 1개월 전 지정 통보. 근로기준법 제61조.";
+    } else {
+      vLegal.textContent = "기준: 소멸 6개월 전 촉구, 2개월 전 지정 통보. 근로기준법 제61조.";
+    }
+  }
+  [q1, q2, q3].forEach(function(el){ el.addEventListener("change", updateVerdict); });
+
+  // share
+  document.getElementById("shareBtn").addEventListener("click", function(){
+    var text = "남은 연차 " + comma(toNum(daysInput.value)) + "일, 예상 수당 " + commaInt(currentTotal) + "원. 연차촉진 서면이 없으면 소멸되지 않습니다.";
+    var url = "https://nineonehn.github.io/k-pass-beauty/annual-leave-calc/";
+    if (navigator.share){
+      navigator.share({ title:"연차수당 1분 계산기", text:text, url:url }).catch(function(){});
+      return;
+    }
+    var btn = this;
+    var done = function(){
+      btn.textContent = "복사했습니다";
+      setTimeout(function(){ btn.textContent = "결과 공유하기"; }, 1600);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text + " " + url).then(done).catch(function(){});
+    } else {
+      var ta = document.createElement("textarea");
+      ta.value = text + " " + url;
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done(); } catch(e){}
+      document.body.removeChild(ta);
+    }
+  });
+
+  // theme
+  var root = document.documentElement;
+  var saved = null;
+  try { saved = localStorage.getItem("alc-theme"); } catch(e){}
+  if (saved === "dark" || saved === "light") root.setAttribute("data-theme", saved);
+  else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) root.setAttribute("data-theme", "dark");
+  else root.setAttribute("data-theme", "light");
+
+  document.getElementById("themeBtn").addEventListener("click", function(){
+    var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("alc-theme", next); } catch(e){}
+  });
+
+  recalc();
+  updateVerdict();
+})();
+</script>
+</body>
+</html>
