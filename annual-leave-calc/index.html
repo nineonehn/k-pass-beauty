@@ -479,18 +479,20 @@
 
   var lastTotal = 0;
   var currentTotal = 0;
+  var rafId = null;
   function animateTo(target){
+    if (rafId !== null && typeof cancelAnimationFrame === "function"){ cancelAnimationFrame(rafId); rafId = null; }
     var start = lastTotal, delta = target - start, t0 = performance.now(), dur = 420;
     if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) dur = 0;
     lastTotal = target;
-    if (!dur){ totalNum.textContent = commaInt(target); return; }
+    if (!dur){ rafId = null; totalNum.textContent = commaInt(target); return; }
     function step(now){
       var p = Math.min(1, (now - t0) / dur);
       var e = 1 - Math.pow(1 - p, 3);
       totalNum.textContent = commaInt(start + delta * e);
-      if (p < 1) requestAnimationFrame(step);
+      if (p < 1) rafId = requestAnimationFrame(step); else rafId = null;
     }
-    requestAnimationFrame(step);
+    rafId = requestAnimationFrame(step);
   }
 
   function recalc(){
