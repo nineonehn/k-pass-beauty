@@ -209,14 +209,17 @@
   .verdict{margin-top:18px; border-radius:16px; padding:16px; border:1px solid transparent;}
   .verdict.good{background:var(--green-soft); border-color:rgba(0,135,90,.18);}
   .verdict.bad{background:var(--red-soft); border-color:rgba(217,58,63,.18);}
+  .verdict.neutral{background:var(--field); border-color:var(--line);}
   .verdict .vt{display:flex; align-items:center; gap:8px; font-size:15px; font-weight:750; letter-spacing:-0.02em; margin-bottom:6px;}
   .verdict.good .vt{color:var(--green);}
   .verdict.bad .vt{color:var(--red);}
+  .verdict.neutral .vt{color:var(--ink);}
   .verdict p{margin:0; font-size:13px; line-height:1.68; color:var(--ink); opacity:.86; letter-spacing:-0.012em;}
   .verdict .legal{display:block; margin-top:9px; font-size:11.5px; color:var(--sub); opacity:.9;}
   .dot-i{width:18px; height:18px; border-radius:50%; display:grid; place-items:center; font-size:11px; font-weight:800; color:#fff; flex:none;}
   .verdict.good .dot-i{background:var(--green);}
   .verdict.bad .dot-i{background:var(--red);}
+  .verdict.neutral .dot-i{background:var(--sub);}
   .cta-card{background:linear-gradient(160deg, var(--accent) 0%, #0847b8 100%); border:0; color:#fff; box-shadow:0 14px 34px rgba(11,99,246,.28);}
   html[data-theme="dark"] .cta-card{background:linear-gradient(160deg, #1e56c8 0%, #0b2a63 100%); box-shadow:0 14px 34px rgba(0,0,0,.5);}
   .cta-card h2{color:#fff; margin-bottom:8px;}
@@ -383,10 +386,10 @@
       </label>
     </div>
 
-    <div class="verdict bad" id="verdict">
-      <div class="vt"><span class="dot-i" id="vIcon">!</span><span id="vTitle">수당 청구 가능</span></div>
-      <p id="vText">서면 촉구가 확인되지 않습니다. 회사가 절차를 밟지 않았다면 미사용 연차는 소멸되지 않고, 퇴직이나 정산 시점에 수당으로 청구할 수 있습니다.</p>
-      <span class="legal" id="vLegal">근로기준법 제60조, 제61조. 확인 전에는 스위치를 그대로 두세요.</span>
+    <div class="verdict neutral" id="verdict">
+      <div class="vt"><span class="dot-i" id="vIcon">?</span><span id="vTitle">아직 확인 전</span></div>
+      <p id="vText">회사가 아래 1단계와 2단계 서면을 보냈는지 확인하고 스위치를 켜 주세요. 하나라도 빠지면 미사용 연차는 소멸되지 않고 수당으로 남습니다.</p>
+      <span class="legal" id="vLegal">근로기준법 제60조, 제61조 기준.</span>
     </div>
   </section>
 
@@ -645,8 +648,16 @@
     }
   };
 
-  function updateVerdict(){
+  function updateVerdict(touched){
     var a = q1.checked, b = q2.checked, c = q3.checked;
+    if (!touched && !a && !b && !c){
+      verdict.className = "verdict neutral";
+      document.getElementById("vIcon").textContent = "?";
+      vTitle.textContent = "아직 확인 전";
+      vText.textContent = "회사가 아래 1단계와 2단계 서면을 보냈는지 확인하고 스위치를 켜 주세요. 하나라도 빠지면 미사용 연차는 소멸되지 않고 수당으로 남습니다.";
+      vLegal.textContent = "근로기준법 제60조, 제61조 기준.";
+      return;
+    }
     var key = "none";
     if (!a) key = "q1";
     else if (!b) key = "q2";
@@ -669,7 +680,7 @@
       vLegal.textContent = "기준: 소멸 6개월 전 촉구, 2개월 전 지정 통보. 근로기준법 제61조.";
     }
   }
-  [q1, q2, q3].forEach(function(el){ el.addEventListener("change", updateVerdict); });
+  [q1, q2, q3].forEach(function(el){ el.addEventListener("change", function(){ updateVerdict(true); }); });
 
   // share
   document.getElementById("shareBtn").addEventListener("click", function(){
