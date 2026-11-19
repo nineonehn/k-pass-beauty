@@ -322,8 +322,8 @@
     <div class="field" style="margin-bottom:6px;">
       <div class="field-label"><span class="label-plain">재직 기간</span></div>
       <div class="seg" id="tenureSeg" role="group" aria-label="재직 기간 선택" style="margin-bottom:0;">
-        <button type="button" data-tenure="under" aria-pressed="true">1년 미만</button>
-        <button type="button" data-tenure="over" aria-pressed="false">1년 이상</button>
+        <button type="button" data-tenure="over" aria-pressed="true">1년 이상</button>
+        <button type="button" data-tenure="under" aria-pressed="false">1년 미만</button>
       </div>
     </div>
 
@@ -447,7 +447,7 @@
   var MONTH_HOURS = 209;   // 주 40시간 + 주휴 8시간, 4.345주
   var DAY_HOURS = 8;
 
-  var state = { mode:"monthly", tenure:"under" };
+  var state = { mode:"monthly", tenure:"over" };
 
   var payInput = document.getElementById("payInput");
   var payLabel = document.getElementById("payLabel");
