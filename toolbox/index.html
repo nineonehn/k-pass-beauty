@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<!--
+  복어 툴박스 (2026-11-21)
+  · 기복님 전용 6종 올인원 정적 웹앱(PWA)
+  · 모든 파일 처리는 브라우저 안에서만 한다. 서버 전송 0.
+  · 라이브러리는 리포지토리에 동봉(vendor/)해 CDN 장애와 무관하게 동작.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<title>복어 툴박스</title>
+<meta name="description" content="서류·사진 보안, 커머스 이미지, QR·링크 정리, 임장 자금 계산, 구매대행 마진, 사내 공지·스레드까지. 폰 브라우저 안에서만 처리하는 6종 툴박스.">
+<meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a0b0d" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="복어 툴박스">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="shell">
+
+  <header class="appbar" id="appbar">
+    <button class="back" id="btnBack" type="button" aria-label="뒤로 가기" hidden>
+      <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <div class="appbar-title" id="barTitle">복어 툴박스</div>
+    <div class="appbar-right" id="barBadge"></div>
+  </header>
+
+  <main id="main">
+
+    <!-- ── 홈 ─────────────────────────────────────── -->
+    <section class="view" id="view-home">
+      <div class="hero">
+        <div class="hero-row">
+          <span class="mark">ㅂ</span>
+          <span class="hero-kicker">기복님 전용</span>
+        </div>
+        <h1>복어 툴박스</h1>
+        <p class="hero-sub">매일 쓰는 서류·사진·계산 작업 여섯 개.<br>설치 없이 지금 이 화면에서.</p>
+        <div class="privacy-pill">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10.5" width="16" height="10" rx="2.6"/><path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7"/></svg>
+          100% 폰 브라우저 내 처리 · 외부 전송 0
+        </div>
+      </div>
+
+      <div class="grid" id="toolGrid">
+        <button class="tool tool-lg" type="button" data-view="sec">
+          <span class="tool-ico ico-sec">
+            <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5.5c0 4.4-2.9 7.9-7 9.5-4.1-1.6-7-5.1-7-9.5V6l7-3z"/><path d="M9.2 12.2l2 2 3.6-3.8"/></svg>
+          </span>
+          <span class="tool-name">보안 서류·사진</span>
+          <span class="tool-desc">PDF 합치기·풀기, 손가락 모자이크, EXIF·GPS 제거</span>
+          <span class="tool-tags"><i>PDF</i><i>모자이크</i><i>개인정보</i></span>
+        </button>
+
+        <button class="tool tool-lg" type="button" data-view="img">
+          <span class="tool-ico ico-img">
+            <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="3"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M3.5 16.5l4.6-4.2 3.4 3 3-2.6 6 5"/></svg>
+          </span>
+          <span class="tool-name">커머스·SNS 이미지</span>
+          <span class="tool-desc">압축·포맷 변환, 1:1 / 4:5 / 16:9, 워터마크</span>
+          <span class="tool-tags"><i>압축</i><i>비율</i><i>@bok_o_hrga</i></span>
+        </button>
+
+        <button class="tool" type="button" data-view="qr">
+          <span class="tool-ico ico-qr">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="6.5" height="6.5" rx="1.4"/><rect x="14" y="3.5" width="6.5" height="6.5" rx="1.4"/><rect x="3.5" y="14" width="6.5" height="6.5" rx="1.4"/><path d="M14 14h2.5v2.5H14zM18.5 14h2M14 20.5h2.5M19 19v1.5"/></svg>
+          </span>
+          <span class="tool-name">QR·링크 클리너</span>
+          <span class="tool-desc">만료 없는 QR, 추적 파라미터 제거</span>
+        </button>
+
+        <button class="tool" type="button" data-view="fund">
+          <span class="tool-ico ico-fund">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5L12 4l8 6.5"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg>
+          </span>
+          <span class="tool-name">임장 자금 계산기</span>
+          <span class="tool-desc">필요 현금 · 대출 한도 · 월 원리금</span>
+        </button>
+
+        <button class="tool" type="button" data-view="margin">
+          <span class="tool-ico ico-margin">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V9M9.5 19.5V5M15 19.5v-7M20.5 19.5v-4"/><path d="M3 20.5h18"/></svg>
+          </span>
+          <span class="tool-name">마진·노출제한</span>
+          <span class="tool-desc">쿠팡·스스 수수료, 추천가 초과 경고</span>
+        </button>
+
+        <button class="tool" type="button" data-view="notice">
+          <span class="tool-ico ico-notice">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8.5L19 8v12.5H6z"/><path d="M14 3.5V8h5"/><path d="M9 12.5h7M9 16h5"/></svg>
+          </span>
+          <span class="tool-name">공지·스레드 변환</span>
+          <span class="tool-desc">사내 공지 규격, 500자 스레드 분할</span>
+        </button>
+      </div>
+
+      <p class="home-foot">홈 화면에 추가하면 앱처럼 열립니다 · 사파리 공유 → <b>홈 화면에 추가</b></p>
+    </section>
+
+    <!-- ── 1. 보안 서류·사진 ──────────────────────── -->
+    <section class="view" id="view-sec" hidden>
+      <div class="seg" id="secSeg" role="tablist">
+        <button class="on" type="button" data-sec="pdf">PDF</button>
+        <button type="button" data-sec="mosaic">모자이크</button>
+        <button type="button" data-sec="exif">EXIF 제거</button>
+      </div>
+
+      <div class="pane" id="secPanePdf">
+        <div class="card">
+          <div class="card-head"><h2>이미지 → PDF</h2><span class="hint">여러 장을 1개로</span></div>
+          <label class="drop" for="pdfImgInput">
+            <input id="pdfImgInput" type="file" accept="image/*" multiple hidden>
+            <span class="drop-ico">＋</span>
+            <span class="drop-main">사진 선택</span>
+            <span class="drop-sub">JPG · PNG · HEIC(사파리) 여러 장</span>
+          </label>
+          <ul class="filelist" id="pdfImgList"></ul>
+          <div class="row">
+            <label class="field"><span>용지</span>
+              <select id="pdfPageSize"><option value="a4">A4 세로</option><option value="fit">이미지 비율</option></select>
+            </label>
+            <label class="field"><span>여백</span>
+              <select id="pdfMargin"><option value="24">보통</option><option value="0">없음</option><option value="48">넓게</option></select>
+            </label>
+          </div>
+          <button class="btn primary" id="btnMakePdf" type="button">PDF 만들기</button>
+          <div class="out" id="pdfImgOut" hidden></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><h2>PDF 합치기</h2><span class="hint">순서대로 1개</span></div>
+          <label class="drop" for="pdfMergeInput">
+            <input id="pdfMergeInput" type="file" accept="application/pdf,.pdf" multiple hidden>
+            <span class="drop-ico">＋</span>
+            <span class="drop-main">PDF 선택</span>
+            <span class="drop-sub">여러 개를 순서대로 합칩니다</span>
+          </label>
+          <ul class="filelist" id="pdfMergeList"></ul>
+          <button class="btn primary" id="btnMergePdf" type="button">합치기</button>
+          <div class="out" id="pdfMergeOut" hidden></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><h2>PDF → 이미지</h2><span class="hint">페이지별 PNG</span></div>
+          <label class="drop" for="pdfSplitInput">
+            <input id="pdfSplitInput" type="file" accept="application/pdf,.pdf" hidden>
+            <span class="drop-ico">＋</span>
+            <span class="drop-main">PDF 선택</span>
+            <span class="drop-sub">각 페이지를 PNG로 풀어 저장</span>
+          </label>
+          <div class="row">
+            <label class="field"><span>해상도</span>
+              <select id="pdfScale"><option value="2">고화질(2x)</option><option value="1.5">보통(1.5x)</option><option value="1">가볍게(1x)</option></select>
+            </label>
+          </div>
+          <button class="btn primary" id="btnSplitPdf" type="button">페이지 풀기</button>
+          <div class="out" id="pdfSplitOut" hidden></div>
+          <p class="note">스캔본·계약서 페이지를 캡처 없이 이미지로 뽑을 때 씁니다. 원본 파일은 전송되지 않습니다.</p>
+        </div>
+      </div>
+
+      <div class="pane" id="secPaneMosaic" hidden>
+        <div class="card">
+          <div class="card-head"><h2>손가락 모자이크</h2><span class="hint">얼굴·주소·계좌</span></div>
+          <label class="drop compact" for="mosInput" id="mosDrop">
+            <input id="mosInput" type="file" accept="image/*" hidden>
+            <span class="drop-ico">＋</span>
+            <span class="drop-main">사진 선택</span>
+            <span class="drop-sub">손가락으로 문질러 가립니다</span>
+          </label>
+          <div class="canvas-wrap" id="mosWrap" hidden>
+            <canvas id="mosCanvas"></canvas>
+          </div>
+          <div class="tools" id="mosTools" hidden>
+            <div class="seg small" id="mosModeSeg">
+              <button class="on" type="button" data-mode="mosaic">모자이크</button>
+              <button type="button" data-mode="blur">블러</button>
+            </div>
+            <label class="slider">
+              <span>브러시 <b id="mosSizeVal">48</b></span>
+              <input id="mosSize" type="range" min="12" max="160" step="4" value="48">
+            </label>
+            <div class="btn-row">
+              <button class="btn ghost" id="btnMosUndo" type="button">실행취소</button>
+              <button class="btn ghost" id="btnMosReset" type="button">초기화</button>
+              <button class="btn primary" id="btnMosSave" type="button">PNG 저장</button>
+            </div>
+          </div>
+          <p class="note">다 저장하면 EXIF(GPS·기기정보)도 함께 사라집니다. 저장 파일은 새로 그린 이미지라 원본 정보가 남지 않습니다.</p>
+        </div>
+      </div>
+
+      <div class="pane" id="secPaneExif" hidden>
+        <div class="card">
+          <div class="card-head"><h2>EXIF·GPS 제거</h2><span class="hint">위치 정보 지우기</span></div>
+          <label class="drop" for="exifInput">
+            <input id="exifInput" type="file" accept="image/*" multiple hidden>
+            <span class="drop-ico">＋</span>
+            <span class="drop-main">사진 선택</span>
+            <span class="drop-sub">여러 장 한 번에</span>
+          </label>
+          <div class="row">
+            <label class="field"><span>저장 포맷</span>
+              <select id="exifFormat"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option></select>
+            </label>
+            <label class="field"><span>품질 <b id="exifQualityVal">0.92</b></span>
+              <input id="exifQuality" type="range" min="0.6" max="1" step="0.02" value="0.92">
+            </label>
+          </div>
+          <button class="btn primary" id="btnExif" type="button">정보 지우고 저장</button>
+          <div class="out" id="exifOut" hidden></div>
+          <p class="note">사진을 다시 그려서 저장하므로 촬영 기기·시간·위치 좌표가 모두 빠집니다. 중고거래·문의 첨부 전에 쓰면 좋습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 2. 커머스·SNS 이미지 ──────────────────── -->
+    <section class="view" id="view-img" hidden>
+      <div class="card">
+        <div class="card-head"><h2>이미지 한 번에 정리</h2><span class="hint">압축 · 비율 · 워터마크</span></div>
+        <label class="drop" for="imgInput">
+          <input id="imgInput" type="file" accept="image/*" multiple hidden>
+          <span class="drop-ico">＋</span>
+          <span class="drop-main">사진 선택</span>
+          <span class="drop-sub">여러 장 동시에 같은 규격으로</span>
+        </label>
+        <ul class="filelist" id="imgList"></ul>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>규격</h2></div>
+        <div class="row">
+          <label class="field"><span>최대 너비</span>
+            <select id="imgMaxW">
+              <option value="1080">1080px</option>
+              <option value="1440" selected>1440px</option>
+              <option value="2048">2048px</option>
+              <option value="0">원본 유지</option>
+            </select>
+          </label>
+          <label class="field"><span>포맷</span>
+            <select id="imgFormat">
+              <option value="keep">원본 유지</option>
+              <option value="image/jpeg">JPG</option>
+              <option value="image/webp">WebP</option>
+              <option value="image/png">PNG</option>
+            </select>
+          </label>
+        </div>
+        <label class="slider">
+          <span>품질 <b id="imgQualityVal">0.82</b></span>
+          <input id="imgQuality" type="range" min="0.4" max="1" step="0.02" value="0.82">
+        </label>
+
+        <div class="field-block">
+          <span class="label">비율</span>
+          <div class="seg small" id="imgRatioSeg">
+            <button class="on" type="button" data-ratio="none">원본</button>
+            <button type="button" data-ratio="1:1">1:1</button>
+            <button type="button" data-ratio="4:5">4:5</button>
+            <button type="button" data-ratio="16:9">16:9</button>
+          </div>
+          <div class="seg small" id="imgFillSeg" hidden>
+            <button class="on" type="button" data-fill="crop">자르기</button>
+            <button type="button" data-fill="white">흰 여백</button>
+            <button type="button" data-fill="blur">블러 여백</button>
+          </div>
+        </div>
+
+        <div class="field-block">
+          <div class="switch-row">
+            <span class="label">워터마크</span>
+            <label class="switch"><input id="wmOn" type="checkbox"><span></span></label>
+          </div>
+          <div id="wmBox" hidden>
+            <div class="row">
+              <label class="field grow"><span>문구</span><input id="wmText" type="text" value="@bok_o_hrga" autocomplete="off"></label>
+              <label class="field"><span>로고</span><input id="wmLogo" type="file" accept="image/*" class="file-mini"></label>
+            </div>
+            <div class="seg small" id="wmPosSeg">
+              <button class="on" type="button" data-pos="br">우하단</button>
+              <button type="button" data-pos="center">중앙</button>
+              <button type="button" data-pos="tile">대각선 반복</button>
+            </div>
+            <label class="slider"><span>투명도 <b id="wmOpacityVal">55</b>%</span>
+              <input id="wmOpacity" type="range" min="10" max="100" step="5" value="55">
+            </label>
+            <label class="slider"><span>크기 <b id="wmSizeVal">4.5</b>%</span>
+              <input id="wmSize" type="range" min="2" max="12" step="0.5" value="4.5">
+            </label>
+            <p class="note tiny">로고를 올리면 문구 대신 로고가 찍힙니다. 로고는 PNG 투명 배경을 권장합니다.</p>
+          </div>
+        </div>
+
+        <button class="btn primary" id="btnImgRun" type="button">일괄 적용</button>
+      </div>
+
+      <div class="card" id="imgResultCard" hidden>
+        <div class="card-head"><h2>결과</h2><span class="hint" id="imgResultHint"></span></div>
+        <ul class="results" id="imgResults"></ul>
+        <button class="btn ghost" id="btnImgAll" type="button">전체 다운로드</button>
+      </div>
+    </section>
+
+    <!-- ── 3. QR·링크 ─────────────────────────────── -->
+    <section class="view" id="view-qr" hidden>
+      <div class="seg" id="qrSeg">
+        <button class="on" type="button" data-qr="make">QR 만들기</button>
+        <button type="button" data-qr="clean">링크 정리</button>
+      </div>
+
+      <div class="pane" id="qrPaneMake">
+        <div class="card">
+          <div class="seg small" id="qrTypeSeg">
+            <button class="on" type="button" data-type="url">URL</button>
+            <button type="button" data-type="text">텍스트</button>
+            <button type="button" data-type="wifi">Wi-Fi</button>
+          </div>
+
+          <div id="qrUrlBox">
+            <label class="field"><span>링크</span><input id="qrUrl" type="url" inputmode="url" placeholder="https://" autocomplete="off"></label>
+          </div>
+          <div id="qrTextBox" hidden>
+            <label class="field"><span>내용</span><textarea id="qrText" rows="3" placeholder="QR에 담을 문구"></textarea></label>
+          </div>
+          <div id="qrWifiBox" hidden>
+            <label class="field"><span>와이파이 이름(SSID)</span><input id="qrSsid" type="text" autocomplete="off"></label>
+            <label class="field"><span>비밀번호</span><input id="qrPass" type="text" autocomplete="off"></label>
+            <label class="inline"><input id="qrHidden" type="checkbox"> 숨은 네트워크</label>
+          </div>
+
+          <div class="qr-stage">
+            <div class="qr-box" id="qrBox"><span class="qr-empty">입력하면 바로 생성됩니다</span></div>
+          </div>
+          <div class="btn-row">
+            <button class="btn ghost" id="btnQrPng" type="button">PNG</button>
+            <button class="btn ghost" id="btnQrSvg" type="button">SVG</button>
+            <button class="btn ghost" id="btnQrCopy" type="button">내용 복사</button>
+          </div>
+          <p class="note">만료 없는 정적 QR입니다. 이미지 안에 정보가 그대로 들어가서 서버나 구독이 필요 없습니다.</p>
+        </div>
+      </div>
+
+      <div class="pane" id="qrPaneClean" hidden>
+        <div class="card">
+          <div class="card-head"><h2>추적 파라미터 제거</h2><span class="hint">인스타 · 스레드 · 쿠팡 · 네이버</span></div>
+          <label class="field"><span>링크</span><textarea id="cleanInput" rows="3" placeholder="공유하기로 복사한 링크를 붙여넣으세요"></textarea></label>
+          <div class="btn-row">
+            <button class="btn primary" id="btnClean" type="button">정리하기</button>
+            <button class="btn ghost" id="btnCleanPaste" type="button">붙여넣기</button>
+          </div>
+          <div class="out" id="cleanOut" hidden>
+            <div class="out-url" id="cleanUrl"></div>
+            <div class="chips" id="cleanRemoved"></div>
+            <button class="btn primary" id="btnCleanCopy" type="button">깔끔한 링크 복사</button>
+          </div>
+          <div class="warn" id="cleanError" hidden></div>
+          <p class="note">utm_*, fbclid, igshid, xmt, src, spec, mcid 같은 유통·광고 꼬리표만 지웁니다. 상품 번호처럼 링크를 결정하는 값은 그대로 둡니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 4. 임장 자금 계산기 ────────────────────── -->
+    <section class="view" id="view-fund" hidden>
+      <div class="result hero-result">
+        <div class="result-label">필요 현금(자기자본)</div>
+        <div class="result-big" id="fundCash">-</div>
+        <div class="result-sub" id="fundCashHint">매매가·취득세·중개보수 − 전세보증금 − 대출</div>
+        <div class="result-grid">
+          <div><span>대출 가능액</span><b id="fundLoan">-</b></div>
+          <div><span>월 원리금</span><b id="fundMonthly">-</b></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>집</h2></div>
+        <div class="seg small" id="fundModeSeg">
+          <button class="on" type="button" data-mode="buy">매매(입주)</button>
+          <button type="button" data-mode="gap">갭투자(전세 끼고)</button>
+        </div>
+        <label class="field"><span>매매가</span><input id="fundPrice" type="text" inputmode="numeric" value="500,000,000"></label>
+        <div class="chips quick" id="fundQuick">
+          <button type="button" data-v="300000000">3억</button>
+          <button type="button" data-v="500000000">5억</button>
+          <button type="button" data-v="700000000">7억</button>
+          <button type="button" data-v="900000000">9억</button>
+          <button type="button" data-v="1200000000">12억</button>
+        </div>
+        <div id="fundDepositBox" hidden>
+          <label class="field"><span>전세보증금</span><input id="fundDeposit" type="text" inputmode="numeric" value="300,000,000"></label>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>대출</h2></div>
+        <div class="field-block">
+          <span class="label">LTV</span>
+          <div class="seg small" id="fundLtvSeg">
+            <button type="button" data-ltv="40">40%</button>
+            <button class="on" type="button" data-ltv="70">70%</button>
+            <button type="button" data-ltv="custom">직접</button>
+          </div>
+          <label class="field" id="fundLtvCustomBox" hidden><span>LTV %</span><input id="fundLtvCustom" type="number" inputmode="decimal" value="60" step="1" min="0" max="100"></label>
+        </div>
+        <div class="switch-row">
+          <span class="label">방공제 <em>서울 5,500만원</em></span>
+          <label class="switch"><input id="fundBang" type="checkbox" checked><span></span></label>
+        </div>
+        <label class="field" id="fundBangBox"><span>방공제 금액</span><input id="fundBangAmount" type="text" inputmode="numeric" value="55,000,000"></label>
+        <div class="row">
+          <label class="field"><span>금리(연)</span><input id="fundRate" type="number" inputmode="decimal" value="4.5" step="0.1" min="0"></label>
+          <label class="field"><span>기간</span>
+            <select id="fundYears"><option value="20">20년</option><option value="30" selected>30년</option><option value="40">40년</option><option value="50">50년</option></select>
+          </label>
+        </div>
+        <label class="field"><span>대출액 직접 입력 <em>비우면 한도 자동</em></span><input id="fundLoanOverride" type="text" inputmode="numeric" placeholder="예: 320,000,000"></label>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>비용</h2></div>
+        <div class="switch-row">
+          <span class="label">취득세 자동 <em id="fundAcqAutoRate">1.1%</em></span>
+          <label class="switch"><input id="fundAcqAuto" type="checkbox" checked><span></span></label>
+        </div>
+        <label class="field" id="fundAcqRateBox" hidden><span>취득세율 %</span><input id="fundAcqRate" type="number" inputmode="decimal" value="3.3" step="0.1" min="0" max="10"></label>
+        <div class="switch-row">
+          <span class="label">중개보수 부가세</span>
+          <label class="switch"><input id="fundBrokerVat" type="checkbox"><span></span></label>
+        </div>
+        <label class="field"><span>기타비용 <em>이사·수리·등기</em></span><input id="fundExtra" type="text" inputmode="numeric" value="0"></label>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>명세</h2><span class="hint" id="fundBrokerRate">중개보수 상한 -</span></div>
+        <ul class="ledger" id="fundLedger"></ul>
+        <div class="notes" id="fundNotes"></div>
+        <p class="note">취득세는 무주택 1주택 취득 기준(지방세·농특세 포함 1.1~3.3%)입니다. 다주택·조정대상지역은 달라지니 계약 전 확인하세요.</p>
+      </div>
+    </section>
+
+    <!-- ── 5. 마진·노출제한 ──────────────────────── -->
+    <section class="view" id="view-margin" hidden>
+      <div class="result" id="marginResult">
+        <div class="result-label">건당 순이익</div>
+        <div class="result-big" id="mgNet">-</div>
+        <div class="result-sub" id="mgMargin">마진율 -</div>
+        <div class="warn" id="mgWarn" hidden></div>
+        <div class="result-grid">
+          <div><span>총원가</span><b id="mgCost">-</b></div>
+          <div><span>수수료</span><b id="mgFee">-</b></div>
+          <div><span>손익분기 판매가</span><b id="mgBreakEven">-</b></div>
+          <div><span>추천가 기준 순익</span><b id="mgAtRecommend">-</b></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>원가</h2></div>
+        <div class="row">
+          <label class="field"><span>달러 원가</span><input id="mgUsd" type="number" inputmode="decimal" value="10" step="0.01" min="0"></label>
+          <label class="field"><span>환율</span><input id="mgFx" type="number" inputmode="decimal" value="1380" step="1" min="0"></label>
+        </div>
+        <div class="row">
+          <label class="field"><span>배대지·국제배송</span><input id="mgShip" type="text" inputmode="numeric" value="15,000"></label>
+          <label class="field"><span>국내 택배</span><input id="mgDomShip" type="text" inputmode="numeric" value="3,000"></label>
+        </div>
+        <label class="field"><span>관부가세</span><input id="mgDuty" type="text" inputmode="numeric" value="0"></label>
+        <div class="duty-help">
+          <div class="duty-help-head">
+            <span>관부가세 자동 계산</span>
+            <label class="switch small"><input id="mgDutyAuto" type="checkbox"><span></span></label>
+          </div>
+          <div id="mgDutyAutoBox" hidden>
+            <div class="row">
+              <label class="field"><span>관세율 %</span><input id="mgDutyRate" type="number" inputmode="decimal" value="8" step="0.5" min="0"></label>
+              <label class="field"><span>면세 한도($)</span><input id="mgThreshold" type="number" inputmode="numeric" value="150" step="50" min="0"></label>
+            </div>
+            <p class="note tiny" id="mgDutyHint">물품가 + 국제배송 × 관세율, 그 합에 부가세 10%. 목록통관 한도 이하면 0원.</p>
+          </div>
+        </div>
+        <label class="field"><span>기타비용 <em>포장·광고 등</em></span><input id="mgOther" type="text" inputmode="numeric" value="0"></label>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>판매</h2></div>
+        <div class="seg small" id="mgFeeSeg">
+          <button class="on" type="button" data-fee="coupang">쿠팡 10.8%</button>
+          <button type="button" data-fee="smartstore">스스 5.5%</button>
+          <button type="button" data-fee="toss">토스 5%</button>
+          <button type="button" data-fee="custom">직접</button>
+        </div>
+        <div class="row">
+          <label class="field"><span>판매가</span><input id="mgSale" type="text" inputmode="numeric" value="45,000"></label>
+          <label class="field" id="mgFeeCustomBox" hidden><span>수수료 %</span><input id="mgFeeCustom" type="number" inputmode="decimal" value="10.8" step="0.1" min="0" max="90"></label>
+        </div>
+        <label class="field"><span>쿠팡 추천가 <em>비우면 경고 없음</em></span><input id="mgRecommend" type="text" inputmode="numeric" placeholder="예: 42,000"></label>
+        <p class="note">추천가는 쿠팡 판매자센터의 '쿠팡 추천 판매가'입니다. 넘기면 최저가 경쟁에서 밀려 노출이 제한될 수 있습니다.</p>
+      </div>
+    </section>
+
+    <!-- ── 6. 공지·스레드 ─────────────────────────── -->
+    <section class="view" id="view-notice" hidden>
+      <div class="seg" id="noticeSeg">
+        <button class="on" type="button" data-nt="notice">사내 공지</button>
+        <button type="button" data-nt="thread">스레드 분할</button>
+      </div>
+
+      <div class="pane" id="noticePaneNotice">
+        <div class="card">
+          <div class="card-head"><h2>공지 입력</h2><span class="hint">태그 · 기한 · 본문</span></div>
+          <div class="field-block">
+            <span class="label">태그</span>
+            <div class="seg small" id="ntTagSeg">
+              <button class="on" type="button" data-tag="요청">[요청]</button>
+              <button type="button" data-tag="안내">[안내]</button>
+              <button type="button" data-tag="확인">[확인]</button>
+            </div>
+          </div>
+          <label class="field"><span>한 줄 요약</span><input id="ntSummary" type="text" placeholder="예: 2026년 연차휴가 사용계획 제출 안내" autocomplete="off"></label>
+          <div class="row">
+            <label class="field"><span>기한 날짜</span><input id="ntDueDate" type="date"></label>
+            <label class="field"><span>시각</span><input id="ntDueTime" type="time" value="18:00"></label>
+          </div>
+          <label class="field"><span>대상</span><input id="ntAudience" type="text" value="전 임직원" autocomplete="off"></label>
+          <label class="field"><span>본문 메모</span>
+            <textarea id="ntMemo" rows="6" placeholder="하고 싶은 말을 줄 단위로 적으세요.&#10;# 소제목 또는 '■ 소제목'&#10;- 하위 항목&#10;'마감: 11월 25일' 처럼 쓰면 항목으로 정리됩니다."></textarea>
+          </label>
+          <label class="field"><span>문의</span><input id="ntContact" type="text" value="문의: 인사총무팀 (내선 0000)" autocomplete="off"></label>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><h2>변환 결과</h2><span class="hint">그대로 복사</span></div>
+          <div class="out">
+            <div class="out-title" id="ntTitleOut">제목</div>
+            <pre class="out-body" id="ntBodyOut">본문</pre>
+            <div class="btn-row">
+              <button class="btn primary" id="btnNtCopyAll" type="button">전체 복사</button>
+              <button class="btn ghost" id="btnNtCopyTitle" type="button">제목만</button>
+              <button class="btn ghost" id="btnNtCopyBody" type="button">본문만</button>
+            </div>
+          </div>
+          <p class="note">기복님 표준 포맷: [태그] 요약 (~기한) / 인사말 / 메모(■ 항목, - 하위) / ■ 기한·대상 / 문의.</p>
+        </div>
+      </div>
+
+      <div class="pane" id="noticePaneThread" hidden>
+        <div class="card">
+          <div class="card-head"><h2>원고</h2><span class="hint" id="thCount">0자</span></div>
+          <label class="field"><textarea id="thInput" rows="8" placeholder="스레드로 올릴 원고를 붙여넣으세요. 문단 사이 빈 줄은 그대로 살립니다."></textarea></label>
+          <div class="row">
+            <label class="field"><span>한 편 기준</span>
+              <select id="thMax"><option value="500" selected>500자</option><option value="400">400자</option><option value="300">300자</option></select>
+            </label>
+            <label class="field"><span>&nbsp;</span><button class="btn primary full" id="btnThSplit" type="button">분할하기</button></label>
+          </div>
+        </div>
+        <div id="thResults"></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="vendor/pdf-lib.min.js"></script>
+<script src="vendor/pdf.min.js"></script>
+<script src="vendor/qrcode.js"></script>
+<script src="core.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
