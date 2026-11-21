@@ -159,6 +159,28 @@ input,select,textarea{font:inherit;letter-spacing:inherit;color:inherit}
 .home-foot{margin:20px 6px 0;font-size:11.5px;color:var(--sub);text-align:center;line-height:1.6}
 .home-foot b{color:var(--ink2);font-weight:650}
 
+/* ── 무료 실무 웹앱 모음 ─────────────── */
+.freebies{margin:0 0 18px}
+.freebies-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:0 4px 9px}
+.freebies-head h2{font-size:13.5px;font-weight:750;letter-spacing:-0.03em;color:var(--ink);margin:0}
+.freebies-head span{font-size:11px;font-weight:600;color:var(--sub);letter-spacing:-0.01em}
+.freebies-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.freebie{
+  display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit;
+  padding:11px 12px;border:1px solid var(--line);border-radius:16px;
+  background:var(--card);box-shadow:0 1px 2px rgba(11,12,15,.035);
+  transition:transform .16s ease,border-color .2s ease;
+}
+.freebie:active{transform:scale(.985);border-color:var(--line2)}
+.freebie-ico{
+  width:32px;height:32px;border-radius:10px;display:grid;place-items:center;flex:none;
+  background:var(--accent-soft);color:var(--accent);
+}
+.freebie-body{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1}
+.freebie-name{font-size:13.5px;font-weight:720;letter-spacing:-0.028em;color:var(--ink)}
+.freebie-desc{font-size:11.5px;line-height:1.4;color:var(--sub);letter-spacing:-0.01em;word-break:keep-all}
+.freebie-arrow{flex:none;color:var(--sub);opacity:.6}
+
 /* ── 공통 ─────────────────────────────── */
 .view{animation:fade .22s ease}
 @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
