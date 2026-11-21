@@ -148,7 +148,7 @@ input,select,textarea{font:inherit;letter-spacing:inherit;color:inherit}
   .ico-fund{color:#a98bff}.ico-margin{color:#f0a52a}.ico-notice{color:#4fc3dd}
 }
 .tool-name{font-size:15px;font-weight:720;letter-spacing:-0.03em;color:var(--ink);margin-bottom:3px}
-.tool-desc{font-size:11.5px;line-height:1.45;color:var(--sub);letter-spacing:-0.01em}
+.tool-desc{font-size:11.5px;line-height:1.45;color:var(--sub);letter-spacing:-0.01em;word-break:keep-all}
 .tool-lg .tool-name{font-size:16.5px}
 .tool-lg .tool-desc{font-size:12.5px}
 .tool-tags{display:flex;gap:4px;margin-top:9px;flex-wrap:wrap}
@@ -168,8 +168,8 @@ input,select,textarea{font:inherit;letter-spacing:inherit;color:inherit}
 }
 .card-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:13px}
 .card-head h2{font-size:15.5px;font-weight:730;letter-spacing:-0.03em}
-.hint{font-size:11px;font-weight:600;color:var(--sub)}
-.note{margin-top:11px;font-size:11.5px;line-height:1.55;color:var(--sub);letter-spacing:-0.01em}
+.hint{font-size:11px;font-weight:600;color:var(--sub);word-break:keep-all}
+.note{margin-top:11px;font-size:11.5px;line-height:1.55;color:var(--sub);letter-spacing:-0.01em;word-break:keep-all}
 .note.tiny{font-size:10.5px;margin-top:8px}
 
 .seg{
@@ -325,7 +325,7 @@ input,select,textarea{font:inherit;letter-spacing:inherit;color:inherit}
 }
 .result-label{font-size:11.5px;font-weight:650;color:var(--sub);margin-bottom:2px}
 .result-big{font-size:31px;font-weight:820;letter-spacing:-0.045em;line-height:1.2;color:var(--ink)}
-.result-sub{font-size:11.5px;color:var(--sub);margin-top:2px;letter-spacing:-0.01em}
+.result-sub{font-size:11.5px;color:var(--sub);margin-top:2px;letter-spacing:-0.01em;word-break:keep-all}
 .result-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:14px;background:var(--line);border-radius:14px;overflow:hidden}
 .result-grid > div{background:var(--card);padding:10px 11px;display:flex;flex-direction:column;gap:1px}
 .result-grid span{font-size:10.5px;color:var(--sub);font-weight:600}
