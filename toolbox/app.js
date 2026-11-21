@@ -474,15 +474,15 @@
     shown.getContext('2d').clearRect(0, 0, shown.width, shown.height);
     shown.getContext('2d').drawImage(mos.canvas, 0, 0);
   }
-  function dab(x, y) {
+  function dab(x, y, radius) {
     var ctx = mos.ctx, c = mos.canvas;
-    var r = mos.size / 2;
+    var r = radius || mos.size / 2;
     var sx = Math.max(0, Math.round(x - r)), sy = Math.max(0, Math.round(y - r));
     var ex = Math.min(c.width, Math.round(x + r)), ey = Math.min(c.height, Math.round(y + r));
     var w = ex - sx, h = ey - sy;
     if (w <= 1 || h <= 1) return;
     if (mos.mode === 'mosaic') {
-      var block = Math.max(6, Math.round(mos.size / 7));
+      var block = Math.max(6, Math.round(r / 3.2));
       var data = ctx.getImageData(sx, sy, w, h);
       var d = data.data;
       for (var by = 0; by < h; by += block) {
@@ -511,7 +511,7 @@
       ctx.beginPath();
       ctx.rect(sx, sy, w, h);
       ctx.clip();
-      ctx.filter = 'blur(' + Math.max(3, Math.round(mos.size / 5)) + 'px)';
+      ctx.filter = 'blur(' + Math.max(3, Math.round(r / 2.5)) + 'px)';
       ctx.drawImage(c, sx, sy, w, h, sx, sy, w, h);
       ctx.filter = 'none';
       ctx.restore();
@@ -524,7 +524,9 @@
     var rect = shown.getBoundingClientRect();
     var x = (ev.clientX - rect.left) * (shown.width / rect.width);
     var y = (ev.clientY - rect.top) * (shown.height / rect.height);
-    return { x: x, y: y };
+    // 브러시 크기는 화면에서 보이는 지름(px) 기준으로 잡고, 캔버스 해상도에 맞춰 환산한다
+    var radius = (mos.size / 2) * (shown.width / rect.width);
+    return { x: x, y: y, r: radius };
   }
   (function bindMos() {
     var shown = $('mosCanvas');
@@ -535,7 +537,7 @@
       mos.drawing = true;
       mos.last = canvasPoint(ev);
       shown.setPointerCapture && shown.setPointerCapture(ev.pointerId);
-      dab(mos.last.x, mos.last.y);
+      dab(mos.last.x, mos.last.y, mos.last.r);
     });
     shown.addEventListener('pointermove', function (ev) {
       if (!mos.drawing) return;
@@ -543,10 +545,10 @@
       var p = canvasPoint(ev);
       var dx = p.x - mos.last.x, dy = p.y - mos.last.y;
       var dist = Math.sqrt(dx * dx + dy * dy);
-      var step = Math.max(4, mos.size / 4);
+      var step = Math.max(4, p.r / 2);
       var n = Math.max(1, Math.ceil(dist / step));
       for (var i = 1; i <= n; i++) {
-        dab(mos.last.x + dx * i / n, mos.last.y + dy * i / n);
+        dab(mos.last.x + dx * i / n, mos.last.y + dy * i / n, p.r);
       }
       mos.last = p;
     });
@@ -652,6 +654,20 @@
     return BT.num(p[0], 1) / BT.num(p[1], 1);
   }
 
+  function lumaOf(ctx, x, y, w, h) {
+    var cx = Math.max(0, Math.round(x)), cy = Math.max(0, Math.round(y));
+    var cw = Math.max(1, Math.min(ctx.canvas.width - cx, Math.round(w)));
+    var ch = Math.max(1, Math.min(ctx.canvas.height - cy, Math.round(h)));
+    var d;
+    try { d = ctx.getImageData(cx, cy, cw, ch).data; } catch (e) { return 128; }
+    var sum = 0, n = 0, stride = 4 * 13;
+    for (var i = 0; i < d.length; i += stride) {
+      sum += 0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2];
+      n++;
+    }
+    return n ? sum / n : 128;
+  }
+
   function drawWatermark(ctx, W, H) {
     var text = readText($('wmText')).trim() || '@bok_o_hrga';
     var opacity = BT.num($('wmOpacity').value, 55) / 100;
@@ -682,12 +698,17 @@
     ctx.font = '600 ' + fs + 'px "Pretendard Variable", Pretendard, -apple-system, sans-serif';
     ctx.textBaseline = 'alphabetic';
     ctx.globalAlpha = opacity;
-    ctx.fillStyle = '#ffffff';
-    ctx.shadowColor = 'rgba(0,0,0,.55)';
-    ctx.shadowBlur = Math.max(2, fs * 0.18);
-    ctx.shadowOffsetY = 1;
     var tw = ctx.measureText(text).width;
     var margin = W * 0.035;
+    // 바탕이 밝으면 검은 글자, 어두우면 흰 글자 (흰 배경 상세컷에서도 보이게)
+    var lum = (wmPos === 'tile')
+      ? lumaOf(ctx, 0, 0, W, H)
+      : lumaOf(ctx, wmPos === 'center' ? (W - tw) / 2 : W - margin - tw, H - margin - fs * 1.3, tw, fs * 1.6);
+    var lightBg = lum > 165;
+    ctx.fillStyle = lightBg ? 'rgba(14,16,20,1)' : 'rgba(255,255,255,1)';
+    ctx.shadowColor = lightBg ? 'rgba(255,255,255,.6)' : 'rgba(0,0,0,.55)';
+    ctx.shadowBlur = Math.max(2, fs * 0.18);
+    ctx.shadowOffsetY = 1;
     if (wmPos === 'center') {
       ctx.textAlign = 'center';
       ctx.fillText(text, W / 2, H / 2 + fs * 0.35);
@@ -808,7 +829,8 @@
       }
       $('imgResultCard').hidden = false;
       var saved = all.reduce(function (a, b) { return a + (b.before - b.after); }, 0);
-      $('imgResultHint').textContent = all.length + '장 · ' + (saved > 0 ? humanSize(saved) + ' 줄임' : '용량 변화 없음');
+      var savedText = saved > 0 ? humanSize(saved) + ' 줄임' : (saved < 0 ? humanSize(-saved) + ' 늘어남' : '용량 변화 없음');
+      $('imgResultHint').textContent = all.length + '장 · ' + savedText;
       window._imgAll = all;
       toast(all.length + '장 완료');
     } catch (err) {
@@ -1038,7 +1060,7 @@
     });
     $('fundCash').textContent = price > 0 ? BT.eok(r.cash) : '-';
     $('fundCashHint').textContent = price > 0
-      ? '필요 현금 = 매매가 ' + BT.eok(price) + ' + 취득세·중개보수 − 대출'
+      ? '정확히 ' + BT.won(r.cash) + ' · 매매가 + 취득세·중개보수 − 전세보증금 − 대출'
       : '매매가를 넣으면 바로 계산됩니다';
     $('fundLoan').textContent = BT.eok(r.loan);
     $('fundMonthly').textContent = BT.won(r.monthly) + ' /월';
@@ -1203,7 +1225,7 @@
       head2.className = 'th-head';
       var lab = document.createElement('span');
       lab.className = 'th-label';
-      lab.textContent = p.label;
+      lab.textContent = p.label || '한 편으로 끝';
       var ch = document.createElement('span');
       ch.className = 'th-chars' + (p.over ? ' over' : '');
       ch.textContent = p.chars + ' / ' + r.maxChars + '자';
@@ -1214,8 +1236,8 @@
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'th-copy';
-      btn.textContent = p.label + ' 복사';
-      btn.addEventListener('click', function () { copyText(p.post, p.label + ' 복사했습니다'); });
+      btn.textContent = p.label ? p.label + ' 복사' : '복사';
+      btn.addEventListener('click', function () { copyText(p.post, (p.label || '본문') + ' 복사했습니다'); });
       card.appendChild(head2); card.appendChild(body); card.appendChild(btn);
       box.appendChild(card);
     });

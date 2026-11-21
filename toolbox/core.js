@@ -199,7 +199,7 @@
 
     var notes = [];
     if (mode === 'gap' && dep <= 0) notes.push('갭투자 모드인데 전세보증금이 0원이에요. 보증금을 넣으면 필요 현금이 줄어든 계산으로 바뀝니다.');
-    if (bangOn && floorTo(bangCap) < ltvLoanNet) notes.push('LTV 한도보다 방공제(' + eok(bangAmount) + ')가 먼저 걸렸어요. 이 경우 대출이 ' + eok(loanPossible) + '로 줄어듭니다.');
+    if (bangOn && floorTo(bangCap) < ltvLoanNet) notes.push('LTV 한도보다 방공제(' + eok(bangAmount) + ')가 먼저 걸렸어요. 이 경우 대출이 ' + eok(loanPossible) + '으로 줄어듭니다.');
     if (overLtv) notes.push('직접 입력한 대출액이 LTV·방공제 한도(' + eok(loanPossible) + ')를 넘습니다. 실제 심사에서는 한도까지만 나옵니다.');
     if (cash < 0) notes.push('대출이 매입 비용보다 커서 현금이 남는 계산입니다. 대출 한도를 다시 확인해 주세요.');
 
@@ -304,8 +304,9 @@
   function dueText(dateStr, timeStr) {
     if (!dateStr) return timeStr ? timeStr + '까지' : '';
     var m = String(dateStr).match(/^(\d{4})-(\d{2})-(\d{2})$/);
-    if (!m) return String(dateStr);
+    if (!m) return '';
     var d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+    if (isNaN(d.getTime())) return '';
     var s = Number(m[2]) + '월 ' + Number(m[3]) + '일(' + WEEKDAY[d.getDay()] + ')';
     if (timeStr) s += ' ' + timeStr;
     return s + '까지';
@@ -340,13 +341,14 @@
   function noticeFormat(input) {
     input = input || {};
     var tag = TAGS.indexOf(input.tag) >= 0 ? input.tag : '요청';
+    var hasSummary = String(input.summary || '').trim() !== '';
     var summary = String(input.summary || '').trim() || '제목을 입력해 주세요';
     var audience = String(input.audience || '').trim() || '구성원 여러분';
     var due = dueText(input.dueDate, String(input.dueTime || '').trim());
     var contact = String(input.contact || '').trim() || '문의: 인사총무팀';
     var memo = formatMemo(input.memo);
 
-    var title = '[' + tag + '] ' + summary + (due ? ' (~' + due + ')' : '');
+    var title = '[' + tag + '] ' + summary + (hasSummary && due ? ' (~' + due + ')' : '');
 
     var blocks = [];
     blocks.push(audience + ', 안녕하세요. 인사총무팀입니다.');
@@ -414,9 +416,12 @@
 
     var total = chunks.length;
     var parts = chunks.map(function (body, idx) {
-      var label = (idx + 1) + '/' + total;
-      var more = idx < total - 1 ? '더보기' : '';
-      var tail = more ? '\n\n' + more + '\n' + label : '\n\n' + label;
+      // 한 편으로 끝나면 라벨을 붙이지 않는다(그대로 올리면 된다)
+      var label = total === 1 ? '' : (idx + 1) + '/' + total;
+      var more = total > 1 && idx < total - 1 ? '더보기' : '';
+      var tail = '';
+      if (more) tail = '\n\n' + more + '\n' + label;
+      else if (label) tail = '\n\n' + label;
       var post = body + tail;
       return {
         index: idx + 1,

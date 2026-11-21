@@ -23,7 +23,7 @@
 <link rel="icon" href="icon-192.png">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="styles.css?v=20261121a">
+<link rel="stylesheet" href="styles.css?v=20261121b">
 </head>
 <body>
 <div class="shell">
@@ -285,7 +285,7 @@
           </div>
           <div id="wmBox" hidden>
             <div class="row">
-              <label class="field grow"><span>문구</span><input id="wmText" type="text" value="@bok_o_hrga" autocomplete="off"></label>
+              <label class="field grow"><span>문구</span><input id="wmText" type="text" value="@bok_o_hrga" autocomplete="off" spellcheck="false"></label>
               <label class="field"><span>로고</span><input id="wmLogo" type="file" accept="image/*" class="file-mini"></label>
             </div>
             <div class="seg small" id="wmPosSeg">
@@ -329,14 +329,14 @@
           </div>
 
           <div id="qrUrlBox">
-            <label class="field"><span>링크</span><input id="qrUrl" type="url" inputmode="url" placeholder="https://" autocomplete="off"></label>
+            <label class="field"><span>링크</span><input id="qrUrl" type="url" inputmode="url" placeholder="https://" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
           </div>
           <div id="qrTextBox" hidden>
-            <label class="field"><span>내용</span><textarea id="qrText" rows="3" placeholder="QR에 담을 문구"></textarea></label>
+            <label class="field"><span>내용</span><textarea id="qrText" rows="3" spellcheck="false" placeholder="QR에 담을 문구"></textarea></label>
           </div>
           <div id="qrWifiBox" hidden>
-            <label class="field"><span>와이파이 이름(SSID)</span><input id="qrSsid" type="text" autocomplete="off"></label>
-            <label class="field"><span>비밀번호</span><input id="qrPass" type="text" autocomplete="off"></label>
+            <label class="field"><span>와이파이 이름(SSID)</span><input id="qrSsid" type="text" autocomplete="off" spellcheck="false"></label>
+            <label class="field"><span>비밀번호</span><input id="qrPass" type="text" autocomplete="off" spellcheck="false"></label>
             <label class="inline"><input id="qrHidden" type="checkbox"> 숨은 네트워크</label>
           </div>
 
@@ -355,7 +355,7 @@
       <div class="pane" id="qrPaneClean" hidden>
         <div class="card">
           <div class="card-head"><h2>추적 파라미터 제거</h2><span class="hint">인스타 · 스레드 · 쿠팡 · 네이버</span></div>
-          <label class="field"><span>링크</span><textarea id="cleanInput" rows="3" placeholder="공유하기로 복사한 링크를 붙여넣으세요"></textarea></label>
+          <label class="field"><span>링크</span><textarea id="cleanInput" rows="3" spellcheck="false" autocapitalize="off" placeholder="공유하기로 복사한 링크를 붙여넣으세요"></textarea></label>
           <div class="btn-row">
             <button class="btn primary" id="btnClean" type="button">정리하기</button>
             <button class="btn ghost" id="btnCleanPaste" type="button">붙여넣기</button>
@@ -526,16 +526,16 @@
               <button type="button" data-tag="확인">[확인]</button>
             </div>
           </div>
-          <label class="field"><span>한 줄 요약</span><input id="ntSummary" type="text" placeholder="예: 2026년 연차휴가 사용계획 제출 안내" autocomplete="off"></label>
+          <label class="field"><span>한 줄 요약</span><input id="ntSummary" type="text" spellcheck="false" placeholder="예: 2026년 연차휴가 사용계획 제출 안내" autocomplete="off"></label>
           <div class="row">
             <label class="field"><span>기한 날짜</span><input id="ntDueDate" type="date"></label>
             <label class="field"><span>시각</span><input id="ntDueTime" type="time" value="18:00"></label>
           </div>
-          <label class="field"><span>대상</span><input id="ntAudience" type="text" value="전 임직원" autocomplete="off"></label>
+          <label class="field"><span>대상</span><input id="ntAudience" type="text" value="전 임직원" autocomplete="off" spellcheck="false"></label>
           <label class="field"><span>본문 메모</span>
-            <textarea id="ntMemo" rows="6" placeholder="하고 싶은 말을 줄 단위로 적으세요.&#10;# 소제목 또는 '■ 소제목'&#10;- 하위 항목&#10;'마감: 11월 25일' 처럼 쓰면 항목으로 정리됩니다."></textarea>
+            <textarea id="ntMemo" rows="6" spellcheck="false" placeholder="하고 싶은 말을 줄 단위로 적으세요.&#10;# 소제목 또는 '■ 소제목'&#10;- 하위 항목&#10;'마감: 11월 25일' 처럼 쓰면 항목으로 정리됩니다."></textarea>
           </label>
-          <label class="field"><span>문의</span><input id="ntContact" type="text" value="문의: 인사총무팀 (내선 0000)" autocomplete="off"></label>
+          <label class="field"><span>문의</span><input id="ntContact" type="text" value="문의: 인사총무팀 (내선 0000)" autocomplete="off" spellcheck="false"></label>
         </div>
 
         <div class="card">
@@ -556,7 +556,7 @@
       <div class="pane" id="noticePaneThread" hidden>
         <div class="card">
           <div class="card-head"><h2>원고</h2><span class="hint" id="thCount">0자</span></div>
-          <label class="field"><textarea id="thInput" rows="8" placeholder="스레드로 올릴 원고를 붙여넣으세요. 문단 사이 빈 줄은 그대로 살립니다."></textarea></label>
+          <label class="field"><textarea id="thInput" rows="8" spellcheck="false" placeholder="스레드로 올릴 원고를 붙여넣으세요. 문단 사이 빈 줄은 그대로 살립니다."></textarea></label>
           <div class="row">
             <label class="field"><span>한 편 기준</span>
               <select id="thMax"><option value="500" selected>500자</option><option value="400">400자</option><option value="300">300자</option></select>
@@ -573,10 +573,21 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<script>
+/* 런타임 오류 기록(검증용). 화면에는 표시하지 않는다. */
+window.__btErrors = [];
+window.addEventListener('error', function (e) {
+  window.__btErrors.push((e.message || 'error') + ' @' + (e.filename || '') + ':' + (e.lineno || ''));
+});
+window.addEventListener('unhandledrejection', function (e) {
+  window.__btErrors.push('rejection: ' + ((e.reason && e.reason.message) || e.reason));
+});
+</script>
+
 <script src="vendor/pdf-lib.min.js"></script>
 <script src="vendor/pdf.min.js"></script>
 <script src="vendor/qrcode.js"></script>
-<script src="core.js?v=20261121a"></script>
-<script src="app.js?v=20261121a"></script>
+<script src="core.js?v=20261121b"></script>
+<script src="app.js?v=20261121b"></script>
 </body>
 </html>
