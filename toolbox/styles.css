@@ -47,6 +47,7 @@
   }
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none !important}
 html,body{margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
 body{
@@ -125,7 +126,8 @@ input,select,textarea{font:inherit;letter-spacing:inherit;color:inherit}
   overflow:hidden;
 }
 .tool:active{transform:scale(.975)}
-.tool-lg{grid-column:span 2;padding:17px 16px 16px}
+.tool-lg{grid-column:span 2;padding:16px 16px 15px}
+.tool-lg .tool-ico{margin-bottom:10px}
 .tool-lg::after{
   content:"";position:absolute;right:-30px;top:-40px;width:130px;height:130px;border-radius:50%;
   background:radial-gradient(50% 50% at 50% 50%,var(--accent-soft),transparent 72%);
