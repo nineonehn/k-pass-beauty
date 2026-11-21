@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<!--
+  복대리 연말 법정리스크 1분 진단 (2026-11-21)
+  · 대상: 1인 인사총무·대표 / 목적: 6문항 진단 → 예상 리스크 금액 → 1,000원 스타터 키트·연차수당 계산기 퍼널
+  · 근거: 근로기준법 제60조·제61조, 남녀고용평등법 제13조, 장애인고용법 제5조의2, 근로자퇴직급여 보장법 제32조②
+  · 실명·회사명 비노출. 로직은 core.js(별도 파일), 화면은 이 파일.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>연말 법정리스크 1분 진단 · 우리 회사는 얼마인가</title>
+<meta name="description" content="연차촉진·법정의무교육·퇴직연금, 6문항 예/아니오로 우리 회사의 예상 과태료·수당 리스크를 1분 만에 확인합니다. 회원가입 없이 무료.">
+<meta name="theme-color" content="#FBF8F1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1413" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="복대리 연말 점검">
+<meta property="og:title" content="우리 회사, 12월 31일에 얼마가 나갈까요">
+<meta property="og:description" content="연차촉진·법정교육·퇴직연금 6문항. 예상 과태료와 수당을 1분 만에 숫자로 확인하세요.">
+<meta property="og:url" content="https://nineonehn.github.io/k-pass-beauty/yearend-risk-check/">
+<meta property="og:image" content="https://nineonehn.github.io/k-pass-beauty/yearend-risk-check/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<link rel="canonical" href="https://nineonehn.github.io/k-pass-beauty/yearend-risk-check/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="우리 회사, 12월 31일에 얼마가 나갈까요">
+<meta name="twitter:description" content="연차촉진·법정교육·퇴직연금 6문항. 예상 과태료와 수당을 1분 만에.">
+<meta name="twitter:image" content="https://nineonehn.github.io/k-pass-beauty/yearend-risk-check/og.png">
+<meta name="robots" content="index,follow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%237BC4B6'/%3E%3Ctext x='32' y='45' font-size='34' font-weight='800' font-family='-apple-system,sans-serif' fill='%23fff' text-anchor='middle'%3E%EB%B3%B5%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  :root{
+    --bg:#FBF8F1;
+    --card:#FFFFFF;
+    --ink:#18211F;
+    --sub:#6C7A76;
+    --line:rgba(24,33,31,.08);
+    --mint:#7BC4B6;
+    --mint-deep:#2E7D6E;
+    --mint-soft:#EAF6F2;
+    --cream:#F4EEE1;
+    --risk:#BF5638;
+    --risk-soft:#FBEEE8;
+    --field:#F5F2EA;
+    --shadow:0 1px 2px rgba(24,33,31,.04), 0 10px 30px rgba(24,33,31,.06);
+    color-scheme:light;
+  }
+  html[data-theme="dark"]{
+    --bg:#0F1413;
+    --card:#171E1C;
+    --ink:#F1F6F4;
+    --sub:#9BA9A5;
+    --line:rgba(255,255,255,.09);
+    --mint:#8FD3C5;
+    --mint-deep:#9BDCCE;
+    --mint-soft:rgba(123,196,182,.14);
+    --cream:#1D2523;
+    --risk:#F08C6C;
+    --risk-soft:rgba(240,140,108,.12);
+    --field:#1E2624;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 34px rgba(0,0,0,.45);
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0; padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui, sans-serif;
+    font-size:16px; line-height:1.55; letter-spacing:-0.02em;
+    -webkit-font-smoothing:antialiased;
+    transition:background .25s ease, color .25s ease;
+  }
+  body::before{
+    content:""; position:fixed; inset:-18% -20% auto -20%; height:52vh; z-index:0; pointer-events:none;
+    background:radial-gradient(58% 58% at 50% 0%, rgba(123,196,182,.30), rgba(123,196,182,0) 72%);
+  }
+  html[data-theme="dark"] body::before{
+    background:radial-gradient(58% 58% at 50% 0%, rgba(123,196,182,.16), rgba(123,196,182,0) 72%);
+  }
+  .wrap{position:relative; z-index:1; max-width:520px; margin:0 auto; padding:16px 16px 40px;}
+  .top{display:flex; align-items:center; justify-content:space-between; margin-bottom:22px;}
+  .brand{display:flex; align-items:center; gap:9px; font-size:14px; font-weight:650; color:var(--sub); letter-spacing:-0.01em;}
+  .mark{width:27px; height:27px; border-radius:9px; background:var(--mint); color:#0d2b25; display:grid; place-items:center; font-size:13px; font-weight:800; letter-spacing:0;}
+  .icon-btn{width:38px; height:38px; border-radius:50%; border:1px solid var(--line); background:var(--card); color:var(--sub); display:grid; place-items:center; cursor:pointer; padding:0; transition:transform .15s ease;}
+  .icon-btn:active{transform:scale(.94);}
+
+  .chip{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:650; color:var(--mint-deep); background:var(--mint-soft); border-radius:999px; padding:6px 11px; margin-bottom:14px; letter-spacing:-0.01em;}
+  h1{font-size:clamp(28px,8.2vw,34px); line-height:1.28; letter-spacing:-0.038em; margin:0 0 12px; font-weight:780;}
+  h1 em{font-style:normal; color:var(--mint-deep);}
+  .hero p{margin:0 0 20px; color:var(--sub); font-size:15px; line-height:1.66; letter-spacing:-0.015em;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:22px; padding:20px 18px; margin-bottom:14px; box-shadow:var(--shadow);}
+  .card-head{display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:14px;}
+  h2{font-size:17px; margin:0; font-weight:720; letter-spacing:-0.025em;}
+  .hint{font-size:12px; color:var(--sub); flex:none;}
+
+  .scale-label{font-size:13px; font-weight:650; color:var(--sub); margin-bottom:9px;}
+  .chips{display:flex; gap:7px; flex-wrap:wrap;}
+  .chips button{border:1px solid var(--line); background:var(--card); color:var(--sub); font:inherit; font-size:13px; font-weight:650; padding:9px 13px; border-radius:999px; cursor:pointer; transition:all .16s ease; letter-spacing:-0.01em;}
+  .chips button[aria-pressed="true"]{background:var(--mint-soft); border-color:rgba(123,196,182,.55); color:var(--mint-deep);}
+  .chips button:active{transform:scale(.96);}
+
+  .btn{display:flex; align-items:center; justify-content:center; gap:8px; width:100%; border:0; text-decoration:none; font:inherit; font-weight:730; font-size:16px; letter-spacing:-0.02em; padding:16px; border-radius:16px; cursor:pointer; transition:transform .12s ease, background .2s ease;}
+  .btn:active{transform:scale(.985);}
+  .btn.primary{background:var(--mint); color:#0d2b25; box-shadow:0 8px 22px rgba(123,196,182,.34); margin-top:18px;}
+  .btn.ghost{background:var(--field); color:var(--ink); font-size:14.5px;}
+  .btn.solid{background:var(--mint); color:#0d2b25; font-size:15px;}
+  .btn small{font-size:11.5px; font-weight:600; opacity:.62;}
+  .note{font-size:11.5px; color:var(--sub); text-align:center; margin:10px 0 0; line-height:1.6;}
+
+  /* ── 진행 */
+  .progress{height:4px; border-radius:99px; background:var(--field); overflow:hidden; margin-bottom:20px;}
+  .progress span{display:block; height:100%; width:16.6667%; background:var(--mint); border-radius:99px; transition:width .28s cubic-bezier(.2,.8,.2,1);}
+  .qmeta{display:flex; align-items:center; justify-content:space-between; font-size:12.5px; color:var(--sub); font-weight:650; margin-bottom:12px;}
+  .qmeta .theme{color:var(--mint-deep); background:var(--mint-soft); border-radius:999px; padding:4px 10px; font-size:11.5px;}
+  h3#qTitle{font-size:clamp(21px,6.2vw,24px); line-height:1.42; letter-spacing:-0.035em; margin:0 0 10px; font-weight:740;}
+  .qhelp{font-size:13px; color:var(--sub); margin:0 0 22px; line-height:1.62;}
+  .answers{display:grid; gap:9px;}
+  .ans{display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%; text-align:left; border:1.5px solid var(--line); background:var(--card); color:var(--ink); font:inherit; font-size:16.5px; font-weight:680; letter-spacing:-0.02em; padding:17px 16px; border-radius:16px; cursor:pointer; transition:all .16s ease;}
+  .ans .sub{display:block; font-size:12px; font-weight:550; color:var(--sub); margin-top:2px; letter-spacing:-0.01em;}
+  .ans .mark-arrow{font-size:12px; color:var(--sub); flex:none;}
+  .ans.yes{border-color:rgba(123,196,182,.7); background:var(--mint-soft);}
+  .ans.yes .mark-arrow{color:var(--mint-deep);}
+  .ans.no:hover{border-color:rgba(191,86,56,.4);}
+  .ans:active{transform:scale(.99);}
+  .qback{display:inline-flex; align-items:center; gap:6px; margin-top:16px; border:0; background:transparent; color:var(--sub); font:inherit; font-size:13px; font-weight:600; cursor:pointer; padding:6px 0;}
+
+  /* ── 결과 */
+  .grade{display:inline-flex; align-items:center; gap:7px; font-size:12.5px; font-weight:750; padding:6px 11px; border-radius:999px; letter-spacing:-0.01em; margin-bottom:14px;}
+  .grade.safe{background:var(--mint-soft); color:var(--mint-deep);}
+  .grade.caution{background:#FCF3E3; color:#9A6A16;}
+  .grade.danger{background:var(--risk-soft); color:var(--risk);}
+  .grade.severe{background:var(--risk); color:#fff;}
+  html[data-theme="dark"] .grade.caution{background:rgba(214,160,68,.16); color:#E3B871;}
+  .amount-label{font-size:13px; color:var(--sub); font-weight:650; margin-bottom:4px;}
+  .amount{display:flex; align-items:baseline; gap:3px; font-size:clamp(38px,11.5vw,50px); font-weight:790; letter-spacing:-0.045em; line-height:1.08; font-variant-numeric:tabular-nums;}
+  .amount .unit{font-size:.42em; font-weight:700; color:var(--sub); letter-spacing:-0.01em;}
+  .amount.zero{color:var(--mint-deep);}
+  .amount-sub{font-size:13px; color:var(--sub); margin-top:9px; line-height:1.6;}
+  .tiles{display:grid; grid-template-columns:repeat(3,1fr); gap:7px; margin:18px 0 0;}
+  .tile{background:var(--field); border-radius:14px; padding:11px 10px; text-align:left;}
+  .tile .tk{font-size:11.5px; color:var(--sub); font-weight:650;}
+  .tile .tv{font-size:14px; font-weight:740; margin-top:3px; letter-spacing:-0.02em; font-variant-numeric:tabular-nums;}
+  .tile.ok .tv{color:var(--mint-deep);}
+  .tile.bad .tv{color:var(--risk);}
+  .gline{font-size:13.5px; line-height:1.65; color:var(--ink); opacity:.88; margin:16px 0 0;}
+
+  .risks{margin:20px 0 0; border-top:1px solid var(--line); padding-top:4px;}
+  .risk{padding:15px 0; border-bottom:1px solid var(--line);}
+  .risk:last-child{border-bottom:0; padding-bottom:2px;}
+  .risk-top{display:flex; align-items:baseline; justify-content:space-between; gap:12px;}
+  .risk-title{font-size:14.5px; font-weight:700; letter-spacing:-0.025em; line-height:1.45;}
+  .risk-amt{flex:none; font-size:14.5px; font-weight:760; color:var(--risk); font-variant-numeric:tabular-nums; letter-spacing:-0.02em;}
+  .risk-amt.muted{color:var(--sub); font-weight:600; font-size:12.5px;}
+  .risk-basis{font-size:12px; color:var(--sub); margin:6px 0 0; line-height:1.55;}
+  .risk-note{font-size:12.5px; color:var(--ink); opacity:.74; margin:7px 0 0; line-height:1.65;}
+  .risk-law{font-size:11px; color:var(--sub); opacity:.85; margin:7px 0 0;}
+
+  details.fold{margin-top:14px; border-top:1px solid var(--line); padding-top:12px;}
+  summary{cursor:pointer; list-style:none; font-size:12.5px; color:var(--sub); font-weight:650; display:flex; align-items:center; justify-content:space-between;}
+  summary::-webkit-details-marker{display:none;}
+  summary::after{content:"＋"; font-size:13px; color:var(--sub);}
+  details[open] summary::after{content:"－";}
+  .assume{margin:12px 0 0; padding:0; list-style:none; font-size:12px; color:var(--sub); line-height:1.7;}
+  .assume li{padding-left:10px; position:relative;}
+  .assume li::before{content:"·"; position:absolute; left:2px;}
+  .wage-row{display:flex; align-items:center; gap:8px; margin-top:12px; background:var(--field); border-radius:12px; padding:0 13px;}
+  .wage-row input{flex:1; min-width:0; border:0; background:transparent; color:var(--ink); font:inherit; font-size:16px; font-weight:700; padding:12px 0; outline:none; font-variant-numeric:tabular-nums;}
+  .wage-row .unit{font-size:13px; color:var(--sub); font-weight:600;}
+  .wage-hint{font-size:11.5px; color:var(--sub); margin:7px 0 0;}
+
+  .cta{margin-top:18px; display:grid; gap:8px;}
+  .cta .line{text-align:center; font-size:11.5px; color:var(--sub); line-height:1.55; margin:2px 0 0;}
+
+  .todo{display:grid; gap:11px;}
+  .todo-item{display:flex; gap:11px; align-items:flex-start;}
+  .todo-num{flex:none; width:22px; height:22px; border-radius:8px; background:var(--mint-soft); color:var(--mint-deep); display:grid; place-items:center; font-size:11.5px; font-weight:800; margin-top:2px;}
+  .todo-body{font-size:13.5px; line-height:1.62; letter-spacing:-0.015em;}
+  .todo-body b{display:block; font-weight:700; margin-bottom:2px;}
+  .todo-body span{color:var(--sub); font-size:12.5px;}
+
+  .foot{text-align:center; font-size:11.5px; color:var(--sub); line-height:1.8; padding:10px 4px 0;}
+  .foot a{color:var(--sub); text-decoration:underline; text-underline-offset:2px;}
+  .foot .sep{opacity:.4; padding:0 5px;}
+  .legal{font-size:11px; color:var(--sub); line-height:1.75; opacity:.9;}
+  .toast{position:fixed; left:50%; bottom:26px; transform:translate(-50%,14px); background:var(--ink); color:var(--bg); font-size:13px; font-weight:650; padding:11px 16px; border-radius:999px; opacity:0; pointer-events:none; transition:opacity .22s ease, transform .22s ease; z-index:9;}
+  .toast.on{opacity:1; transform:translate(-50%,0);}
+  .fade{animation:fade .32s ease both;}
+  @keyframes fade{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+  @media (min-width:520px){
+    .wrap{padding:26px 20px 56px;}
+    .card{padding:24px 22px; border-radius:24px;}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none !important; animation:none !important;}}
+</style>
+<script>
+  (function(){
+    try{
+      var s = localStorage.getItem("yr-theme");
+      if (s === "dark" || s === "light"){ document.documentElement.setAttribute("data-theme", s); return; }
+      if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches){
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    }catch(e){}
+  })();
+</script>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand"><span class="mark">복</span>복대리 · 연말 점검</div>
+    <button class="icon-btn" id="themeBtn" type="button" aria-label="테마 바꾸기">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.2"></circle>
+        <path d="M12 2.4v2.2M12 19.4v2.2M2.4 12h2.2M19.4 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"></path>
+      </svg>
+    </button>
+  </header>
+
+  <!-- 1. 시작 -->
+  <section id="intro" class="screen">
+    <span class="chip">무료 · 6문항 · 1분</span>
+    <h1>12월 31일에<br><em>닫히는 세 가지</em>,<br>우리 회사는?</h1>
+    <p class="hero">연차 촉진·법정의무교육·퇴직연금. 6개 질문에 예/아니오로 답하면, 올해 남은 예상 리스크를 숫자로 보여 드립니다. 회원가입·개인정보 입력 없습니다.</p>
+
+    <div class="card">
+      <div class="card-head"><h2>우리 회사 직원 수</h2><span class="hint">계산 기준</span></div>
+      <div class="scale-label" id="hcLabel">결과 화면에서 다시 바꿀 수 있습니다</div>
+      <div class="chips" id="hcChips" role="group" aria-label="직원 수 선택"></div>
+      <button class="btn primary" id="startBtn" type="button">진단 시작 <small>1분</small></button>
+      <p class="note">답변은 저장되지 않습니다. 화면을 닫으면 사라집니다.</p>
+    </div>
+
+    <p class="legal">이 진단은 근로기준법·남녀고용평등법·장애인고용법·근로자퇴직급여 보장법의 공개 기준으로 계산한 추정치이며, 법률 자문이 아닙니다.</p>
+  </section>
+
+  <!-- 2. 문항 -->
+  <section id="quiz" class="screen" hidden>
+    <div class="progress"><span id="bar"></span></div>
+    <div class="qmeta"><span class="theme" id="qTheme">연차</span><span id="qCount">1 / 6</span></div>
+    <h3 id="qTitle">질문</h3>
+    <p class="qhelp" id="qHelp"></p>
+    <div class="answers">
+      <button class="ans yes" id="ansYes" type="button"><span>예, 했습니다<span class="sub" id="yesSub">절차와 기록이 있습니다</span></span><span class="mark-arrow">›</span></button>
+      <button class="ans no" id="ansNo" type="button"><span>아니오<span class="sub" id="noSub">못 했거나 기록이 없습니다</span></span><span class="mark-arrow">›</span></button>
+    </div>
+    <button class="qback" id="backBtn" type="button">‹ 이전</button>
+  </section>
+
+  <!-- 3. 결과 -->
+  <section id="result" class="screen" hidden>
+    <div class="card" id="resultCard">
+      <span class="grade caution" id="gradePill">진단 결과</span>
+      <div class="amount-label">올해 예상 리스크</div>
+      <div class="amount" id="amount">0<span class="unit">원</span></div>
+      <p class="amount-sub" id="amountSub"></p>
+
+      <div class="tiles" id="tiles"></div>
+      <p class="gline" id="gline"></p>
+
+      <div class="risks" id="risks"></div>
+
+      <details class="fold" id="baseFold">
+        <summary>계산 기준 · 직접 바꾸기</summary>
+        <ul class="assume" id="assumeList"></ul>
+        <div class="chips" id="hcChips2" role="group" aria-label="직원 수 변경" style="margin-top:12px"></div>
+        <div class="wage-row">
+          <input id="wageInput" type="text" inputmode="numeric" autocomplete="off" aria-label="월 통상임금">
+          <span class="unit">원</span>
+        </div>
+        <p class="wage-hint" id="wageHint"></p>
+      </details>
+
+      <div class="cta">
+        <a class="btn solid" id="kitBtn" href="https://www.latpeed.com/products/AX28q" target="_blank" rel="noopener">1,000원 스타터 키트 받기 <small>7종</small></a>
+        <a class="btn ghost" id="calcBtn" href="https://nineonehn.github.io/k-pass-beauty/annual-leave-calc/" target="_blank" rel="noopener">연차수당 계산기로 정확히 계산</a>
+        <p class="line">키트에는 연차촉진일 자동계산표·12월 40항 체크리스트·사내공지 6종이 들어 있습니다.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>오늘 할 일</h2><span class="hint">위에서부터</span></div>
+      <div class="todo" id="todo"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>결과 공유</h2><span class="hint">회사 정보는 담기지 않습니다</span></div>
+      <button class="btn ghost" id="shareBtn" type="button">진단 링크 공유</button>
+      <button class="btn ghost" id="againBtn" type="button" style="margin-top:8px">처음부터 다시</button>
+    </div>
+
+    <p class="legal">과태료는 1차 부과·법정 상한 기준이며, 실제 부과액은 사업장 규모와 이행 정도에 따라 달라집니다. 연차수당은 1인 평균 미사용 일수를 가정한 추정치입니다. 확정 판단은 노무사·관할 근로감독관 확인이 원칙입니다.</p>
+  </section>
+
+  <footer class="foot">
+    복대리 · @bok_o_hrga<span class="sep">|</span>2026.11 v1.0<br>
+    <a href="https://nineonehn.github.io/k-pass-beauty/annual-leave-calc/" target="_blank" rel="noopener">연차 계산기</a>
+    <span class="sep">·</span>
+    <a href="https://nineonehn.github.io/k-pass-beauty/toolbox/" target="_blank" rel="noopener">복어 툴박스</a>
+  </footer>
+</div>
+
+<div class="toast" id="toast">복사했습니다</div>
+
+<script src="core.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var HC_CHOICES = [3, 5, 10, 20, 30, 50];
+  var state = {
+    step: 0,
+    answers: {},
+    headcount: 10,
+    monthlyWage: YR.DEFAULT_MONTHLY_WAGE
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var screens = ["intro", "quiz", "result"];
+
+  function show(name) {
+    screens.forEach(function (s) {
+      var el = $(s);
+      if (el) el.hidden = (s !== name);
+    });
+    window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+  }
+
+  function toast(msg) {
+    var t = $("toast");
+    t.textContent = msg;
+    t.classList.add("on");
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function () { t.classList.remove("on"); }, 1700);
+  }
+
+  /* ── 직원 수 칩 ─────────────────────────────── */
+  function renderChips(box, current, onPick) {
+    if (!box) return;
+    box.innerHTML = "";
+    HC_CHOICES.forEach(function (n) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.textContent = n + "명";
+      b.setAttribute("aria-pressed", n === current ? "true" : "false");
+      b.addEventListener("click", function () { onPick(n); });
+      box.appendChild(b);
+    });
+  }
+
+  function pickHeadcount(n) {
+    state.headcount = n;
+    renderChips($("hcChips"), n, pickHeadcount);
+    renderChips($("hcChips2"), n, function (v) { pickHeadcount(v); renderResult(); });
+    $("hcLabel").textContent = n + "명 기준으로 계산합니다";
+    if (!$("result").hidden) renderResult();
+  }
+
+  /* ── 문항 ───────────────────────────────────── */
+  function renderQuestion() {
+    var q = YR.QUESTIONS[state.step];
+    $("bar").style.width = ((state.step + 1) / YR.QUESTIONS.length * 100) + "%";
+    $("qTheme").textContent = q.themeLabel;
+    $("qCount").textContent = (state.step + 1) + " / " + YR.QUESTIONS.length;
+    $("qTitle").textContent = q.title;
+    $("qHelp").textContent = q.help;
+    $("noSub").textContent = q.noLabel;
+    $("quiz").classList.remove("fade");
+    void $("quiz").offsetWidth;
+    $("quiz").classList.add("fade");
+  }
+
+  function answer(yes) {
+    var q = YR.QUESTIONS[state.step];
+    state.answers[q.id] = yes;
+    if (state.step < YR.QUESTIONS.length - 1) {
+      state.step++;
+      renderQuestion();
+    } else {
+      renderResult();
+      show("result");
+    }
+  }
+
+  /* ── 결과 ───────────────────────────────────── */
+  function renderResult() {
+    var r = YR.compute(state.answers, {
+      headcount: state.headcount,
+      monthlyWage: state.monthlyWage
+    });
+
+    var pill = $("gradePill");
+    pill.className = "grade " + r.grade;
+    pill.textContent = r.gradeLabel + " · 미비 " + r.score + "개";
+
+    var amt = $("amount");
+    amt.className = "amount" + (r.total === 0 ? " zero" : "");
+    amt.innerHTML = "";
+    var big = r.totalText.replace(/원$/, "");
+    amt.appendChild(document.createTextNode(big));
+    var unit = document.createElement("span");
+    unit.className = "unit";
+    unit.textContent = "원";
+    amt.appendChild(unit);
+
+    $("amountSub").textContent = r.total === 0
+      ? "세 갈래 모두 기록이 남아 있습니다."
+      : "연차수당 약 " + r.cashText + " · 과태료 최대 " + r.penaltyText;
+
+    // 3개 테마 타일
+    var tiles = $("tiles");
+    tiles.innerHTML = "";
+    r.themes.forEach(function (t) {
+      var d = document.createElement("div");
+      d.className = "tile " + (t.ok ? "ok" : "bad");
+      var k = document.createElement("div");
+      k.className = "tk";
+      k.textContent = t.short;
+      var v = document.createElement("div");
+      v.className = "tv";
+      v.textContent = t.ok ? "완료" : (t.key === "annual" ? "약 " + t.amountText : "최대 " + t.amountText);
+      d.appendChild(k);
+      d.appendChild(v);
+      tiles.appendChild(d);
+    });
+
+    $("gline").textContent = r.gradeLine;
+
+    // 항목별
+    var risks = $("risks");
+    risks.innerHTML = "";
+    if (r.items.length === 0) {
+      var ok = document.createElement("div");
+      ok.className = "risk";
+      ok.innerHTML = '<div class="risk-top"><span class="risk-title">올해 챙길 것은 다 챙겼습니다</span><span class="risk-amt muted">0원</span></div>' +
+        '<p class="risk-note">내년 1월에 1차 촉구 캘린더를 미리 걸어 두면 이 화면을 다시 볼 일이 없습니다.</p>';
+      risks.appendChild(ok);
+    }
+    r.items.forEach(function (it) {
+      var row = document.createElement("div");
+      row.className = "risk";
+      var top = document.createElement("div");
+      top.className = "risk-top";
+      var title = document.createElement("span");
+      title.className = "risk-title";
+      title.textContent = it.title;
+      var amtEl = document.createElement("span");
+      amtEl.className = "risk-amt" + (it.tag === "합산" ? " muted" : "");
+      amtEl.textContent = it.tag === "합산" ? "위에 합산" : it.tag + " " + it.amountText;
+      top.appendChild(title);
+      top.appendChild(amtEl);
+      row.appendChild(top);
+      ["basis", "note", "law"].forEach(function (k, idx) {
+        var p = document.createElement("p");
+        p.className = "risk-" + k;
+        p.textContent = it[k];
+        row.appendChild(p);
+      });
+      risks.appendChild(row);
+    });
+
+    // 가정
+    var assume = $("assumeList");
+    assume.innerHTML = "";
+    r.assumptions.forEach(function (a) {
+      var li = document.createElement("li");
+      li.textContent = a;
+      assume.appendChild(li);
+    });
+
+    var wage = $("wageInput");
+    if (document.activeElement !== wage) {
+      wage.value = YR.comma(r.monthlyWage);
+    }
+    $("wageHint").textContent = "1일 통상임금 " + YR.wonText(r.dailyWage) + " (월 209시간 기준)";
+
+    // 오늘 할 일
+    var todo = $("todo");
+    todo.innerHTML = "";
+    var list = r.actions.length ? r.actions : [{
+      title: "내년 촉진 캘린더 등록",
+      action: "7월 1일과 10월 말, 1월 초에 촉진 알림을 걸어 두세요."
+    }];
+    list.forEach(function (a, i) {
+      var item = document.createElement("div");
+      item.className = "todo-item";
+      var num = document.createElement("div");
+      num.className = "todo-num";
+      num.textContent = String(i + 1);
+      var body = document.createElement("div");
+      body.className = "todo-body";
+      var b = document.createElement("b");
+      b.textContent = a.title;
+      var s = document.createElement("span");
+      s.textContent = a.action;
+      body.appendChild(b);
+      body.appendChild(s);
+      item.appendChild(num);
+      item.appendChild(body);
+      todo.appendChild(item);
+    });
+
+    renderChips($("hcChips2"), state.headcount, function (v) { pickHeadcount(v); });
+  }
+
+  /* ── 이벤트 ─────────────────────────────────── */
+  $("startBtn").addEventListener("click", function () {
+    state.step = 0;
+    state.answers = {};
+    renderQuestion();
+    show("quiz");
+  });
+
+  $("ansYes").addEventListener("click", function () { answer(true); });
+  $("ansNo").addEventListener("click", function () { answer(false); });
+
+  $("backBtn").addEventListener("click", function () {
+    if (state.step === 0) { show("intro"); return; }
+    state.step--;
+    renderQuestion();
+  });
+
+  $("againBtn").addEventListener("click", function () {
+    state.step = 0;
+    state.answers = {};
+    renderQuestion();
+    show("quiz");
+  });
+
+  $("wageInput").addEventListener("input", function (e) {
+    var digits = e.target.value.replace(/[^0-9]/g, "").slice(0, 9);
+    var num = Number(digits || 0);
+    e.target.value = digits ? YR.comma(num) : "";
+    if (num >= 1000000) {
+      state.monthlyWage = num;
+      renderResult();
+    }
+  });
+
+  $("shareBtn").addEventListener("click", function () {
+    var url = location.href.split("#")[0];
+    if (navigator.share) {
+      navigator.share({ title: "연말 법정리스크 1분 진단", text: "우리 회사 연말 리스크, 6문항으로 확인", url: url }).catch(function () {});
+      return;
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(function () { toast("링크를 복사했습니다"); }, function () { toast(url); });
+    } else {
+      toast(url);
+    }
+  });
+
+  $("themeBtn").addEventListener("click", function () {
+    var cur = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", cur);
+    try { localStorage.setItem("yr-theme", cur); } catch (e) {}
+  });
+
+  renderChips($("hcChips"), state.headcount, pickHeadcount);
+  $("hcLabel").textContent = state.headcount + "명 기준으로 계산합니다";
+})();
+</script>
+</body>
+</html>
