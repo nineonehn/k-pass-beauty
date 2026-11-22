@@ -1823,7 +1823,7 @@ function btEvent(name, params){
     $('badgeCardLimit').textContent = '카드 한도 ' + commas(r.card.basic) + extraText;
     $('badgeRentRate').textContent = r.rentCredit > 0
       ? '월세 ' + Math.round(r.rentRate * 100) + '% 공제'
-      : (g > 80000000 ? '월세 총급여 초과' : '월세 공제 대상 아님');
+      : (g > 80000000 ? '월세 총급여 초과' : (r.rentCap > 0 ? '무주택 요건 확인' : '월세 입력 없음'));
 
     $('badgeThreshold').textContent = '최저사용금액 ' + commas(r.card.threshold);
     $('badgeCardBase').textContent = '공제 대상 사용액 ' + commas(r.card.usedBase);
