@@ -1797,17 +1797,17 @@ function btEvent(name, params){
     var g = r.g;
 
     var refundEl = $('refund');
-    var isRefund = r.diff >= 0;
+    var isRefund = r.diff <= 0;
     $('refundLabel').textContent = isRefund ? '예상 환급액' : '예상 추가납부';
     refundEl.textContent = commas(Math.abs(r.diff));
     var amountBox = refundEl.parentNode;
-    amountBox.classList.toggle('is-neg', !isRefund && r.diff !== 0);
+    amountBox.classList.toggle('is-neg', r.diff > 0);
     amountBox.classList.toggle('is-zero', r.diff === 0);
 
-    $('refundHint').textContent = r.diff > 0
-      ? '결정세액 ' + won(r.totalDecision) + '보다 기납부세액 ' + won(r.totalPrepaid) + '이 많아 이만큼 돌려받는 계산입니다.'
-      : (r.diff < 0
-        ? '결정세액 ' + won(r.totalDecision) + '이 기납부세액 ' + won(r.totalPrepaid) + '보다 많아 이만큼 더 내는 계산입니다. 2월 급여에서 빠집니다.'
+    $('refundHint').textContent = r.diff < 0
+      ? '결정세액 ' + won(r.totalDecision) + '보다 기납부세액 ' + won(r.totalPrepaid) + '이 많아 ' + won(-r.diff) + '을 돌려받는 계산입니다.'
+      : (r.diff > 0
+        ? '결정세액 ' + won(r.totalDecision) + '이 기납부세액 ' + won(r.totalPrepaid) + '보다 많아 ' + won(r.diff) + '을 더 내는 계산입니다. 2월 급여에서 빠집니다.'
         : '결정세액과 기납부세액이 같아 환급도 추가납부도 없는 계산입니다.');
 
     $('dDecision').textContent = won(r.totalDecision);
@@ -1902,7 +1902,7 @@ function btEvent(name, params){
     add('= 결정세액 (국세)', won(r.p.decision), 'total');
     add('+ 지방소득세 (10%)', won(r.localDecision), 'sub');
     add('− 기납부세액 (월 ' + commas(r.monthWithheld) + ' × 12 + 지방)', '−' + won(r.totalPrepaid), 'sub');
-    add((r.diff >= 0 ? '= 예상 환급액' : '= 예상 추가납부'), won(Math.abs(r.diff)), 'total');
+    add((r.diff <= 0 ? '= 예상 환급액' : '= 예상 추가납부'), won(Math.abs(r.diff)), 'total');
 
     var list = $('stepList');
     list.innerHTML = '';
