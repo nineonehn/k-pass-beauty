@@ -436,5 +436,46 @@
   </div>
 </div>
 
+<script>
+/* Referral tracking (2026-11-23)
+   ?ref=CODE in the URL is kept for the session and carried into every Tally booking link.
+   No external requests, no visual change. */
+(function () {
+  var KEY = 'kpb_ref';
+  var ref = '';
+  try {
+    var m = location.search.match(/[?&]ref=([^&#]*)/);
+    if (m) ref = decodeURIComponent(m[1].replace(/\+/g, ' ')).trim().slice(0, 60);
+    if (ref) { try { sessionStorage.setItem(KEY, ref); } catch (e) {} }
+    else { try { ref = String(sessionStorage.getItem(KEY) || '').trim(); } catch (e) {} }
+  } catch (e) { ref = ''; }
+
+  function withRef(href) {
+    if (!href) return href;
+    var hash = '';
+    var h = href.indexOf('#');
+    if (h > -1) { hash = href.slice(h); href = href.slice(0, h); }
+    if (!/[?&]ref=/.test(href)) {
+      href += (href.indexOf('?') > -1 ? '&' : '?') + 'ref=' + encodeURIComponent(ref);
+    }
+    return href + hash;
+  }
+
+  function apply() {
+    var links = document.querySelectorAll('a[href*="tally.so/r/vXr0r0"]');
+    for (var i = 0; i < links.length; i++) {
+      links[i].setAttribute('href', withRef(links[i].getAttribute('href')));
+    }
+  }
+
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', apply); }
+  else { apply(); }
+
+  if (ref && typeof gtag === 'function') {
+    gtag('event', 'referral_visit', { ref_code: ref });
+  }
+})();
+</script>
+
 </body>
 </html>
