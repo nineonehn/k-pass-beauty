@@ -1889,13 +1889,15 @@ function btEvent(name, params){
     if (r.p.useSpecial) add('− 건강·장기요양·고용보험료', '−' + won(r.ins.health + r.ins.ltc + r.ins.emp), 'sub');
     add('− 신용카드 등 소득공제', '−' + won(r.card.total), 'sub');
     add('= 과세표준', won(r.p.baseTax));
-    add('× 기본세율 − 누진공제', won(r.p.tax), 'sub');
+    add('산출세액 = 과세표준 × 세율 − 누진공제', won(r.p.tax), 'sub');
     add('− 근로소득세액공제', '−' + won(r.p.laborCredit), 'sub');
-    add('− 자녀세액공제', '−' + won(childCredit(r.kids9)), 'sub');
-    add('− 연금계좌 세액공제', '−' + won(r.pensionCredit), 'sub');
+    if (childCredit(r.kids9) > 0) add('− 자녀세액공제', '−' + won(childCredit(r.kids9)), 'sub');
+    if (r.pensionCredit > 0) add('− 연금계좌 세액공제', '−' + won(r.pensionCredit), 'sub');
     if (r.p.useSpecial) {
-      add('− 보장성보험·의료비·교육비·기부금', '−' + won(r.insCredit + r.medCredit + r.eduCredit + r.donCredit), 'sub');
-      add('− 월세 세액공제', '−' + won(r.rentCredit), 'sub');
+      if (r.insCredit + r.medCredit + r.eduCredit + r.donCredit > 0){
+        add('− 보장성보험·의료비·교육비·기부금', '−' + won(r.insCredit + r.medCredit + r.eduCredit + r.donCredit), 'sub');
+      }
+      if (r.rentCredit > 0) add('− 월세 세액공제', '−' + won(r.rentCredit), 'sub');
     } else {
       add('− 표준세액공제', '−130,000원', 'sub');
     }
