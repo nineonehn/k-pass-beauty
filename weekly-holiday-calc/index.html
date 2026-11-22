@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f2f4f6" media="(prefers-color-scheme: light)">
+<!-- Google Analytics 4 · 복어 툴박스 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75QNHCLDK6"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75QNHCLDK6');
+function btEvent(name, params){
+  try { gtag('event', name, params || {}); } catch (e) {}
+}
+</script>
+<meta name="theme-color" content="#101418" media="(prefers-color-scheme: dark)">
+<title>주휴수당·실수령액 계산기 | 시급제 주휴수당과 4대보험 공제 후 월급</title>
+<meta name="description" content="시급과 주 소정근로시간만 넣으면 주휴수당·주급·월 환산액이 바로 나옵니다. 월 세전 급여를 넣으면 2026년 4대보험 요율(국민연금 4.75%·건강보험 3.595%·장기요양 13.14%·고용보험 0.9%)과 근로소득 간이세액표로 실수령액까지 계산합니다. 무료, 회원가입 없음.">
+<link rel="canonical" href="https://nineonehn.github.io/k-pass-beauty/weekly-holiday-calc/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nineonehn.github.io/k-pass-beauty/weekly-holiday-calc/">
+<meta property="og:title" content="주휴수당·실수령액 계산기 | 주휴수당과 세후 월급을 한 화면에서">
+<meta property="og:description" content="주 15시간 이상이면 주휴수당이 붙습니다. 시급제 주휴수당과 4대보험·소득세 공제 후 실수령액을 한 화면에서. 회원가입 없음, 무료.">
+<meta property="og:image" content="https://nineonehn.github.io/k-pass-beauty/weekly-holiday-calc/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:alt" content="주휴수당·실수령액 계산기 — 주휴수당과 4대보험 공제 후 월급을 한 화면에서 계산">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index,follow">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  :root{
+    --bg:#f2f4f6;
+    --card:#ffffff;
+    --text:#191f28;
+    --sub:#6b7684;
+    --muted:#8b95a1;
+    --line:#e8ebee;
+    --chip:#f2f4f6;
+    --blue:#3182f6;
+    --blue-press:#1b64da;
+    --blue-weak:#e8f3ff;
+    --green:#00a661;
+    --green-weak:#e5f8ef;
+    --warn:#f04452;
+    --warn-weak:#fdecee;
+    --radius:22px;
+    --shadow:0 1px 2px rgba(25,31,40,.04), 0 10px 28px rgba(25,31,40,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#101418;
+      --card:#171c22;
+      --text:#f2f4f6;
+      --sub:#9aa4b2;
+      --muted:#7f8a98;
+      --line:#242b34;
+      --chip:#1e242c;
+      --blue:#4c8dff;
+      --blue-press:#6ea2ff;
+      --blue-weak:#17263c;
+      --green:#3ecf8e;
+      --green-weak:#14291f;
+      --warn:#ff6b78;
+      --warn-weak:#2a1a1d;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 28px rgba(0,0,0,.28);
+    }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    letter-spacing:-0.02em;
+  }
+  .wrap{
+    max-width:460px;
+    margin:0 auto;
+    padding:28px 18px calc(40px + env(safe-area-inset-bottom));
+  }
+  .hero{padding:6px 4px 18px}
+  .brand{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:12.5px;font-weight:600;color:var(--sub);
+    background:var(--card);border-radius:999px;padding:6px 11px;
+    box-shadow:0 1px 2px rgba(25,31,40,.05);
+    text-decoration:none;
+  }
+  .brand .dot{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block}
+  h1{
+    margin:16px 0 6px;
+    font-size:29px;line-height:1.25;font-weight:800;letter-spacing:-0.035em;
+  }
+  .lede{margin:0;color:var(--sub);font-size:15px;font-weight:500}
+
+  /* 탭 */
+  .tabs{
+    display:grid;grid-template-columns:1fr 1fr;gap:4px;
+    background:var(--chip);border-radius:16px;padding:4px;margin:18px 0 14px;
+  }
+  .tab{
+    border:0;border-radius:13px;background:transparent;color:var(--sub);
+    font:inherit;font-size:14.5px;font-weight:700;padding:11px 6px;cursor:pointer;
+    transition:background .15s ease,color .15s ease,box-shadow .15s ease;
+  }
+  .tab[aria-selected="true"]{
+    background:var(--card);color:var(--text);
+    box-shadow:0 1px 3px rgba(25,31,40,.10);
+  }
+  .panel[hidden]{display:none}
+
+  .card{
+    background:var(--card);
+    border-radius:var(--radius);
+    padding:22px;
+    margin-bottom:14px;
+    box-shadow:var(--shadow);
+  }
+  h2{margin:0 0 14px;font-size:16px;font-weight:700;letter-spacing:-0.02em}
+  h2 .asof{font-size:11.5px;font-weight:700;color:var(--blue);background:var(--blue-weak);border-radius:999px;padding:3px 8px;margin-left:6px;vertical-align:1px}
+  .label{display:block;font-size:14px;font-weight:600;color:var(--sub);margin-bottom:8px}
+  .label em{font-style:normal;font-size:11.5px;font-weight:600;color:var(--muted);margin-left:4px}
+  .field{display:block;margin-bottom:22px}
+  .field:last-child{margin-bottom:0}
+  .input-row{display:flex;align-items:baseline;gap:6px;border-bottom:1px solid var(--line);padding-bottom:6px}
+  .input-row:focus-within{border-bottom-color:var(--blue)}
+  .input-row input.money{
+    flex:1;min-width:0;border:0;background:transparent;color:var(--text);
+    font:inherit;font-size:32px;font-weight:800;letter-spacing:-0.03em;
+    padding:2px 0;text-align:right;outline:none;
+  }
+  .input-row input.money::placeholder{color:var(--muted);opacity:.55}
+  .unit{font-size:17px;font-weight:600;color:var(--muted)}
+  .hint{display:block;margin:9px 0 0;font-size:12.5px;line-height:1.55;color:var(--muted);font-weight:500}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .mini .label{margin-bottom:6px;font-size:13px}
+  .mini input[type="number"]{
+    width:100%;border:0;border-radius:12px;background:var(--chip);color:var(--text);
+    font:inherit;font-size:15px;font-weight:700;padding:11px 12px;outline:none;
+    -moz-appearance:textfield;appearance:textfield;
+  }
+  .mini input[type="number"]::-webkit-outer-spin-button,
+  .mini input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .mini input:focus{box-shadow:inset 0 0 0 1.5px var(--blue)}
+
+  .quick{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .quick button{
+    border:0;border-radius:999px;background:var(--chip);color:var(--sub);
+    font:inherit;font-size:12.5px;font-weight:700;padding:7px 12px;cursor:pointer;
+  }
+  .quick button[aria-pressed="true"]{background:var(--blue-weak);color:var(--blue)}
+
+  .badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+  .badge{font-size:11.5px;font-weight:700;color:var(--sub);background:var(--chip);border-radius:999px;padding:5px 10px}
+  .badge.blue{color:var(--blue);background:var(--blue-weak)}
+  .badge.green{color:var(--green);background:var(--green-weak)}
+  .badge.warn{color:var(--warn);background:var(--warn-weak)}
+  .badge[hidden]{display:none}
+
+  .result{position:relative;overflow:hidden}
+  .result-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .result-head .t{font-size:14px;font-weight:600;color:var(--sub)}
+  .tag{font-size:11px;font-weight:700;color:var(--blue);background:var(--blue-weak);border-radius:999px;padding:4px 9px;white-space:nowrap}
+  .amount{
+    display:flex;align-items:baseline;gap:3px;
+    margin:10px 0 4px;font-size:40px;font-weight:800;letter-spacing:-0.045em;
+    word-break:break-all;
+  }
+  .amount .won{font-size:20px;font-weight:700;color:var(--sub);letter-spacing:-0.02em}
+  .amount.is-zero{color:var(--muted)}
+  #wkHint,#netHint{margin:6px 0 0;font-size:13px;color:var(--sub);font-weight:500;min-height:20px}
+  .stats{
+    display:grid;grid-template-columns:1fr 1fr;gap:1px;
+    margin:18px 0 0;background:var(--line);border-radius:14px;overflow:hidden;
+  }
+  .stats > div{background:var(--card);padding:13px 14px}
+  .stats dt{font-size:12px;font-weight:600;color:var(--muted);margin:0 0 3px}
+  .stats dd{margin:0;font-size:15.5px;font-weight:700;letter-spacing:-0.02em}
+  .stats dd.small{font-size:14px}
+  .stats + .stats{margin-top:10px}
+  .warn{
+    margin-top:14px;padding:12px 14px;border-radius:12px;
+    background:var(--warn-weak);color:var(--warn);font-size:12.5px;font-weight:600;line-height:1.5;
+  }
+  .warn[hidden]{display:none}
+  .ok{
+    margin-top:14px;padding:12px 14px;border-radius:12px;
+    background:var(--green-weak);color:var(--green);font-size:12.5px;font-weight:600;line-height:1.5;
+  }
+  .ok[hidden]{display:none}
+
+  .detail{padding:0;overflow:hidden}
+  .detail summary{
+    list-style:none;cursor:pointer;padding:18px 22px;
+    font-size:14px;font-weight:600;color:var(--sub);
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .detail summary::-webkit-details-marker{display:none}
+  .detail summary::after{content:"＋";font-size:16px;color:var(--muted);font-weight:500}
+  .detail[open] summary::after{content:"−"}
+  .detail .body{padding:0 22px 20px}
+  .formula{margin:0;padding:0;list-style:none;font-size:13px;color:var(--sub);font-weight:500}
+  .formula li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+  .formula li:last-child{border-bottom:0}
+  .formula li b{font-weight:700;color:var(--text);white-space:nowrap}
+  .formula li span{text-align:right}
+  .formula li.total b{color:var(--blue)}
+
+  .seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:2px}
+  .seg.three{grid-template-columns:1fr 1fr 1fr}
+  .seg.four{grid-template-columns:1fr 1fr 1fr 1fr}
+  .seg button{
+    border:0;border-radius:12px;background:var(--chip);color:var(--sub);
+    font:inherit;font-size:13px;font-weight:700;padding:11px 4px;cursor:pointer;
+    transition:background .15s ease,color .15s ease;
+  }
+  .seg button[aria-pressed="true"]{background:var(--blue);color:#fff}
+  .check{
+    display:flex;align-items:flex-start;gap:9px;font-size:13.5px;font-weight:600;
+    color:var(--sub);padding:4px 0;cursor:pointer;
+  }
+  .check input{width:18px;height:18px;margin:1px 0 0;accent-color:var(--blue);flex:0 0 18px}
+
+  table.rate{width:100%;border-collapse:collapse;font-size:12.5px;font-weight:600;color:var(--sub);margin-top:6px}
+  table.rate caption{text-align:left;font-size:12px;color:var(--muted);font-weight:600;padding-bottom:6px}
+  table.rate th,table.rate td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:right}
+  table.rate th:first-child,table.rate td:first-child{text-align:left}
+  table.rate thead th{color:var(--muted);font-size:11.5px;font-weight:700}
+  table.rate tr:last-child td{border-bottom:0}
+  .cond{margin:0;padding:0 0 0 18px;font-size:13px;color:var(--sub);font-weight:500;line-height:1.7}
+  .cond li{margin-bottom:6px}
+  .cond li b{color:var(--text);font-weight:700}
+
+  .cta{text-align:center}
+  .cta .kicker{font-size:12px;font-weight:700;color:var(--blue);letter-spacing:.02em;margin-bottom:8px}
+  .cta p{margin:0 0 16px;font-size:14px;color:var(--sub);font-weight:500}
+  .btn{
+    display:block;width:100%;border:0;border-radius:15px;
+    background:var(--chip);color:var(--text);
+    font:inherit;font-size:15px;font-weight:700;padding:15px 16px;
+    text-decoration:none;cursor:pointer;margin-bottom:8px;
+  }
+  .btn.primary{background:var(--blue);color:#fff}
+  .btn.primary:active{background:var(--blue-press)}
+  .cta-links{font-size:12.5px;color:var(--muted);font-weight:600;margin-top:6px}
+  .cta-links a{color:var(--sub);text-decoration:none;border-bottom:1px solid var(--line)}
+  footer{padding:6px 6px 0;font-size:11.5px;line-height:1.65;color:var(--muted);font-weight:500}
+  .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <a class="brand" href="../toolbox/"><span class="dot"></span>복대리 HR 계산기</a>
+    <h1>주휴수당,<br>얼마인지 바로.</h1>
+    <p class="lede">시급과 주 근무시간만 넣으면 주휴수당·주급·월 환산액이 나옵니다. 월급을 넣으면 4대보험과 세금 뺀 실수령액까지. 화면에 채워진 숫자는 예시이니 본인 것으로 바꿔 보세요.</p>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="계산기 선택">
+    <button class="tab" id="tab-weekly" role="tab" aria-selected="true" aria-controls="panel-weekly">주휴수당</button>
+    <button class="tab" id="tab-net" role="tab" aria-selected="false" aria-controls="panel-net">실수령액</button>
+  </div>
+
+  <!-- ============ 탭 1 : 주휴수당 ============ -->
+  <section class="panel" id="panel-weekly" role="tabpanel" aria-labelledby="tab-weekly">
+
+    <section class="card" aria-label="근무 조건">
+      <h2>근무 조건</h2>
+      <label class="field">
+        <span class="label">시급</span>
+        <span class="input-row">
+          <input class="money" id="wage" type="text" inputmode="numeric" autocomplete="off" aria-label="시급">
+          <span class="unit">원</span>
+        </span>
+        <span class="hint">2026년 최저임금은 시급 10,320원입니다(월 209시간 기준 2,156,880원). 2027년 1월 1일부터는 10,700원으로 오릅니다.</span>
+      </label>
+
+      <div class="grid2">
+        <label class="field mini">
+          <span class="label">1주 소정근로시간</span>
+          <input type="number" id="weekHours" min="0" max="80" step="0.5" inputmode="decimal">
+        </label>
+        <label class="field mini">
+          <span class="label">주 근무일수</span>
+          <input type="number" id="workDays" min="1" max="7" step="1" inputmode="numeric">
+        </label>
+      </div>
+      <div class="quick" id="hoursQuick" role="group" aria-label="주 소정근로시간 빠른 선택">
+        <button type="button" data-h="15">15시간</button>
+        <button type="button" data-h="20">20시간</button>
+        <button type="button" data-h="25">25시간</button>
+        <button type="button" data-h="30">30시간</button>
+        <button type="button" data-h="40">40시간</button>
+      </div>
+      <span class="hint">소정근로시간은 실제로 일한 시간이 아니라 근로계약서에 정한 시간입니다. 주마다 다르면 4주 평균으로 판단합니다.</span>
+
+      <label class="check" style="margin-top:18px">
+        <input type="checkbox" id="attended" checked>
+        그 주 소정근로일을 모두 개근했어요
+      </label>
+    </section>
+
+    <section class="card result" aria-label="주휴수당 결과">
+      <div class="result-head">
+        <span class="t">예상 주휴수당 (1주)</span>
+        <span class="tag">2026년 최저임금 기준</span>
+      </div>
+      <div class="amount" aria-live="polite"><span id="wkPay">0</span><span class="won">원</span></div>
+      <p id="wkHint"></p>
+      <dl class="stats">
+        <div><dt>주휴시간</dt><dd id="wkHours">0시간</dd></div>
+        <div><dt>1주 주급 (주휴 포함)</dt><dd id="wkWeek">0원</dd></div>
+        <div><dt>월 주휴수당 (4.345주)</dt><dd id="wkMonth">0원</dd></div>
+        <div><dt>월 급여 환산</dt><dd id="wkMonthPay">0원</dd></div>
+      </dl>
+      <div class="badges">
+        <span class="badge" id="wkDayBadge">하루 평균 -</span>
+        <span class="badge" id="wkMinBadge">최저임금 -</span>
+      </div>
+      <div class="warn" id="wkWarn" hidden></div>
+      <div class="ok" id="wkOk" hidden></div>
+    </section>
+
+    <details class="card detail">
+      <summary>계산식을 그대로 보기</summary>
+      <div class="body">
+        <ol class="formula" id="wkFormula"></ol>
+        <p class="hint">주휴시간 = 1주 소정근로시간 ÷ 40 × 8 (최대 8시간). 주 40시간을 넘는 시간은 주휴수당에는 반영하지 않습니다.</p>
+      </div>
+    </details>
+
+    <details class="card detail">
+      <summary>주휴수당 받는 조건과 예외</summary>
+      <div class="body">
+        <ul class="cond">
+          <li><b>1주 소정근로시간 15시간 이상</b>이어야 합니다. 4주 평균으로 판단하고, 15시간 미만이면 주휴수당·연차·퇴직금이 모두 적용되지 않는 초단시간 근로자입니다(근로기준법 제18조 제3항).</li>
+          <li><b>그 주 소정근로일을 개근</b>해야 합니다(시행령 제30조 제1항). 지각·조퇴·연차는 결근으로 보지 않지만, 무단결근이 있으면 그 주는 0원이고 다음 주에 개근하면 다시 발생합니다.</li>
+          <li><b>1주간 근로관계가 이어져야</b> 합니다. 퇴사하는 마지막 주는 주휴수당이 나오지 않는 경우가 많습니다.</li>
+          <li><b>5인 미만 사업장도 적용</b>됩니다. 정규직·계약직·아르바이트를 가리지 않습니다.</li>
+          <li><b>주 5일 미만 근무</b>는 하루치가 아니라 근무시간에 비례합니다. 주 3일 8시간(24시간)이면 주휴시간 4.8시간입니다.</li>
+          <li><b>월급제</b>는 월 209시간에 주휴시간이 이미 들어 있어 급여명세서에 따로 찍히지 않는 경우가 많습니다.</li>
+          <li><b>시급에 주휴수당 포함</b>이라고 적은 계약은 포함 시급을 1.2로 나눈 값이 최저임금 이상이어야 합니다. 2026년이면 12,384원 이상입니다.</li>
+        </ul>
+        <p class="hint">받지 못한 주휴수당은 임금체불입니다. 근로계약서·출퇴근 기록·급여명세서를 모아 두고, 다툼이 있으면 고용노동부 상담(1350)이나 노무사 확인을 받으세요.</p>
+      </div>
+    </details>
+
+  </section>
+
+  <!-- ============ 탭 2 : 실수령액 ============ -->
+  <section class="panel" id="panel-net" role="tabpanel" aria-labelledby="tab-net" hidden>
+
+    <section class="card" aria-label="급여 조건">
+      <h2>급여 조건</h2>
+      <label class="field">
+        <span class="label">월 세전 급여</span>
+        <span class="input-row">
+          <input class="money" id="gross" type="text" inputmode="numeric" autocomplete="off" aria-label="월 세전 급여">
+          <span class="unit">원</span>
+        </span>
+        <span class="hint">비과세 식대까지 포함한 계약 월급입니다. 연봉 계약이면 12로 나눈 값을 넣으세요. 13분할(퇴직금 포함)이면 13으로 나눕니다.</span>
+      </label>
+
+      <label class="field">
+        <span class="label">비과세 식대 <em>월 20만 원까지</em></span>
+        <span class="input-row">
+          <input class="money" id="meal" type="text" inputmode="numeric" autocomplete="off" aria-label="비과세 식대">
+          <span class="unit">원</span>
+        </span>
+        <span class="hint">급여에 식대가 들어 있고 회사가 식사를 따로 제공하지 않을 때만 비과세입니다. 20만 원을 넘는 금액은 과세로 계산합니다.</span>
+      </label>
+
+      <div class="field">
+        <span class="label">공제대상가족 수 <em>본인 포함</em></span>
+        <label class="mini">
+          <input type="number" id="family" min="1" max="11" step="1" inputmode="numeric" aria-label="공제대상가족 수">
+        </label>
+        <div class="quick" id="familyQuick" role="group" aria-label="가족 수 빠른 선택">
+          <button type="button" data-f="1">1명</button>
+          <button type="button" data-f="2">2명</button>
+          <button type="button" data-f="3">3명</button>
+          <button type="button" data-f="4">4명</button>
+        </div>
+        <span class="hint">본인과 배우자도 각각 1명으로 셉니다. 혼자면 1명, 배우자가 있으면 2명에 부양가족을 더하세요.</span>
+      </div>
+
+      <div class="field">
+        <span class="label">8~20세 자녀 <em>있으면 세액에서 뺌</em></span>
+        <div class="seg four" role="group" aria-label="8세 이상 20세 이하 자녀 수">
+          <button type="button" data-k="0" aria-pressed="true">없음</button>
+          <button type="button" data-k="1" aria-pressed="false">1명</button>
+          <button type="button" data-k="2" aria-pressed="false">2명</button>
+          <button type="button" data-k="3" aria-pressed="false">3명 이상</button>
+        </div>
+        <span class="hint">2026년 3월 1일 이후 원천징수분부터 자녀 1명 20,830원, 2명 45,830원을 간이세액표 금액에서 뺍니다.</span>
+      </div>
+
+      <p class="hint">주 15시간(월 60시간) 미만 초단시간 근무면 국민연금·건강보험 가입 대상이 아니어서 공제가 없을 수 있습니다.</p>
+    </section>
+
+    <section class="card result" aria-label="실수령액 결과">
+      <div class="result-head">
+        <span class="t">예상 월 실수령액</span>
+        <span class="tag">2026년 요율</span>
+      </div>
+      <div class="amount" aria-live="polite"><span id="netPay">0</span><span class="won">원</span></div>
+      <p id="netHint"></p>
+      <dl class="stats">
+        <div><dt>국민연금</dt><dd id="iPension">0원</dd></div>
+        <div><dt>건강보험</dt><dd id="iHealth">0원</dd></div>
+        <div><dt>장기요양</dt><dd id="iLtc">0원</dd></div>
+        <div><dt>고용보험</dt><dd id="iEmploy">0원</dd></div>
+      </dl>
+      <dl class="stats">
+        <div><dt>소득세</dt><dd id="iTax">0원</dd></div>
+        <div><dt>지방소득세</dt><dd id="iLocal">0원</dd></div>
+        <div><dt>4대보험 합계</dt><dd id="iInsTotal">0원</dd></div>
+        <div><dt>공제 합계</dt><dd id="iTotal">0원</dd></div>
+      </dl>
+      <div class="badges">
+        <span class="badge blue" id="taxedBadge">과세 대상 -</span>
+        <span class="badge" id="rateBadge">공제율 -</span>
+      </div>
+      <div class="warn" id="netWarn" hidden></div>
+      <div class="ok" id="netOk" hidden></div>
+    </section>
+
+    <details class="card detail">
+      <summary>공제 계산 내역</summary>
+      <div class="body">
+        <ol class="formula" id="netFormula"></ol>
+        <p class="hint">4대보험은 천원 미만(기준소득월액)과 10원 미만을 버리고 계산합니다. 회사·공단이 끝수를 다르게 처리하면 10원 단위 차이가 날 수 있습니다.</p>
+      </div>
+    </details>
+
+    <details class="card detail">
+      <summary>적용한 2026년 요율</summary>
+      <div class="body">
+        <table class="rate">
+          <caption>근로자 부담분 기준 · 2026년 1월 1일 시행</caption>
+          <thead><tr><th>항목</th><th>근로자</th><th>기준</th></tr></thead>
+          <tbody>
+            <tr><td>국민연금</td><td>4.75%</td><td>기준소득월액 41만~659만 원</td></tr>
+            <tr><td>건강보험</td><td>3.595%</td><td>보수월액 (7.19%의 절반)</td></tr>
+            <tr><td>장기요양</td><td>13.14%</td><td>건강보험료 × 13.14%</td></tr>
+            <tr><td>고용보험</td><td>0.9%</td><td>실업급여 1.8%의 절반</td></tr>
+            <tr><td>소득세</td><td>간이세액표</td><td>2026.3.1 이후 원천징수분</td></tr>
+            <tr><td>지방소득세</td><td>10%</td><td>소득세의 10%</td></tr>
+          </tbody>
+        </table>
+        <p class="hint">국민연금은 2025년 9%에서 2026년 9.5%로 올랐고, 연금개혁에 따라 2033년 13%까지 매년 0.5%p씩 오릅니다. 산재보험과 고용안정·직업능력개발 보험료는 회사가 전액 부담하므로 급여에서 빠지지 않습니다.</p>
+      </div>
+    </details>
+
+    <details class="card detail">
+      <summary>이 계산기에 반영된 것과 아닌 것</summary>
+      <div class="body">
+        <ul class="cond">
+          <li><b>반영</b>: 2026년 4대보험 근로자 부담 요율, 국민연금 상·하한, 2026년 근로소득 간이세액표(2026.3.1 시행), 8~20세 자녀 세액 조정, 지방소득세 10%.</li>
+          <li><b>미반영</b>: 원천징수 80%·120% 선택, 상여·수당 변동, 연말정산 결과, 퇴직연금과 사내 대출·식대 외 비과세(차량유지비·연구보조비 등), 건강보험 정산분, 국민연금 기준소득월액 신고 차이.</li>
+          <li><b>실제 금액</b>은 회사가 발급한 급여명세서와 원천징수영수증, 홈택스의 간이세액표, 4대사회보험 정보연계센터에서 확인하세요.</li>
+        </ul>
+      </div>
+    </details>
+
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="card cta" aria-label="무료 자료와 실무 키트">
+    <div class="kicker">복대리 무료 자료</div>
+    <p>무료 툴 허브와 1,000원·4,900원 실무 키트를 한 링크에 모아 두었습니다.</p>
+    <a class="btn primary" href="https://litt.ly/bok_o_official" target="_blank" rel="noopener">무료 툴 허브·실무 키트 보기</a>
+    <a class="btn" href="../severance-calc/">퇴직금·실업급여 계산기도 쓰고 가기</a>
+    <a class="btn" href="../annual-leave-calc/">연차수당 계산기도 쓰고 가기</a>
+    <a class="btn" href="../toolbox/">복어 툴박스 전체 보기</a>
+    <div class="cta-links"><a href="https://www.instagram.com/bok_o_hrga/" target="_blank" rel="noopener">@bok_o_hrga</a> · <a href="https://www.threads.com/@bok_o_hrga" target="_blank" rel="noopener">스레드</a></div>
+  </section>
+
+  <footer>
+    참고용 계산기입니다. 주휴수당은 소정근로시간·개근 여부·근로관계 지속에 따라, 실수령액은 회사의 급여 정책과 비과세 항목, 원천징수 비율, 연말정산 결과에 따라 달라집니다. 4대보험 요율과 간이세액표는 2026년 기준이며 다음 해에 바뀝니다. 최종 금액은 급여명세서·원천징수영수증과 국민연금공단·국민건강보험공단·근로복지공단 안내로 확인하세요. 주휴수당·임금 분쟁은 고용노동부 상담(1350)이나 노무사 확인을 받으세요.
+  </footer>
+
+</div>
+
+<script type="text/plain" id="tax-data" aria-hidden="true">770|0,0,0,0,0,0,0,0,0,0,0
+775|0,0,0,0,0,0,0,0,0,0,0
+780|0,0,0,0,0,0,0,0,0,0,0
+785|0,0,0,0,0,0,0,0,0,0,0
+790|0,0,0,0,0,0,0,0,0,0,0
+795|0,0,0,0,0,0,0,0,0,0,0
+800|0,0,0,0,0,0,0,0,0,0,0
+805|0,0,0,0,0,0,0,0,0,0,0
+810|0,0,0,0,0,0,0,0,0,0,0
+815|0,0,0,0,0,0,0,0,0,0,0
+820|0,0,0,0,0,0,0,0,0,0,0
+825|0,0,0,0,0,0,0,0,0,0,0
+830|0,0,0,0,0,0,0,0,0,0,0
+835|0,0,0,0,0,0,0,0,0,0,0
+840|0,0,0,0,0,0,0,0,0,0,0
+845|0,0,0,0,0,0,0,0,0,0,0
+850|0,0,0,0,0,0,0,0,0,0,0
+855|0,0,0,0,0,0,0,0,0,0,0
+860|0,0,0,0,0,0,0,0,0,0,0
+865|0,0,0,0,0,0,0,0,0,0,0
+870|0,0,0,0,0,0,0,0,0,0,0
+875|0,0,0,0,0,0,0,0,0,0,0
+880|0,0,0,0,0,0,0,0,0,0,0
+885|0,0,0,0,0,0,0,0,0,0,0
+890|0,0,0,0,0,0,0,0,0,0,0
+895|0,0,0,0,0,0,0,0,0,0,0
+900|0,0,0,0,0,0,0,0,0,0,0
+905|0,0,0,0,0,0,0,0,0,0,0
+910|0,0,0,0,0,0,0,0,0,0,0
+915|0,0,0,0,0,0,0,0,0,0,0
+920|0,0,0,0,0,0,0,0,0,0,0
+925|0,0,0,0,0,0,0,0,0,0,0
+930|0,0,0,0,0,0,0,0,0,0,0
+935|0,0,0,0,0,0,0,0,0,0,0
+940|0,0,0,0,0,0,0,0,0,0,0
+945|0,0,0,0,0,0,0,0,0,0,0
+950|0,0,0,0,0,0,0,0,0,0,0
+955|0,0,0,0,0,0,0,0,0,0,0
+960|0,0,0,0,0,0,0,0,0,0,0
+965|0,0,0,0,0,0,0,0,0,0,0
+970|0,0,0,0,0,0,0,0,0,0,0
+975|0,0,0,0,0,0,0,0,0,0,0
+980|0,0,0,0,0,0,0,0,0,0,0
+985|0,0,0,0,0,0,0,0,0,0,0
+990|0,0,0,0,0,0,0,0,0,0,0
+995|0,0,0,0,0,0,0,0,0,0,0
+1000|0,0,0,0,0,0,0,0,0,0,0
+1005|0,0,0,0,0,0,0,0,0,0,0
+1010|0,0,0,0,0,0,0,0,0,0,0
+1015|0,0,0,0,0,0,0,0,0,0,0
+1020|0,0,0,0,0,0,0,0,0,0,0
+1025|0,0,0,0,0,0,0,0,0,0,0
+1030|0,0,0,0,0,0,0,0,0,0,0
+1035|0,0,0,0,0,0,0,0,0,0,0
+1040|0,0,0,0,0,0,0,0,0,0,0
+1045|0,0,0,0,0,0,0,0,0,0,0
+1050|0,0,0,0,0,0,0,0,0,0,0
+1055|0,0,0,0,0,0,0,0,0,0,0
+1060|2w,0,0,0,0,0,0,0,0,0,0
+1065|33,0,0,0,0,0,0,0,0,0,0
+1070|3a,0,0,0,0,0,0,0,0,0,0
+1075|3h,0,0,0,0,0,0,0,0,0,0
+1080|3o,0,0,0,0,0,0,0,0,0,0
+1085|3v,0,0,0,0,0,0,0,0,0,0
+1090|42,0,0,0,0,0,0,0,0,0,0
+1095|49,0,0,0,0,0,0,0,0,0,0
+1100|4g,0,0,0,0,0,0,0,0,0,0
+1105|4n,0,0,0,0,0,0,0,0,0,0
+1110|4u,0,0,0,0,0,0,0,0,0,0
+1115|51,0,0,0,0,0,0,0,0,0,0
+1120|58,0,0,0,0,0,0,0,0,0,0
+1125|5f,0,0,0,0,0,0,0,0,0,0
+1130|5m,0,0,0,0,0,0,0,0,0,0
+1135|5t,0,0,0,0,0,0,0,0,0,0
+1140|60,0,0,0,0,0,0,0,0,0,0
+1145|67,0,0,0,0,0,0,0,0,0,0
+1150|6e,0,0,0,0,0,0,0,0,0,0
+1155|6l,0,0,0,0,0,0,0,0,0,0
+1160|6s,0,0,0,0,0,0,0,0,0,0
+1165|6y,0,0,0,0,0,0,0,0,0,0
+1170|75,0,0,0,0,0,0,0,0,0,0
+1175|7c,0,0,0,0,0,0,0,0,0,0
+1180|7j,0,0,0,0,0,0,0,0,0,0
+1185|7q,0,0,0,0,0,0,0,0,0,0
+1190|7x,0,0,0,0,0,0,0,0,0,0
+1195|84,0,0,0,0,0,0,0,0,0,0
+1200|8b,0,0,0,0,0,0,0,0,0,0
+1205|8i,0,0,0,0,0,0,0,0,0,0
+1210|8p,0,0,0,0,0,0,0,0,0,0
+1215|8w,0,0,0,0,0,0,0,0,0,0
+1220|93,0,0,0,0,0,0,0,0,0,0
+1225|9a,0,0,0,0,0,0,0,0,0,0
+1230|9h,0,0,0,0,0,0,0,0,0,0
+1235|9o,0,0,0,0,0,0,0,0,0,0
+1240|9v,0,0,0,0,0,0,0,0,0,0
+1245|a2,0,0,0,0,0,0,0,0,0,0
+1250|aa,0,0,0,0,0,0,0,0,0,0
+1255|al,0,0,0,0,0,0,0,0,0,0
+1260|av,0,0,0,0,0,0,0,0,0,0
+1265|b5,0,0,0,0,0,0,0,0,0,0
+1270|bg,0,0,0,0,0,0,0,0,0,0
+1275|bq,0,0,0,0,0,0,0,0,0,0
+1280|c0,0,0,0,0,0,0,0,0,0,0
+1285|cb,0,0,0,0,0,0,0,0,0,0
+1290|cl,0,0,0,0,0,0,0,0,0,0
+1295|cv,0,0,0,0,0,0,0,0,0,0
+1300|d6,0,0,0,0,0,0,0,0,0,0
+1305|dg,0,0,0,0,0,0,0,0,0,0
+1310|dq,0,0,0,0,0,0,0,0,0,0
+1315|e1,0,0,0,0,0,0,0,0,0,0
+1320|eb,0,0,0,0,0,0,0,0,0,0
+1325|el,0,0,0,0,0,0,0,0,0,0
+1330|ew,0,0,0,0,0,0,0,0,0,0
+1335|f6,0,0,0,0,0,0,0,0,0,0
+1340|fg,2y,0,0,0,0,0,0,0,0,0
+1345|fr,39,0,0,0,0,0,0,0,0,0
+1350|g1,3j,0,0,0,0,0,0,0,0,0
+1355|gb,3t,0,0,0,0,0,0,0,0,0
+1360|gm,44,0,0,0,0,0,0,0,0,0
+1365|gw,4e,0,0,0,0,0,0,0,0,0
+1370|h6,4o,0,0,0,0,0,0,0,0,0
+1375|hh,4z,0,0,0,0,0,0,0,0,0
+1380|hr,59,0,0,0,0,0,0,0,0,0
+1385|i1,5j,0,0,0,0,0,0,0,0,0
+1390|ic,5u,0,0,0,0,0,0,0,0,0
+1395|im,64,0,0,0,0,0,0,0,0,0
+1400|iw,6e,0,0,0,0,0,0,0,0,0
+1405|j7,6p,0,0,0,0,0,0,0,0,0
+1410|jh,6z,0,0,0,0,0,0,0,0,0
+1415|jr,79,0,0,0,0,0,0,0,0,0
+1420|k1,7j,0,0,0,0,0,0,0,0,0
+1425|kc,7u,0,0,0,0,0,0,0,0,0
+1430|km,84,0,0,0,0,0,0,0,0,0
+1435|kw,8e,0,0,0,0,0,0,0,0,0
+1440|l7,8p,0,0,0,0,0,0,0,0,0
+1445|lh,8z,0,0,0,0,0,0,0,0,0
+1450|lr,99,0,0,0,0,0,0,0,0,0
+1455|m2,9k,0,0,0,0,0,0,0,0,0
+1460|mc,9u,0,0,0,0,0,0,0,0,0
+1465|mm,a4,0,0,0,0,0,0,0,0,0
+1470|mx,af,0,0,0,0,0,0,0,0,0
+1475|n7,ap,0,0,0,0,0,0,0,0,0
+1480|nh,az,0,0,0,0,0,0,0,0,0
+1485|ns,ba,0,0,0,0,0,0,0,0,0
+1490|o2,bk,0,0,0,0,0,0,0,0,0
+1495|oc,bu,0,0,0,0,0,0,0,0,0
+1500|os,ca,0,0,0,0,0,0,0,0,0
+1510|pc,cu,0,0,0,0,0,0,0,0,0
+1520|px,df,0,0,0,0,0,0,0,0,0
+1530|qi,e0,0,0,0,0,0,0,0,0,0
+1540|r2,ek,0,0,0,0,0,0,0,0,0
+1550|rn,f5,0,0,0,0,0,0,0,0,0
+1560|s8,fq,0,0,0,0,0,0,0,0,0
+1570|ss,ga,0,0,0,0,0,0,0,0,0
+1580|td,gv,0,0,0,0,0,0,0,0,0
+1590|ty,hg,0,0,0,0,0,0,0,0,0
+1600|ui,i0,0,0,0,0,0,0,0,0,0
+1610|v3,il,0,0,0,0,0,0,0,0,0
+1620|vo,j6,0,0,0,0,0,0,0,0,0
+1630|w8,jq,0,0,0,0,0,0,0,0,0
+1640|wt,kb,0,0,0,0,0,0,0,0,0
+1650|xe,kw,0,0,0,0,0,0,0,0,0
+1660|xy,lg,0,0,0,0,0,0,0,0,0
+1670|yj,m1,0,0,0,0,0,0,0,0,0
+1680|z4,mm,0,0,0,0,0,0,0,0,0
+1690|zo,n6,0,0,0,0,0,0,0,0,0
+1700|109,nr,0,0,0,0,0,0,0,0,0
+1710|10u,oc,0,0,0,0,0,0,0,0,0
+1720|11e,ow,2w,0,0,0,0,0,0,0,0
+1730|11z,ph,3g,0,0,0,0,0,0,0,0
+1740|12k,q2,40,0,0,0,0,0,0,0,0
+1750|134,qm,4k,0,0,0,0,0,0,0,0
+1760|13p,r7,53,0,0,0,0,0,0,0,0
+1770|14a,rs,5n,0,0,0,0,0,0,0,0
+1780|14u,sc,67,0,0,0,0,0,0,0,0
+1790|15f,sx,6r,0,0,0,0,0,0,0,0
+1800|15z,th,7b,0,0,0,0,0,0,0,0
+1810|16k,u2,7v,0,0,0,0,0,0,0,0
+1820|175,un,8e,0,0,0,0,0,0,0,0
+1830|17p,v7,8y,0,0,0,0,0,0,0,0
+1840|18a,vs,9i,0,0,0,0,0,0,0,0
+1850|18v,wd,a2,0,0,0,0,0,0,0,0
+1860|19f,wx,am,0,0,0,0,0,0,0,0
+1870|1a0,xi,b6,0,0,0,0,0,0,0,0
+1880|1al,y3,bq,0,0,0,0,0,0,0,0
+1890|1b5,yn,c9,2w,0,0,0,0,0,0,0
+1900|1bq,z8,ct,3g,0,0,0,0,0,0,0
+1910|1cb,zt,dd,40,0,0,0,0,0,0,0
+1920|1cv,10d,dx,4j,0,0,0,0,0,0,0
+1930|1dg,10y,eh,53,0,0,0,0,0,0,0
+1940|1e1,11j,f1,5n,0,0,0,0,0,0,0
+1950|1el,123,fk,67,0,0,0,0,0,0,0
+1960|1f6,12o,g4,6r,0,0,0,0,0,0,0
+1970|1fr,139,go,7b,0,0,0,0,0,0,0
+1980|1gg,13t,h8,7u,0,0,0,0,0,0,0
+1990|1hc,14e,hs,8e,0,0,0,0,0,0,0
+2000|1i8,14z,ic,8y,0,0,0,0,0,0,0
+2010|1j5,15j,iw,9i,0,0,0,0,0,0,0
+2020|1k1,164,jf,a2,0,0,0,0,0,0,0
+2030|1kx,16p,jz,am,0,0,0,0,0,0,0
+2040|1lt,179,kj,b6,0,0,0,0,0,0,0
+2050|1mp,17u,l3,bp,0,0,0,0,0,0,0
+2060|1nl,18f,ln,c9,2w,0,0,0,0,0,0
+2070|1oh,18z,m7,ct,3g,0,0,0,0,0,0
+2080|1pd,19k,mq,dd,3z,0,0,0,0,0,0
+2090|1qa,1a4,na,dx,4j,0,0,0,0,0,0
+2100|1r6,1ap,nu,eh,53,0,0,0,0,0,0
+2110|1s2,1ba,oe,f0,5n,0,0,0,0,0,0
+2120|1sy,1bu,oy,fk,67,0,0,0,0,0,0
+2130|1tu,1cf,pi,g4,6r,0,0,0,0,0,0
+2140|1uq,1d0,q2,go,7b,0,0,0,0,0,0
+2150|1vm,1dk,ql,h8,7u,0,0,0,0,0,0
+2160|1wi,1e5,r5,hs,8e,0,0,0,0,0,0
+2170|1xf,1eq,rp,ic,8y,0,0,0,0,0,0
+2180|1yb,1fa,s9,iv,9i,0,0,0,0,0,0
+2190|1z7,1fv,st,jf,a2,0,0,0,0,0,0
+2200|203,1gn,td,jz,am,0,0,0,0,0,0
+2210|20z,1hj,tw,kj,b5,0,0,0,0,0,0
+2220|21v,1if,ug,l3,bp,0,0,0,0,0,0
+2230|22r,1jb,v0,ln,c9,2w,0,0,0,0,0
+2240|23o,1k8,vk,m6,ct,3f,0,0,0,0,0
+2250|24k,1l4,w4,mq,dd,3z,0,0,0,0,0
+2260|25g,1m0,wo,na,dx,4j,0,0,0,0,0
+2270|26c,1mw,x8,nu,eh,53,0,0,0,0,0
+2280|278,1ns,xr,oe,f0,5n,0,0,0,0,0
+2290|284,1oo,yb,oy,fk,67,0,0,0,0,0
+2300|290,1pk,yv,pi,g4,6r,0,0,0,0,0
+2310|29w,1qg,zf,q1,go,7a,0,0,0,0,0
+2320|2at,1rd,zz,ql,h8,7u,0,0,0,0,0
+2330|2bp,1s9,10j,r5,hs,8e,0,0,0,0,0
+2340|2cl,1t5,112,rp,ib,8y,0,0,0,0,0
+2350|2dh,1u1,11m,s9,iv,9i,0,0,0,0,0
+2360|2ed,1ux,126,st,jf,a2,0,0,0,0,0
+2370|2f9,1vt,12q,tc,jz,al,0,0,0,0,0
+2380|2g5,1wp,13a,tw,kj,b5,0,0,0,0,0
+2390|2h1,1xl,13u,ug,l3,bp,0,0,0,0,0
+2400|2hy,1yi,14d,v0,lm,c9,2v,0,0,0,0
+2410|2iu,1ze,14x,vk,m6,ct,3f,0,0,0,0
+2420|2jq,20a,15h,w4,mq,dd,3z,0,0,0,0
+2430|2km,216,161,wo,na,dx,4j,0,0,0,0
+2440|2li,222,16l,x7,nu,eg,53,0,0,0,0
+2450|2me,22y,175,xr,oe,f0,5n,0,0,0,0
+2460|2na,23u,17p,yb,oy,fk,67,0,0,0,0
+2470|2o7,24r,188,yv,ph,g4,6q,0,0,0,0
+2480|2p3,25n,18s,zf,q1,go,7a,0,0,0,0
+2490|2pz,26j,19c,zz,ql,h8,7u,0,0,0,0
+2500|2qw,27g,19x,10j,r6,hs,8f,0,0,0,0
+2510|2ru,28e,1ai,114,rr,id,90,0,0,0,0
+2520|2ss,29c,1b3,11q,sc,iz,9l,0,0,0,0
+2530|2tr,2ab,1bo,12b,sx,jk,a6,0,0,0,0
+2540|2up,2b9,1c9,12w,ti,k5,ar,0,0,0,0
+2550|2vn,2c7,1cv,13h,u4,kq,bd,0,0,0,0
+2560|2wl,2d5,1dg,142,up,lb,by,0,0,0,0
+2570|2xk,2e4,1e1,14n,va,lw,cj,35,0,0,0
+2580|2yi,2f2,1em,159,vv,mi,d4,3r,0,0,0
+2590|2zv,2g0,1f7,15u,wg,n3,dp,4c,0,0,0
+2600|329,2gy,1ft,16f,x2,no,eb,4x,0,0,0
+2610|34m,2hw,1gk,170,xn,o9,ew,5i,0,0,0
+2620|370,2iv,1hh,17l,y8,ou,fh,63,0,0,0
+2630|39e,2jt,1ie,187,yt,pg,g2,6p,0,0,0
+2640|3br,2kr,1jb,18s,ze,q1,gn,7a,0,0,0
+2650|3e5,2lp,1k8,19d,100,qm,h9,7v,0,0,0
+2660|3gi,2mo,1l5,19y,10l,r7,hu,8g,0,0,0
+2670|3iw,2nm,1m2,1aj,116,rs,if,91,0,0,0
+2680|3la,2ok,1mz,1b5,11r,se,j0,9n,0,0,0
+2690|3nn,2pi,1nw,1bq,12c,sz,jl,a8,0,0,0
+2700|3q1,2qh,1ot,1cb,12y,tk,k7,at,0,0,0
+2710|3se,2rf,1pq,1cw,13j,u5,ks,be,0,0,0
+2720|3us,2sd,1qn,1dh,144,uq,ld,bz,0,0,0
+2730|3x5,2tb,1rk,1e3,14p,vc,ly,cl,37,0,0
+2740|3zj,2u9,1sh,1eo,15a,vx,mj,d6,3s,0,0
+2750|41x,2v8,1te,1f9,15v,wi,n4,dr,4d,0,0
+2760|44a,2w6,1ub,1fu,16h,x3,nq,ec,4z,0,0
+2770|46o,2x4,1v8,1gn,172,xo,ob,ex,5k,0,0
+2780|491,2y2,1w4,1hj,17n,ya,ow,fj,65,0,0
+2790|4bf,2z1,1x1,1ig,188,yv,ph,g4,6q,0,0
+2800|4ds,316,1xy,1jd,18t,zg,q2,gp,7b,0,0
+2810|4g6,33k,1yv,1ka,19f,101,qo,ha,7x,0,0
+2820|4ik,35y,1zs,1l7,1a0,10m,r9,hv,8i,0,0
+2830|4kx,38b,20p,1m4,1al,118,ru,ih,93,0,0
+2840|4nb,3ap,21m,1n1,1b6,11t,sf,j2,9o,0,0
+2850|4po,3d2,22j,1ny,1br,12e,t0,jn,a9,0,0
+2860|4s2,3fg,23g,1ov,1cd,12z,tm,k8,av,0,0
+2870|4uf,3ht,24d,1ps,1cy,13k,u7,kt,bg,0,0
+2880|4wt,3k7,25a,1qp,1dj,146,us,lf,c1,0,0
+2890|4z7,3ml,267,1rm,1e4,14r,vd,m0,cm,39,0
+2900|51k,3oy,274,1sj,1ep,15c,vy,ml,d7,3u,0
+2910|53y,3rc,281,1tg,1fb,15x,wk,n6,dt,4f,0
+2920|56b,3tp,28y,1ud,1fw,16i,x5,nr,ee,50,0
+2930|58p,3w3,29v,1va,1gp,173,xq,oc,ez,5l,0
+2940|5b2,3yg,2as,1w7,1hm,17p,yb,oy,fk,67,0
+2950|5dg,40u,2bp,1x4,1ij,18a,yw,pj,g5,6s,0
+2960|5fu,438,2cm,1y1,1jg,18v,zi,q4,gr,7d,0
+2970|5i7,45l,2dj,1yy,1kd,19g,103,qp,hc,7y,0
+2980|5kl,47z,2eg,1zv,1la,1a1,10o,ra,hx,8j,0
+2990|5my,4ac,2fd,20s,1m7,1an,119,rw,ii,95,0
+3000|5qj,4dx,2gq,225,1nk,1bi,125,sr,je,a0,0
+3020|5va,4io,2ik,23z,1pe,1cp,13b,ty,kk,b7,0
+3040|601,4nf,2ke,25t,1r8,1dv,14i,v4,lr,cd,30
+3060|64s,4s6,2m8,27n,1t2,1f2,15o,wb,mx,dk,46
+3080|69j,4wx,2o2,29h,1uw,1gb,16v,xh,o4,eq,5d
+3100|6ea,51o,2pw,2bb,1wq,1i5,181,yn,pa,fw,6j
+3120|6j2,56g,2rq,2d5,1yk,1jz,197,zu,qg,h3,7p
+3140|6nt,5b7,2tk,2ez,20e,1lt,1ae,110,rn,i9,8w
+3160|6sk,5fy,2ve,2gt,228,1nn,1bk,127,st,jg,a2
+3180|6xb,5kp,2x8,2in,242,1ph,1cq,13d,tz,km,b8
+3200|722,5pg,2z2,2kh,25w,1rb,1dx,14j,v6,ls,cf
+3220|76t,5u7,33g,2mb,27q,1t5,1f3,15q,wc,mz,dl
+3240|7d3,5yy,381,2o5,29k,1uz,1ge,16w,xj,o5,es
+3260|7jw,63q,3cm,2pz,2be,1wt,1i8,183,yp,pc,fy
+3280|7qo,68h,3h7,2rs,2d7,1ym,1k1,199,zv,qi,h4
+3300|7xh,6d8,3ls,2tm,2f1,20g,1lv,1af,112,ro,ib
+3320|849,6hz,3qd,2vg,2gv,22a,1np,1bm,128,sv,jh
+3340|8b2,6mq,3uq,2x7,2im,241,1pg,1cq,13d,tz,km
+3360|8hu,6rh,3z3,2yy,2kd,25s,1r7,1dv,14h,v4,lq
+3380|8on,6w9,43f,32z,2m4,27j,1sy,1ez,15l,w8,mu
+3400|8vf,710,47s,37b,2nu,299,1uo,1g3,16p,xc,ny
+3420|928,75r,4c4,3bo,2pl,2b0,1wf,1hu,17u,yg,p3
+3440|990,7bk,4gh,3g0,2rb,2cq,1y5,1jk,18y,zk,q7
+3460|9ft,7id,4kt,3kd,2t2,2eh,1zw,1lb,1a2,10p,rb
+3480|9ml,7p5,4p6,3op,2ut,2g8,21n,1n2,1b6,11t,sf
+3500|9te,7vy,4ti,3t2,2wj,2hy,23d,1os,1cb,12x,tk
+3520|a06,82q,4xv,3xe,2ya,2jp,254,1qj,1df,141,uo
+3540|a6z,89j,527,41q,31a,2lf,26u,1s9,1ej,156,vs
+3560|adr,8gb,56j,463,35m,2n6,28l,1u0,1fn,16a,ww
+3580|akk,8n4,5aw,4af,39z,2ow,2ab,1vq,1h5,17e,y1
+3600|arc,8tw,5f8,4es,3eb,2qn,2c2,1xh,1iw,18i,z5
+3620|ay5,90p,5jl,4j4,3io,2se,2dt,1z8,1kn,19m,109
+3640|b4x,97h,5nx,4nh,3n0,2u4,2fj,20y,1md,1ar,11d
+3660|bbq,9ea,5sa,4rt,3rd,2vv,2ha,22p,1o4,1bv,12h
+3680|bii,9l2,5wm,4w6,3vp,2xl,2j0,24f,1pu,1cz,13m
+3700|bpb,9rv,60z,50i,402,2zl,2kr,266,1rl,1e3,14q
+3720|bw3,9yn,65b,54v,44e,33y,2mi,27x,1tc,1f8,15u
+3740|c2w,a5g,69n,597,48q,38a,2o8,29n,1v2,1gh,16y
+3760|cnc,ai1,6i2,5hl,4h5,3go,2rl,2d0,1yf,1ju,194
+3780|cur,ape,6mt,5md,4lw,3lg,2ti,2ex,20c,1lr,1ac
+3800|d26,aws,6rk,5r4,4qn,3q7,2ve,2gt,228,1nn,1bk
+3820|d9l,b45,6wb,5vv,4ve,3uy,2xa,2ip,244,1pj,1cs
+3840|dh0,bbj,712,60m,505,3zp,2z8,2km,261,1rg,1e0
+3860|dof,biw,75u,65d,54x,44g,340,2mi,27x,1tc,1f8
+3880|dvu,bqa,7bo,6a4,59o,497,38r,2of,29u,1v9,1go
+3900|e39,bxn,7ih,6ev,5ef,4dy,3di,2qb,2bq,1x5,1ik
+3920|eao,c51,7p9,6jn,5j6,4iq,3i9,2s8,2dn,1z2,1kh
+3940|ei3,cce,7w2,6oe,5nx,4nh,3n0,2u4,2fj,20y,1md
+3960|epi,cjs,82u,6t5,5so,4s8,3rr,2w1,2hg,22v,1oa
+3980|ewx,cr5,89n,6xw,5xg,4wz,3wj,2xx,2jc,24r,1q6
+4000|f4c,cyj,8gf,72n,627,51q,41a,30t,2l9,26o,1s3
+4020|fbr,d5w,8n8,77e,66y,56h,461,35k,2n5,28k,1tz
+4040|fj6,dda,8u0,7dx,6bp,5b8,4as,3ab,2p1,2ag,1vv
+4060|fql,dkn,90t,7kq,6gg,5g0,4fj,3f3,2qy,2cd,1xs
+4080|fy0,ds1,97l,7ri,6l7,5kr,4ka,3ju,2su,2e9,1zo
+4100|g5f,dze,9ee,7yb,6py,5pi,4p1,3ol,2ur,2g6,21l
+4120|gcu,e6s,9l6,853,6uq,5u9,4tt,3tc,2wn,2i2,23h
+4140|gk9,ee5,9rz,8bw,6zh,5z0,4yk,3y3,2yk,2jz,25e
+4160|gro,elj,9yr,8io,748,63r,53b,42u,32e,2lv,27a
+4180|gz3,esw,a5k,8ph,79e,68j,582,47m,375,2ns,297
+4200|h6i,f0a,acc,8w9,7g6,6da,5ct,4cd,3bw,2po,2b3
+4220|hdx,f7n,aj5,932,7mz,6i1,5hk,4h4,3gn,2rl,2d0
+4240|hlc,ff1,apx,99u,7tr,6ms,5mb,4lv,3le,2th,2ew
+4260|hsr,fme,awq,9gn,80k,6rj,5r3,4qm,3q6,2ve,2gt
+4280|i06,fts,b3i,9nf,87c,6wa,5vu,4vd,3ux,2xa,2ip
+4300|i7l,g15,bab,9u8,8e5,711,60l,504,3zo,2z7,2kl
+4320|if0,g8j,bh3,a10,8kx,75t,65c,54w,44f,33z,2mi
+4340|imf,gfw,bnw,a7t,8rq,7bn,6a3,59n,496,38q,2oe
+4360|itu,gna,buo,ael,8yi,7if,6eu,5ee,4dx,3dh,2qb
+4380|j19,gun,c1h,ale,95b,7p8,6jm,5j5,4ip,3i8,2s7
+4400|j8o,h21,c89,as6,9c3,7w0,6od,5nw,4ng,3mz,2u4
+4420|jg3,h9e,cf2,ayz,9iw,82t,6t4,5sn,4s7,3rq,2w0
+4440|jni,hgs,clu,b5r,9po,89l,6xv,5xe,4wy,3wh,2xx
+4460|jux,ho5,csn,bck,9wh,8ge,72m,626,51p,419,30s
+4480|k2c,hvj,czf,bjc,a39,8n6,77d,66x,56g,460,35j
+4500|ka4,i3a,d6l,bqi,aaf,8uc,7e9,6bx,5bh,4b0,3ak
+4520|khx,ib1,ddr,bxo,ahl,91i,7lf,6gy,5gh,4g1,3fk
+4540|kpp,iis,dkx,c4u,aor,98o,7sl,6lz,5li,4l2,3kl
+4560|kxi,iqj,ds3,cc0,avx,9fu,7zr,6qz,5qj,4q2,3pm
+4580|lc8,j58,e67,cq4,ba1,9ty,8dv,6xs,5vj,4v3,3um
+4600|lk1,jcz,edd,cxa,bh7,a14,8l1,74y,60k,503,3zn
+4620|lrt,jkq,ekj,d4g,bod,a8a,8s7,7c4,65k,554,44n
+4640|lzm,jsh,erp,dbm,bvj,afg,8zd,7ja,6al,5a5,49o
+4660|m7e,k08,eyv,dis,c2p,amm,96j,7qg,6fm,5f5,4ep
+4680|mf7,k7z,f61,dpy,c9v,ats,9dp,7xm,6km,5k6,4jp
+4700|mmz,kfq,fd7,dx4,ch1,b0y,9kv,84s,6pn,5p6,4oq
+4720|mus,knh,fkd,e4a,co7,b84,9s1,8by,6vv,5u7,4tq
+4740|n2k,kv8,frj,ebg,cvd,bfa,9z7,8j4,731,5z8,4yr
+4760|nad,l2z,fyp,eim,d2j,bmg,a6d,8qa,7a7,648,53s
+4780|ni5,laq,g5v,eps,d9p,btm,adj,8xg,7hd,699,58s
+4800|npy,lih,gd1,ewy,dgv,c0s,akp,94m,7oj,6e9,5dt
+4820|nxq,lq8,gk7,f44,do1,c7y,arv,9bs,7vp,6ja,5it
+4840|o5j,lxz,grd,fba,dv7,cf4,az1,9iy,82v,6ob,5nu
+4860|odb,m5q,gyj,fig,e2d,cma,b67,9q4,8a1,6ty,5sv
+4880|ol4,mdh,h5p,fpm,e9j,ctg,bdd,9xa,8h7,714,5xv
+4900|osw,ml8,hcv,fws,egp,d0m,bkj,a4g,8od,78a,62w
+4920|p0p,msz,hk1,g3y,env,d7s,brp,abm,8vj,7fg,67w
+4940|p8h,n0q,hr7,gb4,ev1,dey,byv,ais,92p,7mm,6cx
+4960|pga,n8h,hyd,gia,f27,dm4,c61,apy,99v,7ts,6hy
+4980|po2,ng8,i5j,gpg,f9d,dta,cd7,ax4,9h1,80y,6my
+5000|pvv,nnz,icp,gwm,fgj,e0g,ckd,b4a,9o7,884,6s1
+5020|q3n,nvq,ijv,h3s,fnp,e7m,crj,bbg,9vd,8fa,6z7
+5040|qbg,o3h,ir1,hay,fuv,ees,cyp,bim,a2j,8mg,76d
+5060|qj8,ob8,iy7,hi4,g21,ely,d5v,bps,a9p,8tm,7dj
+5080|qr1,oiz,j5d,hpa,g97,et4,dd1,bwy,agv,90s,7kp
+5100|qyt,oqq,jcj,hwg,ggd,f0a,dk7,c44,ao1,97y,7rv
+5120|r6m,oyh,jjp,i3m,gnj,f7g,drd,cba,av7,9f4,7z1
+5140|ree,p68,jqv,ias,gup,fem,dyj,cig,b2d,9ma,867
+5160|rm7,pdz,jy1,ihy,h1v,fls,e5p,cpm,b9j,9tg,8dd
+5180|rtz,plq,k57,ip4,h91,fsy,ecv,cws,bgp,a0m,8kj
+5200|s1s,pth,kcd,iwa,hg7,g04,ek1,d3y,bnv,a7s,8rp
+5220|s9k,q18,kjj,j3g,hnd,g7a,er7,db4,bv1,aey,8yv
+5240|shd,q8z,kqp,jam,huj,geg,eyd,dia,c27,am4,961
+5260|sp5,qgq,kxv,jhs,i1p,glm,f5j,dpg,c9d,ata,9d7
+5280|swy,qoh,l51,joy,i8v,gss,fcp,dwm,cgj,b0g,9kd
+5300|t4q,qw8,lc7,jw4,ig1,gzy,fjv,e3s,cnp,b7m,9rj
+5320|tcj,r3z,ljd,k3a,in7,h74,fr1,eay,cuv,bes,9yp
+5340|tkb,rbq,lqj,kag,iud,hea,fy7,ei4,d21,bly,a5v
+5360|ts4,rjh,lxp,khm,j1j,hlg,g5d,epa,d97,bt4,ad1
+5380|tzw,rr8,m4v,kos,j8p,hsm,gcj,ewg,dgd,c0a,ak7
+5400|u7p,ryz,mc1,kvy,jfv,hzs,gjp,f3m,dnj,c7g,ard
+5420|ufh,s6q,mj7,l34,jn1,i6y,gqv,fas,dup,cem,ayj
+5440|una,seh,mqd,laa,ju7,ie4,gy1,fhy,e1v,cls,b5p
+5460|uv2,sm8,mxj,lhg,k1d,ila,h57,fp4,e91,csy,bcv
+5480|v2v,stz,n4p,lom,k8j,isg,hcd,fwa,eg7,d04,bk1
+5500|van,t1q,nbv,lvs,kfp,izm,hjj,g3g,end,d7a,br7
+5520|vig,t9h,nj1,m2y,kmv,j6s,hqp,gam,euj,deg,byd
+5540|vq8,th8,nq7,ma4,ku1,jdy,hxv,ghs,f1p,dlm,c5j
+5560|vy1,toz,nxd,mha,l17,jl4,i51,goy,f8v,dss,ccp
+5580|w5t,twq,o4j,mog,l8d,jsa,ic7,gw4,fg1,dzy,cjv
+5600|wdm,u4h,obp,mvm,lfj,jzg,ijd,h3a,fn7,e74,cr1
+5620|wle,uc8,oiv,n2s,lmp,k6m,iqj,hag,fud,eea,cy7
+5640|wt7,ujz,oq1,n9y,ltv,kds,ixp,hhm,g1j,elg,d5d
+5660|x0z,urq,ox7,nh4,m11,kky,j4v,hos,g8p,esm,dcj
+5680|x8s,uzh,p4d,noa,m87,ks4,jc1,hvy,gfv,ezs,djp
+5700|xgk,v78,pbj,nvg,mfd,kza,jj7,i34,gn1,f6y,dqv
+5720|xod,vez,pip,o2m,mmj,l6g,jqd,iaa,gu7,fe4,dy1
+5740|xw5,vmq,ppv,o9s,mtp,ldm,jxj,ihg,h1d,fla,e57
+5760|y3y,vuh,px1,ogy,n0v,lks,k4p,iom,h8j,fsg,ecd
+5780|ybq,w28,q47,oo4,n81,lry,kbv,ivs,hfp,fzm,ejj
+5800|yjj,w9z,qbd,ova,nf7,lz4,kj1,j2y,hmv,g6s,eqp
+5820|yrb,whq,qij,p2g,nmd,m6a,kq7,ja4,hu1,gdy,exv
+5840|10am,y10,spm,r9j,ptg,odd,mxa,lh7,k14,il1,h4y
+5860|10pg,yfs,t3w,rnt,q7q,orn,nbk,lvh,kfe,izb,hj8
+5880|10xp,ynm,tb8,rv5,qf2,oyz,niw,m2t,kmq,j6n,hqk
+5900|11aa,yvg,tik,s2h,qme,p6b,nq8,ma5,ku2,jdz,hxw
+5920|11mw,z3a,tpw,s9t,qtq,pdn,nxk,mhh,l1e,jlb,i58
+5940|11zi,zb4,tx8,sh5,r12,pkz,o4w,mot,l8q,jsn,ick
+5960|12c3,ziy,u4k,soh,r8e,psb,oc8,mw5,lg2,jzz,ijw
+5980|12op,zqs,ubw,svt,rfq,pzn,ojk,n3h,lne,k7b,ir8
+6000|131a,zym,uj8,t35,rn2,q6z,oqw,nat,luq,ken,iyk
+6020|13dw,106g,uqk,tah,rue,qeb,oy8,ni5,m22,klz,j5w
+6040|13qi,10ea,uxw,tht,s1q,qln,p5k,nph,m9e,ktb,jd8
+6060|1433,10m4,v58,tp5,s92,qsz,pcw,nwt,mgq,l0n,jkk
+6080|14fp,10ty,vck,twh,sge,r0b,pk8,o45,mo2,l7z,jrw
+6100|14sa,114t,vjw,u3t,snq,r7n,prk,obh,mve,lfb,jz8
+6120|154w,11hc,vr8,ub5,sv2,rez,pyw,oit,n2q,lmn,k6k
+6140|15hi,11tw,vyk,uih,t2e,rmb,q68,oq5,na2,ltz,kdw
+6160|15u3,126f,w5w,upt,t9q,rtn,qdk,oxh,nhe,m1b,kl8
+6180|166p,12iy,wd8,ux5,th2,s0z,qkw,p4t,noq,m8n,ksk
+6200|16ja,12vh,wkk,v4h,toe,s8b,qs8,pc5,nw2,mfz,kzw
+6220|16vw,1380,wrw,vbt,tvq,sfn,qzk,pjh,o3e,mnb,l78
+6240|178i,13kk,wz8,vj5,u32,smz,r6w,pqt,oaq,mun,lek
+6260|17l3,13x3,x6k,vqh,uae,sub,re8,py5,oi2,n1z,llw
+6280|17xp,149m,xdw,vxt,uhq,t1n,rlk,q5h,ope,n9b,lt8
+6300|18aa,14m5,xl8,w55,up2,t8z,rsw,qct,owq,ngn,m0k
+6320|18mw,14yo,xsk,wch,uwe,tgb,s08,qk5,p42,nnz,m7w
+6340|18zi,15b8,xzw,wjt,v3q,tnn,s7k,qrh,pbe,nvb,mf8
+6360|19c3,15nr,y78,wr5,vb2,tuz,sew,qyt,piq,o2n,mmk
+6380|19op,160a,yek,wyh,vie,u2b,sm8,r65,pq2,o9z,mtw
+6400|1a1a,16ct,ylw,x5t,vpq,u9n,stk,rdh,pxe,ohb,n18
+6420|1adw,16pc,yt8,xd5,vx2,ugz,t0w,rkt,q4q,oon,n8k
+6440|1aqi,171w,z0k,xkh,w4e,uob,t88,rs5,qc2,ovz,nfw
+6460|1b33,17ef,z7w,xrt,wbq,uvn,tfk,rzh,qje,p3b,nn8
+6480|1bfp,17qy,zf8,xz5,wj2,v2z,tmw,s6t,qqq,pan,nuk
+6500|1bsa,183h,zmk,y6h,wqe,vab,tu8,se5,qy2,phz,o1w
+6520|1c4w,18g0,ztw,ydt,wxq,vhn,u1k,slh,r5e,ppb,o98
+6540|1chi,18sk,1018,yl5,x52,voz,u8w,sst,rcq,pwn,ogk
+6560|1cu3,1953,108k,ysh,xce,vwb,ug8,t05,rk2,q3z,onw
+6580|1d6p,19hm,10fw,yzt,xjq,w3n,unk,t7h,rre,qbb,ov8
+6600|1dja,19u5,10n8,z75,xr2,waz,uuw,tet,ryq,qin,p2k
+6620|1dvw,1a6o,10uk,zeh,xye,wib,v28,tm5,s62,qpz,p9w
+6640|1e8i,1aj8,1150,zlt,y5q,wpn,v9k,tth,sde,qxb,ph8
+6660|1el3,1avr,11gq,zt5,yd2,wwz,vgw,u0t,skq,r4n,pok
+6680|1exp,1b8a,11sg,100h,yke,x4b,vo8,u85,ss2,rbz,pvw
+6700|1faa,1bkt,1247,107t,yrq,xbn,vvk,ufh,sze,rjb,q38
+6720|1fmw,1bxc,12fx,10f5,yz2,xiz,w2w,umt,t6q,rqn,qak
+6740|1fzi,1c9w,12ro,10mh,z6e,xqb,wa8,uu5,te2,rxz,qhw
+6760|1gc3,1cmf,133e,10tt,zdq,xxn,whk,v1h,tle,s5b,qp8
+6780|1gop,1cyy,13f4,113s,zl2,y4z,wow,v8t,tsq,scn,qwk
+6800|1h1a,1dbh,13qv,11fj,zse,ycb,ww8,vg5,u02,sjz,r3w
+6820|1hdw,1do0,142l,11r9,zzq,yjn,x3k,vnh,u7e,srb,rb8
+6840|1hqi,1e0k,14ec,1230,1072,yqz,xaw,vut,ueq,syn,rik
+6860|1i33,1ed3,14q2,12eq,10ee,yyb,xi8,w25,um2,t5z,rpw
+6880|1ifp,1epm,151s,12qg,10lq,z5n,xpk,w9h,ute,tdb,rx8
+6900|1isa,1f25,15dj,1327,10t2,zcz,xww,wgt,v0q,tkn,s4k
+6920|1j4w,1feo,15p9,13dx,112l,zkb,y48,wo5,v82,trz,sbw
+6940|1jhi,1fr8,1610,13po,11ec,zrn,ybk,wvh,vfe,tzb,sj8
+6960|1ju3,1g3r,16cq,141e,11q2,zyz,yiw,x2t,vmq,u6n,sqk
+6980|1k6p,1gga,16og,14d4,121s,106b,yq8,xa5,vu2,udz,sxw
+7000|1kja,1gst,1707,14ov,12dj,10dn,yxk,xhh,w1e,ulb,t58
+7020|1kvw,1h5c,17bx,150l,12p9,10kz,z4w,xot,w8q,usn,tck
+7040|1l8i,1hhw,17no,15cc,1310,10sb,zc8,xw5,wg2,uzz,tjw
+7060|1ll3,1huf,17ze,15o2,13cq,111e,zjk,y3h,wne,v7b,tr8
+7080|1lxp,1i6y,18b4,15zs,13og,11d4,zqw,yat,wuq,ven,tyk
+7100|1maa,1ijh,18mv,16bj,1407,11ov,zy8,yi5,x22,vlz,u5w
+7120|1mmw,1iw0,18yl,16n9,14bx,120l,105k,yph,x9e,vtb,ud8
+7140|1mzi,1j8k,19ac,16z0,14no,12cc,10cw,ywt,xgq,w0n,ukk
+7160|1nc3,1jl3,19m2,17aq,14ze,12o2,10k8,z45,xo2,w7z,urw
+7180|1nop,1jxm,19xs,17mg,15b4,12zs,10rk,zbh,xve,wfb,uz8
+7200|1o1a,1ka5,1a9j,17y7,15mv,13bj,1107,zit,y2q,wmn,v6k
+7220|1odw,1kmo,1al9,189x,15yl,13n9,11bx,zq5,ya2,wtz,vdw
+7240|1oqi,1kz8,1ax0,18lo,16ac,13z0,11no,zxh,yhe,x1b,vl8
+7260|1p33,1lbr,1b8q,18xe,16m2,14aq,11ze,104t,yoq,x8n,vsk
+7280|1pfp,1loa,1bkg,1994,16xs,14mg,12b4,10c5,yw2,xfz,vzw
+7300|1psa,1m0t,1bw7,19kv,179j,14y7,12mv,10jh,z3e,xnb,w78
+7320|1q4w,1mdc,1c7x,19wl,17l9,159x,12yl,10qt,zaq,xun,wek
+7340|1qhi,1mpw,1cjo,1a8c,17x0,15lo,13ac,10z0,zi2,y1z,wlw
+7360|1qu3,1n2f,1cve,1ak2,188q,15xe,13m2,11aq,zpe,y9b,wt8
+7380|1r6p,1ney,1d74,1avs,18kg,1694,13xs,11mg,zwq,ygn,x0k
+7400|1rja,1nrh,1div,1b7j,18w7,16kv,149j,11y7,1042,ynz,x7w
+7420|1rvw,1o40,1dul,1bj9,197x,16wl,14l9,129x,10be,yvb,xf8
+7440|1s8i,1ogk,1e6c,1bv0,19jo,178c,14x0,12lo,10iq,z2n,xmk
+7460|1sl3,1ot3,1ei2,1c6q,19ve,17k2,158q,12xe,10q2,z9z,xtw
+7480|1sxp,1p5m,1ets,1cig,1a74,17vs,15kg,1394,10xs,zhb,y18
+7500|1taa,1pi5,1f5j,1cu7,1aiv,187j,15w7,13kv,119j,zon,y8k
+7520|1tmw,1puo,1fh9,1d5x,1aul,18j9,167x,13wl,11l9,zvz,yfw
+7540|1tzi,1q78,1ft0,1dho,1b6c,18v0,16jo,148c,11x0,103b,yn8
+7560|1uc3,1qjr,1g4q,1dte,1bi2,196q,16ve,14k2,128q,10an,yuk
+7580|1uop,1qwa,1ggg,1e54,1bts,19ig,1774,14vs,12kg,10hz,z1w
+7600|1v1a,1r8t,1gs7,1egv,1c5j,19u7,17iv,157j,12w7,10pb,z98
+7620|1vdw,1rlc,1h3x,1esl,1ch9,1a5x,17ul,15j9,137x,10wn,zgk
+7640|1vqi,1rxw,1hfo,1f4c,1ct0,1aho,186c,15v0,13jo,118c,znw
+7660|1w33,1saf,1hre,1fg2,1d4q,1ate,18i2,166q,13ve,11k2,zv8
+7680|1wfp,1smy,1i34,1frs,1dgg,1b54,18ts,16ig,1474,11vs,102k
+7700|1wsa,1szh,1iev,1g3j,1ds7,1bgv,195j,16u7,14iv,127j,109w
+7720|1x4w,1tc0,1iql,1gf9,1e3x,1bsl,19h9,175x,14ul,12j9,10h8
+7740|1xhi,1tok,1j2c,1gr0,1efo,1c4c,19t0,17ho,156c,12v0,10ok
+7760|1xu3,1u13,1je2,1h2q,1ere,1cg2,1a4q,17te,15i2,136q,10vw
+7780|1y6p,1udm,1jps,1heg,1f34,1crs,1agg,1854,15ts,13ig,1174
+7800|1yja,1uq5,1k1j,1hq7,1fev,1d3j,1as7,18gv,165j,13u7,11iv
+7820|1yvw,1v2o,1kd9,1i1x,1fql,1df9,1b3x,18sl,16h9,145x,11ul
+7840|1z8i,1vf8,1kp0,1ido,1g2c,1dr0,1bfo,194c,16t0,14ho,126c
+7860|1zl3,1vrr,1l0q,1ipe,1ge2,1e2q,1bre,19g2,174q,14te,12i2
+7880|1zxp,1w4a,1lcg,1j14,1gps,1eeg,1c34,19rs,17gg,1554,12ts
+7900|20aa,1wgt,1lo7,1jcv,1h1j,1eq7,1cev,1a3j,17s7,15gv,135j
+7920|20mw,1wtc,1lzx,1jol,1hd9,1f1x,1cql,1af9,183x,15sl,13h9
+7940|20zi,1x5w,1mbo,1k0c,1hp0,1fdo,1d2c,1ar0,18fo,164c,13t0
+7960|21c3,1xif,1mne,1kc2,1i0q,1fpe,1de2,1b2q,18re,16g2,144q
+7980|21op,1xuy,1mz4,1kns,1icg,1g14,1dps,1beg,1934,16rs,14gg
+8000|221a,1y7h,1nav,1kzj,1io7,1gcv,1e1j,1bq7,19ev,173j,14s7
+8020|22dw,1yk0,1nml,1lb9,1izx,1gol,1ed9,1c1x,19ql,17f9,153x
+8040|22qi,1ywk,1nyc,1ln0,1jbo,1h0c,1ep0,1cdo,1a2c,17r0,15fo
+8060|2333,1z93,1oa2,1lyq,1jne,1hc2,1f0q,1cpe,1ae2,182q,15re
+8080|23fp,1zlm,1ols,1mag,1jz4,1hns,1fcg,1d14,1aps,18eg,1634
+8100|23sa,1zy5,1oxj,1mm7,1kav,1hzj,1fo7,1dcv,1b1j,18q7,16ev
+8120|244w,20ao,1p99,1mxx,1kml,1ib9,1fzx,1dol,1bd9,191x,16ql
+8140|24hi,20n8,1pl0,1n9o,1kyc,1in0,1gbo,1e0c,1bp0,19do,172c
+8160|24u3,20zr,1pwq,1nle,1la2,1iyq,1gne,1ec2,1c0q,19pe,17e2
+8180|256p,21ca,1q8g,1nx4,1lls,1jag,1gz4,1ens,1ccg,1a14,17ps
+8200|25ja,21ot,1qk7,1o8v,1lxj,1jm7,1hav,1ezj,1co7,1acv,181j
+8220|25vw,221c,1qvx,1okl,1m99,1jxx,1hml,1fb9,1czx,1aol,18d9
+8240|268i,22dw,1r7o,1owc,1ml0,1k9o,1hyc,1fn0,1dbo,1b0c,18p0
+8260|26l3,22qf,1rje,1p82,1mwq,1kle,1ia2,1fyq,1dne,1bc2,190q
+8280|26xp,232y,1rv4,1pjs,1n8g,1kx4,1ils,1gag,1dz4,1bns,19cg
+8300|27aa,23fh,1s6v,1pvj,1nk7,1l8v,1ixj,1gm7,1eav,1bzj,19o7
+8320|27mw,23s0,1sil,1q79,1nvx,1lkl,1j99,1gxx,1eml,1cb9,19zx
+8340|27zu,244w,1suo,1qjc,1o80,1lwo,1jlc,1ha0,1eyo,1cnc,1ac0
+8360|28cu,24ht,1t6s,1qvg,1ok4,1m8s,1jxg,1hm4,1fas,1czg,1ao4
+8380|28pu,24ur,1tix,1r7l,1ow9,1mkx,1k9l,1hy9,1fmx,1dbl,1b09
+8400|292u,257o,1tv2,1rjq,1p8e,1mx2,1klq,1iae,1fz2,1dnq,1bce
+8420|29fu,25km,1u77,1rvv,1pkj,1n97,1kxv,1imj,1gb7,1dzv,1boj
+8440|29su,25xk,1ujc,1s80,1pwo,1nlc,1la0,1iyo,1gnc,1ec0,1c0o
+8460|2a5u,26ah,1uvg,1sk4,1q8s,1nxg,1lm4,1jas,1gzg,1eo4,1ccs
+8480|2aiu,26nf,1v7l,1sw9,1qkx,1o9l,1ly9,1jmx,1hbl,1f09,1cox
+8500|2avu,270c,1vjq,1t8e,1qx2,1olq,1mae,1jz2,1hnq,1fce,1d12
+8520|2b8u,27da,1vvv,1tkj,1r97,1oxv,1mmj,1kb7,1hzv,1foj,1dd7
+8540|2blu,27q8,1w80,1two,1rlc,1pa0,1myo,1knc,1ic0,1g0o,1dpc
+8560|2byu,2835,1wk4,1u8s,1rxg,1pm4,1nas,1kzg,1io4,1gcs,1e1g
+8580|2cbu,28g3,1ww9,1ukx,1s9l,1py9,1nmx,1lbl,1j09,1gox,1edl
+8600|2cou,28t0,1x8e,1ux2,1slq,1qae,1nz2,1lnq,1jce,1h12,1epq
+8620|2d1u,295y,1xkj,1v97,1sxv,1qmj,1ob7,1lzv,1joj,1hd7,1f1v
+8640|2deu,29iw,1xwo,1vlc,1ta0,1qyo,1onc,1mc0,1k0o,1hpc,1fe0
+8660|2dru,29vt,1y8s,1vxg,1tm4,1ras,1ozg,1mo4,1kcs,1i1g,1fq4
+8680|2e4u,2a8r,1ykx,1w9l,1ty9,1rmx,1pbl,1n09,1kox,1idl,1g29
+8700|2ehu,2alo,1yx2,1wlq,1uae,1rz2,1pnq,1nce,1l12,1ipq,1gee
+8720|2euu,2aym,1z97,1wxv,1umj,1sb7,1pzv,1noj,1ld7,1j1v,1gqj
+8740|2f7u,2bbk,1zlc,1xa0,1uyo,1snc,1qc0,1o0o,1lpc,1je0,1h2o
+8760|2fku,2boh,1zxg,1xm4,1vas,1szg,1qo4,1ocs,1m1g,1jq4,1hes
+8780|2fxu,2c1f,209l,1xy9,1vmx,1tbl,1r09,1oox,1mdl,1k29,1hqx
+8800|2gau,2cec,20lq,1yae,1vz2,1tnq,1rce,1p12,1mpq,1kee,1i32
+8820|2gnu,2cra,20xv,1ymj,1wb7,1tzv,1roj,1pd7,1n1v,1kqj,1if7
+8840|2h0u,2d48,21a0,1yyo,1wnc,1uc0,1s0o,1ppc,1ne0,1l2o,1irc
+8860|2hdu,2dh5,21m4,1zas,1wzg,1uo4,1scs,1q1g,1nq4,1les,1j3g
+8880|2hqu,2du3,21y9,1zmx,1xbl,1v09,1sox,1qdl,1o29,1lqx,1jfl
+8900|2i3u,2e70,22ae,1zz2,1xnq,1vce,1t12,1qpq,1oee,1m32,1jrq
+8920|2igu,2ejy,22mj,20b7,1xzv,1voj,1td7,1r1v,1oqj,1mf7,1k3v
+8940|2itu,2eww,22yo,20nc,1yc0,1w0o,1tpc,1re0,1p2o,1mrc,1kg0
+8960|2j6u,2f9t,23as,20zg,1yo4,1wcs,1u1g,1rq4,1pes,1n3g,1ks4
+8980|2jju,2fmr,23mx,21bl,1z09,1wox,1udl,1s29,1pqx,1nfl,1l49
+9000|2jwu,2fzo,23z2,21nq,1zce,1x12,1upq,1see,1q32,1nrq,1lge
+9020|2k9u,2gcm,24b7,21zv,1zoj,1xd7,1v1v,1sqj,1qf7,1o3v,1lsj
+9040|2kmu,2gpk,24nc,22c0,200o,1xpc,1ve0,1t2o,1qrc,1og0,1m4o
+9060|2kzu,2h2h,24zg,22o4,20cs,1y1g,1vq4,1tes,1r3g,1os4,1mgs
+9080|2lcu,2hff,25bl,2309,20ox,1ydl,1w29,1tqx,1rfl,1p49,1msx
+9100|2lpu,2hsc,25nq,23ce,2112,1ypq,1wee,1u32,1rrq,1pge,1n52
+9120|2m2u,2i5a,25zv,23oj,21d7,1z1v,1wqj,1uf7,1s3v,1psj,1nh7
+9140|2mfu,2ii8,26c0,240o,21pc,1ze0,1x2o,1urc,1sg0,1q4o,1ntc
+9160|2msu,2iv5,26o4,24cs,221g,1zq4,1xes,1v3g,1ss4,1qgs,1o5g
+9180|2n5u,2j83,2709,24ox,22dl,2029,1xqx,1vfl,1t49,1qsx,1ohl
+9200|2niu,2jl0,27ce,2512,22pq,20ee,1y32,1vrq,1tge,1r52,1otq
+9220|2o1c,2jxy,27oj,25d7,231v,20qj,1yf7,1w3v,1tsj,1rh7,1p5v
+9240|2okb,2kaw,280o,25pc,23e0,212o,1yrc,1wg0,1u4o,1rtc,1pi0
+9260|2p39,2knt,28cs,261g,23q4,21es,1z3g,1ws4,1ugs,1s5g,1pu4
+9280|2pm8,2l0r,28ox,26dl,2429,21qx,1zfl,1x49,1usx,1shl,1q69
+9300|2q56,2ldo,2912,26pq,24ee,2232,1zrq,1xge,1v52,1stq,1qie
+9320|2qo5,2lqm,29d7,271v,24qj,22f7,203v,1xsj,1vh7,1t5v,1quj
+9340|2r73,2m3k,29pc,27e0,252o,22rc,20g0,1y4o,1vtc,1ti0,1r6o
+9360|2rq2,2mgh,2a1g,27q4,25es,233g,20s4,1ygs,1w5g,1tu4,1ris
+9380|2s90,2mtf,2adl,2829,25qx,23fl,2149,1ysx,1whl,1u69,1rux
+9400|2srz,2n6c,2apq,28ee,2632,23rq,21ge,1z52,1wtq,1uie,1s72
+9420|2tax,2nja,2b1v,28qj,26f7,243v,21sj,1zh7,1x5v,1uuj,1sj7
+9440|2ttw,2o1w,2be0,292o,26rc,24g0,224o,1ztc,1xi0,1v6o,1svc
+9460|2ucu,2okr,2bq4,29es,273g,24s4,22gs,205g,1xu4,1vis,1t7g
+9480|2uvt,2p3m,2c29,29qx,27fl,2549,22sx,20hl,1y69,1vux,1tjl
+9500|2ver,2pmh,2cee,2a32,27rq,25ge,2352,20tq,1yie,1w72,1tvq
+9520|2vxq,2q5c,2cqj,2af7,283v,25sj,23h7,215v,1yuj,1wj7,1u7v
+9540|2wgo,2qo7,2d2o,2arc,28g0,264o,23tc,21i0,1z6o,1wvc,1uk0
+9560|2wzn,2r72,2des,2b3g,28s4,26gs,245g,21u4,1zis,1x7g,1uw4
+9580|2xil,2rpx,2dqx,2bfl,2949,26sx,24hl,2269,1zux,1xjl,1v89
+9600|2y1k,2s8s,2e32,2brq,29ge,2752,24tq,22ie,2072,1xvq,1vke
+9620|2yki,2srn,2ef7,2c3v,29sj,27h7,255v,22uj,20j7,1y7v,1vwj
+9640|2z3h,2tai,2erc,2cg0,2a4o,27tc,25i0,236o,20vc,1yk0,1w8o
+9660|2zmf,2ttd,2f3g,2cs4,2ags,285g,25u4,23is,217g,1yw4,1wks
+9680|305e,2uc8,2ffl,2d49,2asx,28hl,2669,23ux,21jl,1z89,1wwx
+9700|30oc,2uv3,2frq,2dge,2b52,28tq,26ie,2472,21vq,1zke,1x92
+9720|317b,2vdy,2g3v,2dsj,2bh7,295v,26uj,24j7,227v,1zwj,1xl7
+9740|31q9,2vwt,2gg0,2e4o,2btc,29i0,276o,24vc,22k0,208o,1xxc
+9760|3298,2wfo,2gs4,2egs,2c5g,29u4,27is,257g,22w4,20ks,1y9g
+9780|32s6,2wyj,2h49,2esx,2chl,2a69,27ux,25jl,2389,20wx,1yll
+9800|33b5,2xhe,2hge,2f52,2ctq,2aie,2872,25vq,23ke,2192,1yxq
+9820|33u3,2y09,2hsj,2fh7,2d5v,2auj,28j7,267v,23wj,21l7,1z9v
+9840|34d2,2yj4,2i4o,2ftc,2di0,2b6o,28vc,26k0,248o,21xc,1zm0
+9860|34w0,2z1z,2igs,2g5g,2du4,2bis,297g,26w4,24ks,229g,1zy4
+9880|35ez,2zku,2isx,2ghl,2e69,2bux,29jl,2789,24wx,22ll,20a9
+9900|35xx,303p,2j52,2gtq,2eie,2c72,29vq,27ke,2592,22xq,20me
+9920|36gw,30mk,2jh7,2h5v,2euj,2cj7,2a7v,27wj,25l7,239v,20yj
+9940|36zu,315f,2jtc,2hi0,2f6o,2cvc,2ak0,288o,25xc,23m0,21ao
+9960|37it,31oa,2k5g,2hu4,2fis,2d7g,2aw4,28ks,269g,23y4,21ms
+9980|381r,3275,2khl,2i69,2fux,2djl,2b89,28wx,26ll,24a9,21yx</script>
+<script>
+(function(){
+  'use strict';
+
+  /* ---------- 2026년 기준 상수 ---------- */
+  var MIN_WAGE = 10320;            // 2026년 적용 최저임금(시간급)
+  var MIN_WAGE_NEXT = 10700;       // 2027년 적용 최저임금(시간급)
+  var MEAL_CAP = 200000;           // 비과세 식대 월 한도
+  var WEEKS = 365 / 12 / 7;        // 월 평균 주 수 4.3452...
+  var PENSION = 0.0475, HEALTH = 0.03595, LTC = 0.1314, EMPLOY = 0.009;
+  var P_BASE_MIN = 410000, P_BASE_MAX = 6590000;
+  var TAX_BRACKETS = [
+    [14000000, 0.06, 0],
+    [50000000, 0.15, 1260000],
+    [88000000, 0.24, 5760000],
+    [150000000, 0.35, 15440000],
+    [300000000, 0.38, 19940000],
+    [500000000, 0.40, 25940000],
+    [1000000000, 0.42, 35940000],
+    [Infinity, 0.45, 65940000]
+  ];
+
+  /* ---------- 간이세액표 데이터 (소득세법 시행령 별표2, 2026.2.27 개정) ---------- */
+  var TAX_ROWS = (function(){
+    var src = document.getElementById('tax-data');
+    var lines = String(src ? src.textContent : '').replace(/^\n+|\s+$/g, '').split('\n');
+    var out = [];
+    for (var i = 0; i < lines.length; i++){
+      var line = lines[i];
+      if (!line) continue;
+      var bar = line.indexOf('|');
+      var from = Number(line.slice(0, bar));
+      var cells = line.slice(bar + 1).split(',');
+      var vals = [];
+      for (var j = 0; j < cells.length; j++) vals.push(parseInt(cells[j], 36) * 10);
+      var to = (i + 1 < lines.length)
+        ? Number(lines[i + 1].slice(0, lines[i + 1].indexOf('|')))
+        : 10000;
+      out.push({ from: from, to: to, v: vals });
+    }
+    return out;
+  })();
+
+  /* ---------- 숫자 유틸 ---------- */
+  function toNum(v){
+    var s = String(v == null ? '' : v).replace(/[^0-9.]/g, '');
+    var n = Number(s);
+    return isFinite(n) ? n : 0;
+  }
+  function commas(n){
+    var s = String(Math.round(n));
+    return s.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+  function won(n){ return commas(n) + '원'; }
+  function floor10(n){ return Math.floor(n / 10) * 10; }
+  function hourText(h){
+    var s = (Math.round(h * 100) / 100).toString();
+    return s.replace(/\.0+$/, '');
+  }
+
+  /* ---------- 소득세 ---------- */
+  function taxFromTable(monthly, family){
+    if (monthly < 770000 || monthly >= 10000000) return null;
+    var k = monthly / 1000;
+    var lo = 0, hi = TAX_ROWS.length - 1, idx = -1;
+    while (lo <= hi){
+      var mid = (lo + hi) >> 1, r = TAX_ROWS[mid];
+      if (k >= r.from && k < r.to){ idx = mid; break; }
+      if (k < r.from) hi = mid - 1; else lo = mid + 1;
+    }
+    if (idx < 0) return null;
+    var v = TAX_ROWS[idx].v;
+    if (family <= 11) return v[family - 1] || 0;
+    return Math.max(0, (v[10] || 0) - ((v[9] || 0) - (v[10] || 0)) * (family - 11));
+  }
+
+  function earnedDeduction(g){
+    var d;
+    if (g <= 5000000) d = g * 0.7;
+    else if (g <= 15000000) d = 3500000 + (g - 5000000) * 0.4;
+    else if (g <= 45000000) d = 7500000 + (g - 15000000) * 0.15;
+    else if (g <= 100000000) d = 12000000 + (g - 45000000) * 0.05;
+    else d = 14750000 + (g - 100000000) * 0.02;
+    return Math.min(d, 20000000);
+  }
+  function specialDeduction(g, family){
+    if (family <= 1){
+      if (g <= 30000000) return 3100000 + g * 0.04;
+      if (g <= 45000000) return 3100000 + g * 0.04 - (g - 30000000) * 0.05;
+      if (g <= 70000000) return 3100000 + g * 0.015;
+      return 3100000 + g * 0.005;
+    }
+    if (family === 2){
+      if (g <= 30000000) return 3600000 + g * 0.04;
+      if (g <= 45000000) return 3600000 + g * 0.04 - (g - 30000000) * 0.05;
+      if (g <= 70000000) return 3600000 + g * 0.02;
+      return 3600000 + g * 0.01;
+    }
+    if (g <= 30000000) return 5000000 + g * 0.07 + Math.max(0, g - 40000000) * 0.04;
+    if (g <= 45000000) return 5000000 + g * 0.07 - (g - 30000000) * 0.05;
+    if (g <= 70000000) return 5000000 + g * 0.05;
+    return 5000000 + g * 0.03;
+  }
+  function earnedTax(base){
+    for (var i = 0; i < TAX_BRACKETS.length; i++){
+      if (base <= TAX_BRACKETS[i][0]) return Math.max(0, base * TAX_BRACKETS[i][1] - TAX_BRACKETS[i][2]);
+    }
+    return 0;
+  }
+  // 표에 없는 구간(월 77만 원 미만·1,000만 원 이상)은 별표2와 같은 순서로 추정
+  function taxEstimate(monthly, family){
+    var g = monthly * 12;
+    var pBase = Math.min(Math.max(Math.floor(monthly / 1000) * 1000, P_BASE_MIN), P_BASE_MAX);
+    var penYear = floor10(pBase * PENSION) * 12;
+    var base = Math.max(0, g - earnedDeduction(g) - 1500000 * family - penYear - specialDeduction(g, family));
+    var tax = earnedTax(base);
+    var limit = g <= 33000000 ? 740000 : (g <= 70000000 ? 660000 : (g <= 120000000 ? 500000 : 200000));
+    var credit = tax <= 1300000 ? tax * 0.55 : 715000 + (tax - 1300000) * 0.3;
+    credit = Math.min(credit, limit);
+    return Math.round(Math.max(0, tax - credit) / 12);
+  }
+  function childRelief(kids){
+    if (kids === 1) return 20830;
+    if (kids === 2) return 45830;
+    if (kids >= 3) return 45830 + (kids - 2) * 33330;
+    return 0;
+  }
+  function incomeTax(monthly, family, kids){
+    var t = taxFromTable(monthly, family);
+    if (t === null) t = taxEstimate(monthly, family);
+    return Math.max(0, Math.round(t - childRelief(kids)));
+  }
+
+  /* ---------- DOM ---------- */
+  function $(id){ return document.getElementById(id); }
+  var wageEl = $('wage'), hoursEl = $('weekHours'), daysEl = $('workDays'), attendEl = $('attended');
+  var grossEl = $('gross'), mealEl = $('meal'), familyEl = $('family');
+  var kids = 0;
+
+  function msplit(el, onInput){
+    el.addEventListener('input', function(){
+      var raw = el.value.replace(/[^0-9]/g, '');
+      var cut = raw.replace(/^0+(?=\d)/, '');
+      el.value = cut ? commas(cut) : '';
+      onInput();
+    });
+  }
+
+  /* ---------- 탭 ---------- */
+  var tabs = [$('tab-weekly'), $('tab-net')];
+  var panels = [$('panel-weekly'), $('panel-net')];
+  function showTab(i){
+    tabs.forEach(function(t, k){
+      t.setAttribute('aria-selected', k === i ? 'true' : 'false');
+      panels[k].hidden = k !== i;
+    });
+  }
+  tabs.forEach(function(t, i){
+    t.addEventListener('click', function(){ showTab(i); });
+  });
+
+  /* ---------- 주휴수당 ---------- */
+  function renderWeekly(){
+    var wage = toNum(wageEl.value);
+    var hours = Math.max(0, toNum(hoursEl.value));
+    var days = Math.min(7, Math.max(1, Math.round(toNum(daysEl.value)) || 1));
+    var attended = attendEl.checked;
+
+    var effHours = Math.min(hours, 40);
+    var holHours = 0;
+    if (hours >= 15 && attended) holHours = effHours / 40 * 8;
+    var holPay = Math.round(holHours * wage);
+    var weekPay = Math.round(hours * wage);
+    var weekTotal = weekPay + holPay;
+    var monthHol = Math.round(holPay * WEEKS);
+    var monthPay = Math.round(weekTotal * WEEKS);
+
+    $('wkPay').textContent = commas(holPay);
+    $('wkPay').parentNode.classList.toggle('is-zero', holPay === 0);
+    $('wkHours').textContent = hourText(holHours) + '시간';
+    $('wkWeek').textContent = won(weekTotal);
+    $('wkMonth').textContent = won(monthHol);
+    $('wkMonthPay').textContent = won(monthPay);
+    $('wkDayBadge').textContent = '하루 평균 ' + hourText(hours / days) + '시간';
+
+    var minBadge = $('wkMinBadge');
+    if (wage >= MIN_WAGE){
+      minBadge.textContent = '최저임금 이상';
+      minBadge.className = 'badge green';
+    } else {
+      minBadge.textContent = '최저임금 미만';
+      minBadge.className = 'badge warn';
+    }
+
+    var hint;
+    if (holHours > 0){
+      hint = '주휴시간 ' + hourText(holHours) + '시간 × 시급 ' + commas(wage) + '원. 월 환산은 1년 52주를 12개월로 나눈 4.345주 기준입니다.';
+    } else if (hours < 15){
+      hint = '주 ' + hourText(hours) + '시간은 15시간에 못 미쳐 주휴수당이 없습니다.';
+    } else {
+      hint = '개근하지 않은 주라 주휴수당을 0원으로 계산했습니다.';
+    }
+    $('wkHint').textContent = hint;
+
+    var warns = [];
+    if (hours < 15) warns.push('1주 소정근로시간이 15시간 미만이면 주휴수당이 발생하지 않습니다(근로기준법 제18조 제3항). 4주 평균으로 판단하니 계약서의 시간을 확인하세요.');
+    if (hours >= 15 && !attended) warns.push('소정근로일을 개근하지 않은 주에는 주휴수당이 없습니다(시행령 제30조 제1항). 결근한 날의 임금도 따로 빠집니다.');
+    if (wage > 0 && wage < MIN_WAGE) warns.push('시급이 2026년 최저임금 10,320원보다 낮습니다. 2027년 1월 1일부터는 10,700원입니다. 미달분은 청구할 수 있습니다.');
+    var w = $('wkWarn');
+    w.hidden = warns.length === 0;
+    w.textContent = warns.join(' ');
+
+    var o = $('wkOk');
+    var oks = [];
+    if (hours >= 15 && attended && wage >= MIN_WAGE && wage > 0){
+      oks.push('15시간 이상·개근 요건을 채웠습니다. 이 주는 주휴수당이 발생합니다.');
+    }
+    if (hours > 40) oks.push('40시간을 넘는 ' + hourText(hours - 40) + '시간은 주휴수당 계산에 넣지 않았습니다.');
+    if (holHours > 0 && days < 5) oks.push('주 ' + days + '일 근무라 하루치가 아니라 근무시간에 비례해 계산했습니다.');
+    o.hidden = oks.length === 0;
+    o.textContent = oks.join(' ');
+
+    var f = [];
+    f.push(['1주 소정근로시간', hourText(hours) + '시간']);
+    f.push(['주휴시간 = ' + hourText(effHours) + ' ÷ 40 × 8', hourText(holHours) + '시간']);
+    f.push(['주휴수당 = ' + hourText(holHours) + ' × ' + commas(wage), won(holPay)]);
+    f.push(['주 소정근로 임금 = ' + hourText(hours) + ' × ' + commas(wage), won(weekPay)]);
+    f.push(['1주 주급 = 임금 + 주휴수당', won(weekTotal)]);
+    f.push(['월 주휴수당 = ' + commas(holPay) + ' × 4.345주', won(monthHol)]);
+    f.push(['월 급여 환산 = ' + commas(weekTotal) + ' × 4.345주', won(monthPay)]);
+    if (Math.abs(hours - 40) < 0.01) f.push(['월급제 209시간 기준', won(wage * 209)]);
+    var list = $('wkFormula');
+    list.innerHTML = '';
+    f.forEach(function(row, i){
+      var li = document.createElement('li');
+      if (i === f.length - 1 && Math.abs(hours - 40) < 0.01) li.className = 'total';
+      li.innerHTML = '<b>' + row[0] + '</b><span>' + row[1] + '</span>';
+      list.appendChild(li);
+    });
+  }
+
+  /* ---------- 실수령액 ---------- */
+  function renderNet(){
+    var gross = toNum(grossEl.value);
+    var mealIn = toNum(mealEl.value);
+    var family = Math.min(11, Math.max(1, Math.round(toNum(familyEl.value)) || 1));
+
+    var mealExempt = Math.min(mealIn, MEAL_CAP);
+    var taxable = Math.max(0, gross - mealExempt);
+
+    var pBase = Math.min(Math.max(Math.floor(taxable / 1000) * 1000, P_BASE_MIN), P_BASE_MAX);
+    var pension = floor10(pBase * PENSION);
+    var health = floor10(taxable * HEALTH);
+    var ltc = floor10(health * LTC);
+    var employ = floor10(taxable * EMPLOY);
+    var insTotal = pension + health + ltc + employ;
+    var tax = taxable > 0 ? incomeTax(taxable, family, kids) : 0;
+    var local = floor10(tax * 0.1);
+    var total = insTotal + tax + local;
+    var net = Math.max(0, gross - total);
+
+    $('netPay').textContent = commas(net);
+    $('netPay').parentNode.classList.toggle('is-zero', net === 0);
+    $('iPension').textContent = won(pension);
+    $('iHealth').textContent = won(health);
+    $('iLtc').textContent = won(ltc);
+    $('iEmploy').textContent = won(employ);
+    $('iTax').textContent = won(tax);
+    $('iLocal').textContent = won(local);
+    $('iInsTotal').textContent = won(insTotal);
+    $('iTotal').textContent = won(total);
+    $('taxedBadge').textContent = '과세 대상 ' + won(taxable);
+    $('rateBadge').textContent = '공제율 ' + (gross > 0 ? (total / gross * 100).toFixed(1) : '0.0') + '%';
+
+    var hint = gross > 0
+      ? '세전 ' + won(gross) + ' 중 ' + won(total) + '이 빠집니다. 통장에 들어오는 돈은 ' + won(net) + '입니다.'
+      : '월 세전 급여를 넣으면 실수령액이 바로 나옵니다.';
+    if (tax === 0 && taxable > 0) hint += ' 소득세는 0원입니다.';
+    $('netHint').textContent = hint;
+
+    var warns = [];
+    if (mealIn > MEAL_CAP) warns.push('식대 비과세는 월 20만 원까지입니다. 넘는 ' + won(mealIn - MEAL_CAP) + '은 과세 대상에 넣었습니다.');
+    if (taxable > P_BASE_MAX) warns.push('국민연금은 기준소득월액 상한 659만 원이 적용되어 그 이상은 보험료가 늘지 않습니다.');
+    if (taxable >= 10000000) warns.push('월 1,000만 원을 넘는 구간은 간이세액표 대신 같은 산식으로 추정했습니다. 실제와 차이가 날 수 있습니다.');
+    if (gross > 0 && taxable <= 0) warns.push('비과세 금액이 급여보다 큽니다. 비과세 식대를 확인해 주세요.');
+    var w = $('netWarn');
+    w.hidden = warns.length === 0;
+    w.textContent = warns.join(' ');
+
+    var o = $('netOk');
+    if (gross > 0 && taxable > 0){
+      o.hidden = false;
+      o.textContent = '2026년 요율과 간이세액표(2026.3.1 시행)로 계산했습니다. 원천징수 100% 기준입니다.';
+    } else {
+      o.hidden = true;
+    }
+
+    var f = [];
+    f.push(['과세 대상 월급 = 세전 − 비과세 식대', won(taxable)]);
+    f.push(['국민연금 = ' + commas(pBase) + ' × 4.75%', won(pension)]);
+    f.push(['건강보험 = ' + commas(taxable) + ' × 3.595%', won(health)]);
+    f.push(['장기요양 = ' + commas(health) + ' × 13.14%', won(ltc)]);
+    f.push(['고용보험 = ' + commas(taxable) + ' × 0.9%', won(employ)]);
+    f.push(['소득세 = 간이세액표 · 가족 ' + family + '명' + (kids ? ' · 자녀 ' + kids + '명 조정' : ''), won(tax)]);
+    f.push(['지방소득세 = 소득세 × 10%', won(local)]);
+    f.push(['공제 합계', won(total)]);
+    var list = $('netFormula');
+    list.innerHTML = '';
+    f.forEach(function(row, i){
+      var li = document.createElement('li');
+      if (i === f.length - 1) li.className = 'total';
+      li.innerHTML = '<b>' + row[0] + '</b><span>' + row[1] + '</span>';
+      list.appendChild(li);
+    });
+  }
+
+  /* ---------- 이벤트 ---------- */
+  msplit(wageEl, renderWeekly);
+  msplit(grossEl, renderNet);
+  msplit(mealEl, renderNet);
+
+  hoursEl.addEventListener('input', function(){ syncQuick(); renderWeekly(); });
+  daysEl.addEventListener('input', renderWeekly);
+  attendEl.addEventListener('change', renderWeekly);
+  familyEl.addEventListener('input', function(){ syncFamily(); renderNet(); });
+
+  var hoursQuick = $('hoursQuick');
+  hoursQuick.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-h]');
+    if (!b) return;
+    hoursEl.value = b.getAttribute('data-h');
+    syncQuick();
+    renderWeekly();
+  });
+  function syncQuick(){
+    var v = toNum(hoursEl.value);
+    Array.prototype.forEach.call(hoursQuick.querySelectorAll('button'), function(b){
+      b.setAttribute('aria-pressed', Number(b.getAttribute('data-h')) === v ? 'true' : 'false');
+    });
+  }
+
+  var familyQuick = $('familyQuick');
+  familyQuick.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-f]');
+    if (!b) return;
+    familyEl.value = b.getAttribute('data-f');
+    syncFamily();
+    renderNet();
+  });
+  function syncFamily(){
+    var v = Math.round(toNum(familyEl.value));
+    Array.prototype.forEach.call(familyQuick.querySelectorAll('button'), function(b){
+      b.setAttribute('aria-pressed', Number(b.getAttribute('data-f')) === v ? 'true' : 'false');
+    });
+  }
+
+  var kidsSeg = document.querySelector('.seg[aria-label="8세 이상 20세 이하 자녀 수"]');
+  kidsSeg.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-k]');
+    if (!b) return;
+    kids = Number(b.getAttribute('data-k'));
+    Array.prototype.forEach.call(kidsSeg.querySelectorAll('button'), function(x){
+      x.setAttribute('aria-pressed', x === b ? 'true' : 'false');
+    });
+    renderNet();
+  });
+
+  /* ---------- 초기값(예시) ---------- */
+  wageEl.value = commas(MIN_WAGE);
+  hoursEl.value = '20';
+  daysEl.value = '5';
+  grossEl.value = commas(3000000);
+  mealEl.value = commas(MEAL_CAP);
+  familyEl.value = '1';
+  syncQuick();
+  syncFamily();
+  renderWeekly();
+  renderNet();
+})();
+</script>
+<script>
+/* GA4 커스텀 이벤트: 툴 진입·계산 실행·탭 전환·링크 클릭 (입력값은 전송하지 않음) */
+(function () {
+  if (typeof btEvent !== 'function') return;
+  var sent = {};
+  function once(key, name, params) {
+    if (sent[key]) return;
+    sent[key] = true;
+    btEvent(name, params);
+  }
+  once('open', 'tool_open', { tool_id: 'weekly-holiday-calc', page_group: 'weekly-holiday-calc' });
+  var form = document.querySelector('.wrap') || document.body;
+  form.addEventListener('input', function (e) {
+    var el = e.target;
+    var type = (el && el.closest && el.closest('#panel-net')) ? 'net_pay' : 'weekly_holiday';
+    once('calc_' + type, 'calc_run', { calc_type: type, trigger: 'input', page_group: 'weekly-holiday-calc' });
+  }, true);
+  form.addEventListener('change', function (e) {
+    var el = e.target;
+    var type = (el && el.closest && el.closest('#panel-net')) ? 'net_pay' : 'weekly_holiday';
+    once('calc_' + type, 'calc_run', { calc_type: type, trigger: 'change', page_group: 'weekly-holiday-calc' });
+  }, true);
+  form.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) return;
+    var tab = t.closest('.tab');
+    if (tab) {
+      btEvent('tab_select', {
+        tab_id: tab.id === 'tab-net' ? 'net_pay' : 'weekly_holiday',
+        page_group: 'weekly-holiday-calc'
+      });
+    }
+  }, true);
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) return;
+    var a = t.closest('a[href]');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (!href || href.charAt(0) === '#' || href.indexOf('javascript:') === 0) return;
+    btEvent('cta_click', {
+      cta_location: 'weekly_holiday_cta',
+      cta_label: (a.textContent || '').trim().slice(0, 60),
+      link_url: a.href,
+      transport_type: 'beacon'
+    });
+  }, true);
+})();
+</script>
+</body>
+</html>
