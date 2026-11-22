@@ -1819,8 +1819,8 @@ function btEvent(name, params){
 
     var b = r.p.baseTax > 0 ? bracketOf(r.p.baseTax) : null;
     $('badgeRate').textContent = b ? '한계세율 ' + Math.round(b[1] * 100) + '%' : '한계세율 -';
-    var extraText = r.card.extra > 0 ? ' + 추가 ' + commas(r.card.extra) : '';
-    $('badgeCardLimit').textContent = '카드 한도 ' + commas(r.card.basic) + extraText;
+    var extraText = r.card.extra > 0 ? ' +' + commas(r.card.extra / 10000) + '만' : '';
+    $('badgeCardLimit').textContent = '카드한도 ' + commas(r.card.basic / 10000) + '만' + extraText;
     $('badgeRentRate').textContent = r.rentCredit > 0
       ? '월세 ' + Math.round(r.rentRate * 100) + '% 공제'
       : (g > 80000000 ? '월세 총급여 초과' : (r.rentCap > 0 ? '무주택 요건 확인' : '월세 입력 없음'));
