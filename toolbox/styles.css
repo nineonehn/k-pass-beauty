@@ -411,8 +411,8 @@ input,select,textarea{font:inherit;letter-spacing:inherit;color:inherit}
 @media (prefers-color-scheme:dark){.toast{background:rgba(240,242,246,.96);color:#0b0c0f}}
 
 @media (max-width:360px){
-  .hero h1{font-size:27px}
-  .tool-name{font-size:14px}
+  .hero h1{font-size:24px}
+  .hname{font-size:13px}
+  .home-seg button{font-size:12px}
   .result-big{font-size:27px}
-  .grid{gap:8px}
 }
