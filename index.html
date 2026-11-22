@@ -16,6 +16,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#12151a">
+
+<!-- Google Analytics 4 (2026-11-23) — measurement ID G-75QNHCLDK6
+     Placed at the top of <head> so window.gtag exists before the referral script at the end of <body> runs.
+     Sends page_view, plus referral_visit / booking_click from the script below. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75QNHCLDK6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-75QNHCLDK6');
+</script>
+
 <title>K-Pass Beauty — Book a Seoul scrub or K-wellness spa in English</title>
 <meta name="description" content="Seoul scrubs and K-wellness spas book only in Korean. We call, confirm, and send an English voucher. Flat $9.90, refunded if we can't get you in.">
 <link rel="canonical" href="https://nineonehn.github.io/k-pass-beauty/">
@@ -437,9 +449,11 @@
 </div>
 
 <script>
-/* Referral tracking (2026-11-23)
+/* Referral + booking tracking (2026-11-23)
    ?ref=CODE in the URL is kept for the session and carried into every Tally booking link.
-   No external requests, no visual change. */
+   GA4 events: referral_visit (once per page load, when ?ref= is present)
+               booking_click  (every click on a Tally booking link, with ref_code or 'direct')
+   No visual change. */
 (function () {
   var KEY = 'kpb_ref';
   var ref = '';
@@ -472,9 +486,34 @@
   if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', apply); }
   else { apply(); }
 
-  if (ref && typeof gtag === 'function') {
-    gtag('event', 'referral_visit', { ref_code: ref });
+  function track(name, params) {
+    if (typeof window.gtag === 'function') { window.gtag('event', name, params); }
   }
+
+  /* booking_click — fired on the Tally links (hero, bottom, sticky bar).
+     transport_type:'beacon' so the hit survives the cross-site navigation to tally.so.
+     preventDefault is not called: the ?ref= href and normal link behaviour stay as they are. */
+  function bindClicks() {
+    var links = document.querySelectorAll('a[href*="tally.so/r/vXr0r0"]');
+    for (var i = 0; i < links.length; i++) {
+      links[i].addEventListener('click', function (e) {
+        var label = (this.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 60);
+        track('booking_click', {
+          ref_code: ref || 'direct',
+          link_text: label,
+          link_url: this.href,
+          transport_type: 'beacon'
+        });
+        // middle-click / ctrl-click opens a new tab: keep the same event, no extra handling needed
+        void e;
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', bindClicks); }
+  else { bindClicks(); }
+
+  if (ref) { track('referral_visit', { ref_code: ref }); }
 })();
 </script>
 
