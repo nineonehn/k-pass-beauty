@@ -462,6 +462,7 @@
   }
 
   function apply() {
+    if (!ref) return;
     var links = document.querySelectorAll('a[href*="tally.so/r/vXr0r0"]');
     for (var i = 0; i < links.length; i++) {
       links[i].setAttribute('href', withRef(links[i].getAttribute('href')));
