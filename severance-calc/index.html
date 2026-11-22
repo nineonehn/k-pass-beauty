@@ -4,6 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f2f4f6" media="(prefers-color-scheme: light)">
+<!-- Google Analytics 4 · 복어 툴박스 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75QNHCLDK6"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75QNHCLDK6');
+function btEvent(name, params){
+  try { gtag('event', name, params || {}); } catch (e) {}
+}
+</script>
 <meta name="theme-color" content="#101418" media="(prefers-color-scheme: dark)">
 <title>퇴직금·실업급여 계산기 | 세전·세후 실수령까지 한 번에</title>
 <meta name="description" content="입사일·퇴사일과 최근 3개월 급여만 넣으면 법정 퇴직금, 예상 퇴직소득세, 실수령액이 바로 나옵니다. 실업급여(구직급여)는 2026년 상한 68,100원·하한 66,048원과 소정급여일수를 반영해 총 수급액까지 계산합니다.">
@@ -1036,6 +1047,58 @@
     monthlyPay.value = commas('3000000');
     render();
   })();
+})();
+</script>
+<script>
+/* GA4 커스텀 이벤트: 계산 실행·탭 전환·링크 클릭 (입력값은 전송하지 않음) */
+(function () {
+  if (typeof btEvent !== 'function') return;
+  var sent = {};
+  function once(key, name, params) {
+    if (sent[key]) return;
+    sent[key] = true;
+    btEvent(name, params);
+  }
+  var form = document.querySelector('.wrap') || document.body;
+  form.addEventListener('input', function (e) {
+    var el = e.target;
+    var type = 'severance';
+    if (el && el.closest && el.closest('#panel-job')) type = 'jobseeker';
+    once('calc_' + type, 'calc_run', { calc_type: type, trigger: 'input', page_group: 'severance-calc' });
+  }, true);
+  form.addEventListener('change', function (e) {
+    var el = e.target;
+    if (el && el.closest && el.closest('#panel-job')) {
+      once('calc_jobseeker', 'calc_run', { calc_type: 'jobseeker', trigger: 'change', page_group: 'severance-calc' });
+    } else {
+      once('calc_severance', 'calc_run', { calc_type: 'severance', trigger: 'change', page_group: 'severance-calc' });
+    }
+  }, true);
+  form.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) return;
+    var tab = t.closest('.tab');
+    if (tab) {
+      btEvent('tab_select', {
+        tab_id: tab.id === 'tab-job' ? 'jobseeker' : 'severance',
+        page_group: 'severance-calc'
+      });
+    }
+  }, true);
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) return;
+    var a = t.closest('a[href]');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (!href || href.charAt(0) === '#' || href.indexOf('javascript:') === 0) return;
+    btEvent('cta_click', {
+      cta_location: 'severance_cta',
+      cta_label: (a.textContent || '').trim().slice(0, 60),
+      link_url: a.href,
+      transport_type: 'beacon'
+    });
+  }, true);
 })();
 </script>
 </body>

@@ -4,6 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f2f4f6" media="(prefers-color-scheme: light)">
+<!-- Google Analytics 4 · 복어 툴박스 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75QNHCLDK6"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75QNHCLDK6');
+function btEvent(name, params){
+  try { gtag('event', name, params || {}); } catch (e) {}
+}
+</script>
 <meta name="theme-color" content="#101418" media="(prefers-color-scheme: dark)">
 <title>연차수당 계산기 | 남은 연차, 12월 31일 전에 얼마인지</title>
 <meta name="description" content="월 통상임금과 부여·사용 연차만 넣으면 미사용 연차수당, 1일·시간당 통상임금, 12월 남은 평일까지 바로 계산됩니다. 무료, 회원가입 없음.">
@@ -608,6 +619,39 @@
   renderDecember();
   render();
   renderPromotion();
+})();
+</script>
+<script>
+/* GA4 커스텀 이벤트: 계산 실행·링크 클릭 (입력값은 전송하지 않음) */
+(function () {
+  if (typeof btEvent !== 'function') return;
+  var calcSent = false;
+  function calcRun(source) {
+    if (calcSent) return;
+    calcSent = true;
+    btEvent('calc_run', { calc_type: 'annual_leave', trigger: source, page_group: 'annual-leave-calc' });
+  }
+  var form = document.querySelector('.wrap') || document.body;
+  form.addEventListener('input', function () { calcRun('input'); }, true);
+  form.addEventListener('change', function () { calcRun('change'); }, true);
+  form.addEventListener('click', function (e) {
+    var t = e.target;
+    if (t && t.closest && t.closest('.step')) calcRun('stepper');
+  }, true);
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) return;
+    var a = t.closest('a[href]');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (!href || href.charAt(0) === '#' || href.indexOf('javascript:') === 0) return;
+    btEvent('cta_click', {
+      cta_location: 'annual_leave_cta',
+      cta_label: (a.textContent || '').trim().slice(0, 60),
+      link_url: a.href,
+      transport_type: 'beacon'
+    });
+  }, true);
 })();
 </script>
 </body>

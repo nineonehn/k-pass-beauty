@@ -9,6 +9,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Google Analytics 4 · 복어 툴박스 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75QNHCLDK6"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75QNHCLDK6');
+function btEvent(name, params){
+  try { gtag('event', name, params || {}); } catch (e) {}
+}
+</script>
 <title>연말 법정리스크 1분 진단 · 우리 회사는 얼마인가</title>
 <meta name="description" content="연차촉진·법정의무교육·퇴직연금, 6문항 예/아니오로 우리 회사의 예상 과태료·수당 리스크를 1분 만에 확인합니다. 회원가입 없이 무료.">
 <meta name="theme-color" content="#FBF8F1" media="(prefers-color-scheme: light)">
@@ -561,6 +572,58 @@
 
   renderChips($("hcChips"), state.headcount, pickHeadcount);
   $("hcLabel").textContent = state.headcount + "명 기준으로 계산합니다";
+})();
+</script>
+<script>
+/* GA4 커스텀 이벤트: 진단 시작·진단 완료·CTA 클릭 (응답 내용·금액은 전송하지 않음) */
+(function () {
+  if (typeof btEvent !== 'function') return;
+
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) return;
+    var start = t.closest('#startBtn');
+    if (start) {
+      btEvent('calc_run', { calc_type: 'yearend_risk_check', trigger: 'start', page_group: 'yearend-risk-check' });
+      return;
+    }
+    var again = t.closest('#againBtn');
+    if (again) {
+      btEvent('check_restart', { page_group: 'yearend-risk-check' });
+      return;
+    }
+    var share = t.closest('#shareBtn');
+    if (share) {
+      btEvent('share_click', { method: navigator.share ? 'native' : 'clipboard', page_group: 'yearend-risk-check' });
+      return;
+    }
+    var a = t.closest('a[href]');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (!href || href.charAt(0) === '#' || href.indexOf('javascript:') === 0) return;
+    btEvent('cta_click', {
+      cta_location: a.id === 'kitBtn' ? 'risk_kit' : (a.id === 'calcBtn' ? 'risk_to_annual_leave' : 'risk_footer'),
+      cta_label: (a.textContent || '').trim().slice(0, 60),
+      link_url: a.href,
+      transport_type: 'beacon'
+    });
+  }, true);
+
+  /* 결과 화면이 실제로 열렸을 때 1회 진단 완료 이벤트 (등급·미비 개수만) */
+  var result = document.getElementById('result');
+  if (result && window.MutationObserver) {
+    var sent = false;
+    new MutationObserver(function () {
+      if (sent || result.hidden) return;
+      sent = true;
+      var pill = document.getElementById('gradePill');
+      var label = pill ? (pill.textContent || '') : '';
+      btEvent('check_complete', {
+        result_grade: label.split('·')[0].trim().slice(0, 20),
+        page_group: 'yearend-risk-check'
+      });
+    }).observe(result, { attributes: true, attributeFilter: ['hidden'] });
+  }
 })();
 </script>
 </body>

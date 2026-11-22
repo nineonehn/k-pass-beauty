@@ -10,6 +10,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
 <title>복어 툴박스</title>
+<!-- Google Analytics 4 · 복어 툴박스 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75QNHCLDK6"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75QNHCLDK6');
+function btEvent(name, params){
+  try { gtag('event', name, params || {}); } catch (e) {}
+}
+</script>
 <meta name="description" content="서류·사진 보안, 커머스 이미지, QR·링크 정리, 임장 자금 계산, 구매대행 마진, 사내 공지·스레드까지. 폰 브라우저 안에서만 처리하는 6종 툴박스.">
 <meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0a0b0d" media="(prefers-color-scheme: dark)">
@@ -641,5 +652,36 @@ window.addEventListener('unhandledrejection', function (e) {
 <script src="vendor/qrcode.js"></script>
 <script src="core.js?v=20261121f"></script>
 <script src="app.js?v=20261121f"></script>
+<script>
+/* GA4 커스텀 이벤트: 툴 진입·무료앱 이동 */
+(function () {
+  if (typeof btEvent !== 'function') return;
+  function trackTool(id) {
+    if (id && id !== 'home') btEvent('tool_open', { tool_id: id, page_group: 'toolbox' });
+  }
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) return;
+    var link = t.closest('a.freebie');
+    if (link) {
+      var nameEl = link.querySelector('.freebie-name');
+      var label = (nameEl ? nameEl.textContent : link.getAttribute('href') || '').trim();
+      btEvent('cta_click', {
+        cta_location: 'toolbox_freebies',
+        cta_label: label,
+        link_url: link.href,
+        transport_type: 'beacon'
+      });
+      return;
+    }
+    var card = t.closest('[data-view]');
+    if (card) trackTool(card.getAttribute('data-view'));
+  }, true);
+  window.addEventListener('hashchange', function () {
+    trackTool(location.hash.replace(/^#\/?/, '').trim());
+  });
+  trackTool(location.hash.replace(/^#\/?/, '').trim());
+})();
+</script>
 </body>
 </html>
