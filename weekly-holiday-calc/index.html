@@ -1322,12 +1322,17 @@ function btEvent(name, params){
     $('wkDayBadge').textContent = '하루 평균 ' + hourText(hours / days) + '시간';
 
     var minBadge = $('wkMinBadge');
-    if (wage >= MIN_WAGE){
-      minBadge.textContent = '최저임금 이상';
-      minBadge.className = 'badge green';
+    if (wage <= 0){
+      minBadge.hidden = true;
     } else {
-      minBadge.textContent = '최저임금 미만';
-      minBadge.className = 'badge warn';
+      minBadge.hidden = false;
+      if (wage >= MIN_WAGE){
+        minBadge.textContent = '최저임금 이상';
+        minBadge.className = 'badge green';
+      } else {
+        minBadge.textContent = '최저임금 미만';
+        minBadge.className = 'badge warn';
+      }
     }
 
     var hint;
@@ -1366,12 +1371,11 @@ function btEvent(name, params){
     f.push(['1주 주급 = 임금 + 주휴수당', won(weekTotal)]);
     f.push(['월 주휴수당 = ' + commas(holPay) + ' × 4.345주', won(monthHol)]);
     f.push(['월 급여 환산 = ' + commas(weekTotal) + ' × 4.345주', won(monthPay)]);
-    if (Math.abs(hours - 40) < 0.01) f.push(['월급제 209시간 기준', won(wage * 209)]);
     var list = $('wkFormula');
     list.innerHTML = '';
     f.forEach(function(row, i){
       var li = document.createElement('li');
-      if (i === f.length - 1 && Math.abs(hours - 40) < 0.01) li.className = 'total';
+      if (i === f.length - 1) li.className = 'total';
       li.innerHTML = '<b>' + row[0] + '</b><span>' + row[1] + '</span>';
       list.appendChild(li);
     });
