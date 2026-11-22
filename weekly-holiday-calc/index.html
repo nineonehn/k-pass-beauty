@@ -312,7 +312,7 @@ function btEvent(name, params){
     <section class="card result" aria-label="주휴수당 결과">
       <div class="result-head">
         <span class="t">예상 주휴수당 (1주)</span>
-        <span class="tag">2026년 최저임금 기준</span>
+        <span class="tag">2026년 기준</span>
       </div>
       <div class="amount" aria-live="polite"><span id="wkPay">0</span><span class="won">원</span></div>
       <p id="wkHint"></p>
@@ -1146,7 +1146,6 @@ function btEvent(name, params){
   var MIN_WAGE_NEXT = 10700;       // 2027년 적용 최저임금(시간급)
   var MEAL_CAP = 200000;           // 비과세 식대 월 한도
   var WEEKS = 365 / 12 / 7;        // 월 평균 주 수 4.3452...
-  var PENSION = 0.0475, HEALTH = 0.03595, LTC = 0.1314, EMPLOY = 0.009;
   var P_BASE_MIN = 410000, P_BASE_MAX = 6590000;
   var TAX_BRACKETS = [
     [14000000, 0.06, 0],
@@ -1250,7 +1249,7 @@ function btEvent(name, params){
   function taxEstimate(monthly, family){
     var g = monthly * 12;
     var pBase = Math.min(Math.max(Math.floor(monthly / 1000) * 1000, P_BASE_MIN), P_BASE_MAX);
-    var penYear = floor10(pBase * PENSION) * 12;
+    var penYear = floor10(pBase * 475 / 10000) * 12;
     var base = Math.max(0, g - earnedDeduction(g) - 1500000 * family - penYear - specialDeduction(g, family));
     var tax = earnedTax(base);
     var limit = g <= 33000000 ? 740000 : (g <= 70000000 ? 660000 : (g <= 120000000 ? 500000 : 200000));
@@ -1388,13 +1387,13 @@ function btEvent(name, params){
     var taxable = Math.max(0, gross - mealExempt);
 
     var pBase = Math.min(Math.max(Math.floor(taxable / 1000) * 1000, P_BASE_MIN), P_BASE_MAX);
-    var pension = floor10(pBase * PENSION);
-    var health = floor10(taxable * HEALTH);
-    var ltc = floor10(health * LTC);
-    var employ = floor10(taxable * EMPLOY);
+    var pension = floor10(pBase * 475 / 10000);
+    var health = floor10(taxable * 3595 / 100000);
+    var ltc = floor10(health * 1314 / 10000);
+    var employ = floor10(taxable * 9 / 1000);
     var insTotal = pension + health + ltc + employ;
     var tax = taxable > 0 ? incomeTax(taxable, family, kids) : 0;
-    var local = floor10(tax * 0.1);
+    var local = floor10(tax / 10);
     var total = insTotal + tax + local;
     var net = Math.max(0, gross - total);
 
