@@ -81,7 +81,7 @@ function btEvent(name, params){
     letter-spacing:-0.02em;
   }
   .wrap{
-    max-width:460px;
+    max-width:var(--shell-max,460px);
     margin:0 auto;
     padding:28px 18px calc(40px + env(safe-area-inset-bottom));
   }
@@ -246,6 +246,23 @@ function btEvent(name, params){
     padding:4px 0;cursor:pointer;margin-top:2px;
   }
   .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  /* ===== 결과 하단 퍼널: 0원 → 1,000원 → 4,900원 ===== */
+  .funnel{padding:20px 18px 16px}
+  .funnel .kicker{font-size:12px;font-weight:700;color:var(--blue);letter-spacing:.02em}
+  .funnel h3{margin:6px 0 4px;font-size:17px;font-weight:800;letter-spacing:-0.025em}
+  .funnel .sub{margin:0 0 14px;font-size:13px;line-height:1.5;color:var(--sub);font-weight:500}
+  .offer{display:flex;align-items:center;gap:12px;background:var(--chip);border:1px solid transparent;border-radius:16px;padding:13px 14px;margin-bottom:8px;text-decoration:none;color:var(--text);transition:transform .06s ease}
+  .offer:active{transform:scale(.99)}
+  .offer .price{flex:0 0 auto;min-width:58px;text-align:center;font-size:12px;font-weight:800;color:var(--sub);background:var(--card);border-radius:9px;padding:6px 7px;letter-spacing:-0.02em}
+  .offer .txt{flex:1;min-width:0}
+  .offer .txt strong{display:block;font-size:14px;font-weight:700;letter-spacing:-0.02em}
+  .offer .txt span{display:block;margin-top:2px;font-size:12px;line-height:1.4;font-weight:500;color:var(--muted)}
+  .offer .arrow{flex:0 0 auto;color:var(--muted);font-size:15px;font-weight:700}
+  .offer.best{background:var(--blue-weak);border-color:rgba(49,130,246,.22)}
+  .offer.best .price{background:var(--blue);color:#fff}
+  .offer.best .txt strong{color:var(--blue)}
+  .funnel .foot{margin:10px 0 0;text-align:center;font-size:12px;font-weight:600;color:var(--muted)}
+  .funnel .foot a{color:var(--sub);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:1px}
 </style>
 </head>
 <body>
@@ -435,6 +452,28 @@ function btEvent(name, params){
       </div>
       <div class="warn" id="jobWarn" hidden></div>
       <div class="ok" id="jobOk" hidden></div>
+    </section>
+
+    <section class="card funnel" aria-label="결과를 서류로 만드는 자료">
+      <div class="kicker">퇴직금 정산, 그다음</div>
+      <h3>퇴직금은 계산보다 서류가 오래 걸립니다</h3>
+      <p class="sub">퇴사 10단계·기한 계산·인수인계 문안까지 채워 둔 자료입니다.</p>
+      <a class="offer" href="https://www.latpeed.com/products/Ilvwd" target="_blank" rel="noopener">
+        <span class="price">0원</span>
+        <span class="txt"><strong>연차·퇴직금·실수령 1장 치트시트</strong><span>평균임금·실수령 계산 공식 요약 (PDF 2쪽)</span></span>
+        <span class="arrow">›</span>
+      </a>
+      <a class="offer" href="https://www.latpeed.com/products/AX28q" target="_blank" rel="noopener">
+        <span class="price">1,000원</span>
+        <span class="txt"><strong>연차촉진 스타터 키트</strong><span>퇴사 10단계·기한 계산·문안 6종 (PDF 2·엑셀 3)</span></span>
+        <span class="arrow">›</span>
+      </a>
+      <a class="offer best" href="https://www.latpeed.com/products/qWNBv" target="_blank" rel="noopener">
+        <span class="price">4,900원</span>
+        <span class="txt"><strong>연말·연초 실무 완성팩</strong><span>PDF 5권 + 엑셀 4 + 워드 문안 20종</span></span>
+        <span class="arrow">›</span>
+      </a>
+      <p class="foot">세 가지 모두 <a href="https://litt.ly/bok_o_official" target="_blank" rel="noopener">리틀리 허브</a>에서</p>
     </section>
 
     <details class="card detail">
@@ -1099,6 +1138,13 @@ function btEvent(name, params){
       transport_type: 'beacon'
     });
   }, true);
+})();
+</script>
+<script>
+/* 폰 폭 미리보기: 주소에 ?w=390 처럼 넣으면 그 폭으로 열린다(레이아웃 확인·검증용). */
+(function () {
+  var m = /[?&]w=(\d{3})/.exec(location.search);
+  if (m) document.documentElement.style.setProperty('--shell-max', m[1] + 'px');
 })();
 </script>
 </body>
