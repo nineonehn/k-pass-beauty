@@ -166,6 +166,16 @@
   .pricebox li b{color:#fff;}
   .pricebox .paynote{margin-top:18px; padding-top:16px; border-top:1px solid rgba(255,255,255,.16); font-size:12.5px; color:#b8bdc7;}
 
+  /* ---------- straight answers ---------- */
+  .qa{margin-top:20px; display:grid; gap:10px;}
+  .qa-item{display:flex; gap:13px; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 16px 15px;}
+  .qa-n{flex:0 0 auto; width:27px; height:27px; border-radius:50%; background:var(--soft); border:1px solid var(--line); color:var(--accent); font-size:11px; font-weight:800; letter-spacing:.04em; display:flex; align-items:center; justify-content:center; margin-top:1px;}
+  .qa-item h3{font-size:15.5px; font-weight:800; line-height:1.36;}
+  .qa-item p{font-size:14px; color:var(--ink2); margin-top:7px; word-break:keep-all;}
+  .qa-item p b{color:var(--ink); background:linear-gradient(transparent 64%, #f6ddc9 64%);}
+  .trustline{display:flex; flex-wrap:wrap; gap:6px; margin-top:14px;}
+  .trustline span{font-size:11.5px; font-weight:700; color:var(--sub); background:var(--soft); border:1px solid var(--line); border-radius:999px; padding:5px 10px;}
+
   /* ---------- faq ---------- */
   details{border-bottom:1px solid var(--line); padding:15px 0;}
   details summary{
@@ -349,7 +359,56 @@
         <li class="no">Not included: the treatment itself. You pay the spa directly, at their normal local price. We add <b>zero</b> markup</li>
         <li class="no">Not included: hotel, flights, tours, KTX, concert tickets, or cheap public jjimjilbang day passes — we don’t book those at all</li>
       </ul>
-      <p class="paynote">Payment by PayPal (Goods &amp; Services). The exact address is on your form’s confirmation screen and in our reply — we don’t print it here so it can’t be scraped.</p>
+      <p class="paynote">Payment by PayPal (Goods &amp; Services). The exact address is on your form’s confirmation screen and in our reply — we don’t print it here so it can’t be scraped. <a href="#answers" style="color:#cfd3db; text-decoration:underline;">What happens after you pay →</a></p>
+    </div>
+  </div>
+</section>
+
+<section id="answers">
+  <div class="wrap">
+    <div class="kicker">Straight answers</div>
+    <h2>Four things people ask before they pay</h2>
+    <p class="sub">The short version, in the order it comes up. The long answers are in the questions right below.</p>
+
+    <div class="qa">
+      <div class="qa-item">
+        <div class="qa-n">01</div>
+        <div>
+          <h3>Is the $9.90 taken off the treatment on the day?</h3>
+          <p>No. It’s a flat booking fee — not a deposit, not a prepayment. You pay the venue its own published price on the day, and <b>nothing is deducted from it, nothing is added on top</b>. We take no cut from the spa.</p>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-n">02</div>
+        <div>
+          <h3>How long until the booking is confirmed?</h3>
+          <p>You hear from us <b>within 2 hours</b> (09:00–22:00 KST, every day) and the confirmed voucher lands <b>within 2–4 hours</b>. Requests sent overnight are answered by 11:00. That speed needs all three of your time options — if none of them can be confirmed, the $9.90 comes back in full the same day.</p>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-n">03</div>
+        <div>
+          <h3>Will anyone there speak English? Will I find the place?</h3>
+          <p>Everything you get from us is in English — the reply, the voucher, and the Korean card you hand over at the counter, so the staff don’t need any English. The voucher carries <b>the Korean address written for a taxi driver</b> plus Naver Map and Kakao Map links. If something goes wrong on site, message us and we call the venue while you’re standing there.</p>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-n">04</div>
+        <div>
+          <h3>Can I change or cancel after I pay?</h3>
+          <p>Before we’ve confirmed a slot: message us and we stop — <b>the $9.90 is refunded in full</b>. Once it’s confirmed: the venue’s own window applies (usually 24 hours), and a late cancellation or no-show can cost the deposit you paid the venue. That rule goes into your voucher in writing before you go. Need to move the time? We ask the venue and pass on their answer.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="trustline">
+      <span>PayPal Goods &amp; Services</span>
+      <span>Refund if we can’t get you in</span>
+      <span>Business registration 662-38-01061</span>
+      <span>Requests deleted 90 days after the voucher</span>
     </div>
   </div>
 </section>
@@ -360,8 +419,8 @@
     <h2>Questions people actually ask</h2>
 
     <details>
-      <summary>Is $9.90 the price of the scrub or the spa?</summary>
-      <div class="a"><p>No. $9.90 is our fee for getting you a confirmed booking, in English, with the paperwork. The treatment is paid to the venue on the day, at their published price. We take no cut from the spa.</p></div>
+      <summary>Is the $9.90 a deposit, or is it taken off the treatment price?</summary>
+      <div class="a"><p>Neither. $9.90 is a flat booking fee — not a deposit and not a prepayment — and nothing is taken off the treatment, because the venue charges you its own published price on the day. We take no cut from the spa.</p><p>What the fee buys: the Korean phone call, the confirmed slot, the English voucher, the Korean card, the map links, and a rebooking if the venue cancels on you. Payment is by PayPal (Goods &amp; Services), not a friends-and-family transfer; the exact address is on your form’s confirmation screen and in our reply.</p></div>
     </details>
 
     <details>
@@ -390,8 +449,18 @@
     </details>
 
     <details>
+      <summary>What if I need to cancel or move my booking?</summary>
+      <div class="a"><p><b>Before a slot is confirmed:</b> message us and we stop working the request. No venue is booked, and the $9.90 is refunded in full — you don’t have to give a reason.</p><p><b>After it’s confirmed:</b> the venue’s own cancellation window applies, and it differs from venue to venue — usually 24 hours, sometimes same-day. We write the rule the venue actually gave us into your voucher, so you read it before the appointment. Cancelling inside that window, or not turning up, can forfeit the deposit you paid the venue; our $9.90 is the separate fee, not their deposit.</p><p><b>Moving the time:</b> send us the new time and we ask the venue. We come back with their answer before you agree to anything — if they charge for the change, we say the amount first.</p></div>
+    </details>
+
+    <details>
       <summary>Do you come with me?</summary>
       <div class="a"><p>No. We don’t escort or interpret in person — you go alone with the voucher and the Korean card, and the staff read it in one second. If something goes wrong on site, message us and we call the venue for you.</p></div>
+    </details>
+
+    <details>
+      <summary>What exactly do I show at the counter?</summary>
+      <div class="a"><p>Your English voucher and the Korean card attached to it. The card states who you are, the time, the treatment, the pressure you chose and anything the therapist has to know — in Korean, in the venue’s own terms, so the staff read it in a second. You don’t have to explain anything with a translation app.</p><p>The voucher also carries the Korean address to hand a taxi driver, plus Naver and Kakao Map links that open on your phone. If the venue can’t find your booking, message us — we call them in Korean and sort it out while you wait.</p></div>
     </details>
 
     <details>
