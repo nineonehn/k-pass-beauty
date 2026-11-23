@@ -3,8 +3,9 @@
   K-Pass Beauty — 영문 원페이지 랜딩 (2026-11-15)
   · 대상: 싱가포르·미국·홍콩 방한 외국인 / 목적: 세신·K-웰니스 스파 예약 대행 전환
   · 예약 폼: https://tally.so/r/vXr0r0  (이 파일에서 바꿀 곳은 아래 3개뿐)
-  · 가격: $9.90 얼리버드 (정상가 $15.00) — 결제는 PayPal Goods & Services
-    * PayPal 주소는 페이지에 인쇄하지 않았습니다(스크래핑 방지). 폼 확인 화면·자동회신 메일이 전달합니다.
+  · 가격: $9.90 얼리버드 (정상가 $15.00) — 결제는 PayPal (paypal.me/kpassbeauty/9.9USD)
+    * 결제 링크는 Tally 폼 상단·확인 화면이 안내합니다. 랜딩에는 인쇄하지 않음(결제만 먼저 오는 것 방지, 예약 접수 유도).
+  · 2026-11-24: 'Klook·Creatrip에 없는 로컬 1인샵' 포지션 반영 — 히어로·비교 섹션·직답 05·FAQ 2항.
   · 사업자등록번호 662-38-01061 표기 — 전자상거래법상 판매자 정보 표시
   · 게시 방법: 이 파일 하나를 그대로 정적 호스팅(Netlify drop / GitHub Pages / Cloudflare Pages)에 올리면 끝.
     외부 의존은 Pretendard 웹폰트 CDN(jsdelivr) 하나뿐이고, 막혀도 시스템 폰트로 대체되어 그대로 열립니다. 외부 이미지·스크립트 0.
@@ -28,23 +29,23 @@
   gtag('config', 'G-75QNHCLDK6');
 </script>
 
-<title>K-Pass Beauty — Book a Seoul scrub or K-wellness spa in English</title>
-<meta name="description" content="Seoul scrubs and K-wellness spas book only in Korean. We call, confirm, and send an English voucher. Flat $9.90, refunded if we can't get you in.">
+<title>K-Pass Beauty — Book the Seoul salon or scrub that isn’t on Klook</title>
+<meta name="description" content="Klook and Creatrip list the big venues. The one-chair salon, private scrub room or head spa you found on Instagram books only in Korean — send us the link and we book it. $9.90 flat, refunded if we can’t get you in.">
 <link rel="canonical" href="https://nineonehn.github.io/k-pass-beauty/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="K-Pass Beauty">
 <meta property="og:url" content="https://nineonehn.github.io/k-pass-beauty/">
-<meta property="og:title" content="K-Pass Beauty — Book a Seoul scrub or K-wellness spa in English">
-<meta property="og:description" content="Korean scrubs and K-wellness spas in Seoul book only in Korean. We call, confirm, and send you an English voucher plus a Korean card to show at the counter. Flat US$9.90 booking fee, fully refunded if we can't get you in.">
+<meta property="og:title" content="K-Pass Beauty — The Seoul salon you found on Instagram isn’t on Klook">
+<meta property="og:description" content="Klook and Creatrip carry the big partner venues. The local one-chair salon, private scrub room or neighbourhood head spa you found online books only in Korean. Send us the link — we call, confirm the slot, and send an English voucher plus a Korean card for the counter. Flat US$9.90, fully refunded if we can’t get you in.">
 <meta property="og:image" content="https://nineonehn.github.io/k-pass-beauty/og.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="K-Pass Beauty — Korean scrubs and spas book only in Korean. We call and send the voucher in English.">
+<meta property="og:image:alt" content="K-Pass Beauty — the Seoul salon you found on Instagram isn’t on Klook, and books only in Korean. We call and send the voucher in English.">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="K-Pass Beauty — Seoul scrub & K-wellness spa, booked in English">
-<meta name="twitter:description" content="The venues book in Korean. We call, confirm the slot, and send an English voucher plus a Korean card for the counter. US$9.90 flat, refunded if we can't get you in.">
+<meta name="twitter:title" content="K-Pass Beauty — the Seoul shop you found on Instagram isn’t on Klook">
+<meta name="twitter:description" content="Klook lists the big venues; the one you saved books on Naver or KakaoTalk, in Korean. Send the link — we call, confirm the slot, and send an English voucher plus a Korean card. US$9.90 flat, refunded if we can’t get you in.">
 <meta name="twitter:image" content="https://nineonehn.github.io/k-pass-beauty/og.png">
 <meta name="robots" content="index,follow">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
@@ -107,6 +108,15 @@
   .card li.no::before{background:#a8adb7;}
   .card .tagline{margin-top:13px; padding-top:13px; border-top:1px dashed var(--line); font-size:13px; color:var(--sub);}
   .card .tagline b{color:var(--ink);}
+
+  /* ---------- vs: OTA vs the shop you saved ---------- */
+  .vs .vstag{display:inline-block; font-size:10.5px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--sub); background:var(--soft); border:1px solid var(--line); border-radius:999px; padding:4px 9px; margin-bottom:11px;}
+  .vs .ota{background:var(--soft);}
+  .vs .ours{border:1.5px solid var(--ink); box-shadow:0 6px 18px rgba(18,21,26,.06);}
+  .vs .ours .vstag{color:#fff; background:var(--ink); border-color:var(--ink);}
+  .vs .card h3{font-size:19px;}
+  .vs-close{margin-top:16px; padding:15px 16px; background:#fff; border:1px solid var(--line); border-radius:14px; font-size:14px; color:var(--ink2);}
+  .vs-close b{color:var(--ink);}
 
   ol.steps{margin:20px 0 0; padding:0; list-style:none; counter-reset:s;}
   ol.steps li{position:relative; padding:0 0 20px 46px; counter-increment:s;}
@@ -216,9 +226,10 @@
 <header>
   <div class="wrap">
     <div class="brand"><i></i> K-Pass Beauty · Seoul</div>
-    <h1>The Seoul spa you found online <em>only books in Korean.</em></h1>
-    <p class="lead">Korean scrubs and K-wellness spas run on Naver booking, Instagram DMs and a Korean bank transfer. We call them in Korean, confirm your slot, and send you an <b>English voucher plus a Korean card to show at the counter.</b></p>
+    <h1>The Seoul spot you saved on Instagram <em>isn’t on Klook.</em></h1>
+    <p class="lead">Klook and Creatrip list the big venues — English site, e-ticket, a partnership deal. The one-chair salon, private scrub room or neighbourhood head spa you found on Instagram, TikTok or Xiaohongshu isn’t one of them: it books on Naver, KakaoTalk or a phone call, in Korean. <b>Send us the link and we book that exact shop for you</b> — English voucher, Korean card for the counter.</p>
     <div class="chips">
+      <span class="chip">Instagram link is enough</span>
       <span class="chip">No Korean number</span>
       <span class="chip">No Korean card</span>
       <span class="chip">Reply within 2 hours</span>
@@ -228,6 +239,40 @@
     <p class="fineprint">Regular $15.00 · Full refund if we can’t get you in</p>
   </div>
 </header>
+
+<section id="why">
+  <div class="wrap">
+    <div class="kicker">Why this exists</div>
+    <h2>Klook lists the shops that partnered with them. You saved a different shop.</h2>
+    <p class="sub">Nobody arrives here by searching for us. They open Klook, see the big spa brands, and stop there — while the place they actually screenshotted has no English page, no ticket, and a booking line that answers in Korean. That gap is the whole service.</p>
+
+    <div class="two vs">
+      <div class="card ota">
+        <span class="vstag">On Klook · Creatrip · KKday</span>
+        <h3>One tap, instant ticket</h3>
+        <ul>
+          <li>The big spa brands, and shops that signed a partnership</li>
+          <li>English page, instant e-ticket, commission already inside the price</li>
+          <li>Someone at the desk is used to English-speaking guests</li>
+        </ul>
+        <div class="tagline"><b>If your place is here, book it there.</b> It’s instant and you don’t need us — we’d just add $9.90 to a booking you can already make.</div>
+      </div>
+
+      <div class="card ours">
+        <span class="vstag">The shop you actually saved</span>
+        <h3>No button, anywhere</h3>
+        <ul>
+          <li>One-chair salons, private scrub rooms, neighbourhood head spas</li>
+          <li>Booking runs on Naver (needs a Korean number), KakaoTalk (Korean only) or a phone call</li>
+          <li>No English page and no partnership — so no OTA lists it, and there’s no ticket to buy</li>
+        </ul>
+        <div class="tagline"><b>Send us the link. That is the whole job.</b> An Instagram post, a Naver Map pin, a Kakao Map link, a screenshot — or just the shop’s name and neighbourhood.</div>
+      </div>
+    </div>
+
+    <div class="vs-close">We don’t resell anyone’s ticket and take no commission from the venue. The $9.90 pays for the Korean phone call, the confirmed slot and the paperwork — the treatment is still paid to the shop, at their own local price.</div>
+  </div>
+</section>
 
 <section>
   <div class="wrap">
@@ -253,7 +298,7 @@
         <div class="kr">한방·홍삼 스파 · e.g. SPA 1978, Daechi</div>
         <ul>
           <li>Hanbang (herbal) or red-ginseng spas, 60–150 min programmes</li>
-          <li>Most big names already have an English site and sell tickets through KKday — you buy the ticket yourself</li>
+          <li>Most big names already have an English site and sell tickets through Klook or KKday — you buy the ticket yourself</li>
           <li>What we add: <b>couple/private room confirmation</b>, the pre-visit questionnaire (pressure, allergies, pregnancy), and a written answer in English</li>
           <li class="no">We never resell or mark up their tickets</li>
         </ul>
@@ -309,7 +354,7 @@
     <ol class="steps">
       <li>
         <b>Send the request</b>
-        <span>Venue, link, three possible times, the treatment, and — for scrubs and spas — pressure, tattoos, menstruation and allergies. Two minutes. Three time options are required so we can actually get you in.</span>
+        <span>Venue, link, three possible times, the treatment, and — for scrubs and spas — pressure, tattoos, menstruation and allergies. Two minutes. A shop that exists only as an Instagram account is the normal case, not a problem. Three time options are required so we can actually get you in.</span>
       </li>
       <li>
         <b>We call the venue in Korean</b>
@@ -328,7 +373,7 @@
   <div class="wrap">
     <div class="kicker">The part nobody else sends</div>
     <h2>A Korean card for the counter</h2>
-    <p class="sub">You don’t need to explain anything with a translation app. You show this. It is printed in Korean, matched to your booking, and attached to your voucher.</p>
+    <p class="sub">You don’t need to explain anything with a translation app. You show this. An OTA partner sends you an e-ticket; a Naver-only shop has no ticket to send, so we send this — printed in Korean, matched to your booking, and attached to your voucher.</p>
 
     <div class="flashwrap">
       <div class="flashlabel"><span>Sample · card 5 of 8</span><span>세신 예약 확인용</span></div>
@@ -359,7 +404,7 @@
         <li class="no">Not included: the treatment itself. You pay the spa directly, at their normal local price. We add <b>zero</b> markup</li>
         <li class="no">Not included: hotel, flights, tours, KTX, concert tickets, or cheap public jjimjilbang day passes — we don’t book those at all</li>
       </ul>
-      <p class="paynote">Payment by PayPal (Goods &amp; Services). The exact address is on your form’s confirmation screen and in our reply — we don’t print it here so it can’t be scraped. <a href="#answers" style="color:#cfd3db; text-decoration:underline;">What happens after you pay →</a></p>
+      <p class="paynote">Payment is PayPal — a one-off $9.90 at our PayPal.Me link, shown on the booking form and in our reply. We don’t print the link here, so nobody pays before telling us what to book. <a href="#answers" style="color:#cfd3db; text-decoration:underline;">What happens after you pay →</a></p>
     </div>
   </div>
 </section>
@@ -367,7 +412,7 @@
 <section id="answers">
   <div class="wrap">
     <div class="kicker">Straight answers</div>
-    <h2>Four things people ask before they pay</h2>
+    <h2>Five things people ask before they pay</h2>
     <p class="sub">The short version, in the order it comes up. The long answers are in the questions right below.</p>
 
     <div class="qa">
@@ -402,10 +447,18 @@
           <p>Before we’ve confirmed a slot: message us and we stop — <b>the $9.90 is refunded in full</b>. Once it’s confirmed: the venue’s own window applies (usually 24 hours), and a late cancellation or no-show can cost the deposit you paid the venue. That rule goes into your voucher in writing before you go. Need to move the time? We ask the venue and pass on their answer.</p>
         </div>
       </div>
+
+      <div class="qa-item">
+        <div class="qa-n">05</div>
+        <div>
+          <h3>Why not just book it on Klook or Creatrip?</h3>
+          <p>Because the shop you want isn’t on them. They list venues that signed a partnership — mostly big brands with an English desk and a commission deal. A one-chair salon or a private scrub room has no ticket to sell, so there’s nothing for an OTA to list. If your place <i>is</i> on Klook, book it there: it’s instant and cheaper than adding us. <b>We exist for the shop that only answers in Korean.</b></p>
+        </div>
+      </div>
     </div>
 
     <div class="trustline">
-      <span>PayPal Goods &amp; Services</span>
+      <span>PayPal · one-time $9.90</span>
       <span>Refund if we can’t get you in</span>
       <span>Business registration 662-38-01061</span>
       <span>Requests deleted 90 days after the voucher</span>
@@ -420,12 +473,22 @@
 
     <details>
       <summary>Is the $9.90 a deposit, or is it taken off the treatment price?</summary>
-      <div class="a"><p>Neither. $9.90 is a flat booking fee — not a deposit and not a prepayment — and nothing is taken off the treatment, because the venue charges you its own published price on the day. We take no cut from the spa.</p><p>What the fee buys: the Korean phone call, the confirmed slot, the English voucher, the Korean card, the map links, and a rebooking if the venue cancels on you. Payment is by PayPal (Goods &amp; Services), not a friends-and-family transfer; the exact address is on your form’s confirmation screen and in our reply.</p></div>
+      <div class="a"><p>Neither. $9.90 is a flat booking fee — not a deposit and not a prepayment — and nothing is taken off the treatment, because the venue charges you its own published price on the day. We take no cut from the spa.</p><p>What the fee buys: the Korean phone call, the confirmed slot, the English voucher, the Korean card, the map links, and a rebooking if the venue cancels on you. You pay it by PayPal at the link on the booking form. If we can’t get you in, that same $9.90 is sent back to the same PayPal account the same day.</p></div>
     </details>
 
     <details>
       <summary>Do I need a Korean phone number or a Korean card?</summary>
       <div class="a"><p>No. That’s the whole point — the venue’s booking page asks for both, and we’re the ones who get past it. You need WhatsApp or email, and PayPal for the $9.90.</p></div>
+    </details>
+
+    <details>
+      <summary>Why not just book through Klook or Creatrip?</summary>
+      <div class="a"><p>If your venue is on one of them, that is the better deal — one tap, instant ticket, and no $9.90 from us. We don’t resell their tickets and we don’t pretend to be them.</p><p>They list venues that have signed a partnership, which in practice means the big spa brands and the shops with an English desk. A one-chair salon in Yeonnam, a private scrub room in a residential building, a neighbourhood head spa that takes bookings only through Naver or KakaoTalk — none of those are on any OTA, because there is no ticket and no commission to split. That is the only thing we do: we get that specific shop on the phone, in Korean, and come back with a confirmed time or your money.</p></div>
+    </details>
+
+    <details>
+      <summary>All I have is an Instagram handle. Is that enough?</summary>
+      <div class="a"><p>Yes. An Instagram profile, a Naver Map pin, a Kakao Map link, a screenshot of the post, or just the shop’s name and neighbourhood — any one of those is enough to start. We find the exact branch, check that they take foreign guests, and call them.</p><p>If it turns out to be the wrong branch, fully booked, or a shop that won’t take foreign guests, the $9.90 comes back in full and we tell you the reason — not a maybe.</p></div>
     </details>
 
     <details>
@@ -506,7 +569,7 @@
   <div class="wrap">
     <b>K-Pass Beauty</b> — booking assistance for hair salons, personal-colour studios, head spas, nails, private Korean scrubs and K-wellness spas in Seoul.<br>
     Seoul, Republic of Korea · <a href="mailto:slij2005@gmail.com">slij2005@gmail.com</a> · Business registration 662-38-01061 (Bogeo Market)<br>
-    <p class="disclaimer">We are an independent booking service and are not affiliated with, endorsed by, or acting as an agent of any venue named on this page. Venue prices, availability, tattoos, clothing and same-sex therapist policies are set by each venue and confirmed case by case. Treatment fees are paid directly to the venue. We do not provide medical, therapeutic or diagnostic services and make no health claims. Booking fees are charged for reservation assistance only; if we cannot confirm any of your three requested times, the fee is refunded in full.</p>
+    <p class="disclaimer">We are an independent booking service and are not affiliated with, endorsed by, or acting as an agent of any venue named on this page. Klook, Creatrip, KKday and Naver are trademarks of their respective owners; we are not affiliated with or endorsed by them. Venue prices, availability, tattoos, clothing and same-sex therapist policies are set by each venue and confirmed case by case. Treatment fees are paid directly to the venue. We do not provide medical, therapeutic or diagnostic services and make no health claims. Booking fees are charged for reservation assistance only; if we cannot confirm any of your three requested times, the fee is refunded in full.</p>
   </div>
 </footer>
 
