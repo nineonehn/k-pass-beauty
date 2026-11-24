@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
-  복어 툴박스 (2026-11-21)
-  · 복어 전용 올인원 정적 웹앱(PWA) — 계산기 5종 + 인앱 유틸 6종
+  복어 툴박스 (2026-11-21 · 로고·문구 개편 2026-11-24)
+  · 누구나 무료로 쓰는 올인원 정적 웹앱(PWA) — 계산기 5종 + 인앱 유틸 6종
   · 모든 파일 처리는 브라우저 안에서만 한다. 서버 전송 0.
   · 라이브러리는 리포지토리에 동봉(vendor/)해 CDN 장애와 무관하게 동작.
 -->
@@ -21,7 +21,23 @@ function btEvent(name, params){
   try { gtag('event', name, params || {}); } catch (e) {}
 }
 </script>
-<meta name="description" content="급여·세금 계산기 5종과 문서·부업 유틸 6종. 주휴수당·실수령, 연차수당, 퇴직금·실업급여, 연말정산 환급, 연말 법정리스크 진단, 서류·사진 보안, 커머스 이미지, QR·링크 정리, 공지·스레드 변환, 임장 자금, 구매대행 마진까지 폰 브라우저 안에서만 처리하는 11종 툴박스.">
+<meta name="description" content="급여·세금 계산기 5종과 문서·부업 유틸 6종. 주휴수당·실수령, 연차수당, 퇴직금·실업급여, 연말정산 환급, 연말 법정리스크 진단, 서류·사진 보안, 커머스 이미지, QR·링크 정리, 공지·스레드 변환, 임장 자금, 구매대행 마진까지 누구나 무료로 쓰는 11종 툴박스. 회원가입 없이 폰 브라우저 안에서만 처리.">
+<link rel="canonical" href="https://nineonehn.github.io/k-pass-beauty/toolbox/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="복어 툴박스">
+<meta property="og:title" content="복어 툴박스 | 급여·세금 계산기 5종 + 문서·부업 유틸 6종">
+<meta property="og:description" content="주휴수당·연차수당·퇴직금·연말정산 환급·연말 리스크 진단부터 PDF·이미지·QR·공지 변환까지 11종. 회원가입 없이 누구나 무료, 파일은 폰 안에서만 처리합니다.">
+<meta property="og:url" content="https://nineonehn.github.io/k-pass-beauty/toolbox/">
+<meta property="og:image" content="https://nineonehn.github.io/k-pass-beauty/toolbox/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="복어 툴박스 — 복어 마스코트 로고와 함께, 누구나 무료로 쓰는 11종 계산·유틸 도구">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="복어 툴박스 | 급여·세금 계산기 5종 + 문서·부업 유틸 6종">
+<meta name="twitter:description" content="주휴수당·연차수당·퇴직금·연말정산 환급·연말 리스크 진단부터 PDF·이미지·QR·공지 변환까지 11종. 회원가입 없이 누구나 무료, 파일은 폰 안에서만 처리합니다.">
+<meta name="twitter:image" content="https://nineonehn.github.io/k-pass-beauty/toolbox/og.png">
+<meta name="twitter:image:alt" content="복어 툴박스 — 복어 마스코트 로고">
 <meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0a0b0d" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -31,10 +47,12 @@ function btEvent(name, params){
 <meta name="format-detection" content="telephone=no">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="icon" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="styles.css?v=20261123a">
+<link rel="stylesheet" href="styles.css?v=20261124a">
 </head>
 <body>
 <div class="shell">
@@ -53,8 +71,8 @@ function btEvent(name, params){
     <section class="view" id="view-home">
       <div class="hero">
         <div class="hero-row">
-          <span class="mark">ㅂ</span>
-          <span class="hero-kicker">복어 전용</span>
+          <img class="mark" src="mascot.png" alt="복어 마스코트" width="34" height="34">
+          <span class="hero-kicker">누구나 무료 사용</span>
         </div>
         <h1>복어 툴박스</h1>
         <p class="hero-sub">계산기 5종 · 문서·부업 유틸 6종</p>
