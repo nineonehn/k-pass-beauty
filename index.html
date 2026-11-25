@@ -406,7 +406,7 @@
         <li class="no">Not included: the treatment itself. You pay the spa directly, at their normal local price. We add <b>zero</b> markup</li>
         <li class="no">Not included: hotel, flights, tours, KTX, concert tickets, or cheap public jjimjilbang day passes — we don’t book those at all</li>
       </ul>
-      <p class="paynote">Payment is PayPal — a one-off $9.90 at our PayPal.Me link, shown on the booking form and in our reply. We don’t print the link here, so nobody pays before telling us what to book. <a href="#answers" style="color:#cfd3db; text-decoration:underline;">What happens after you pay →</a></p>
+      <p class="paynote">Payment is PayPal — a one-off $9.90 at our PayPal.Me link, shown on the booking form and in our reply. Send your booking details through the form so we know which appointment the payment is for. <a href="#answers" style="color:#cfd3db; text-decoration:underline;">What happens after you pay →</a></p>
     </div>
   </div>
 </section>
@@ -567,7 +567,7 @@
   </div>
 </section>
 
-<section id="booking-guides"><div class="wrap"><div class="kicker">Booking guides</div><h2>Book local Seoul beauty appointments in English</h2><p class="sub">K-Pass Beauty is an independent booking assistance service for Seoul hair salons, head spas, private Korean scrubs and wellness spas. Try direct booking first; if you need help contacting a venue, send its link and preferred times.</p><div class="two"><div class="card"><h3><a href="guides/hair-salon-without-korean-phone.html">How to book a Seoul hair salon without a Korean phone number</a></h3></div><div class="card"><h3><a href="guides/head-spa-booking.html">How to book a head spa in Seoul</a></h3></div><div class="card"><h3><a href="guides/private-korean-scrub.html">How to book a private Korean body scrub in Seoul</a></h3></div><div class="card"><h3><a href="guides/korean-beauty-booking-options.html">Korean beauty booking options for tourists in Seoul</a></h3></div></div></div></section>
+<section id="booking-guides"><div class="wrap"><div class="kicker">Booking guides</div><h2>Book local Seoul beauty appointments in English</h2><p class="sub">K-Pass Beauty is an independent booking assistance service for Seoul hair salons, head spas, private Korean scrubs and wellness spas. Try direct booking first; if you need help contacting a venue, send its link and preferred times.</p><div class="two"><div class="card"><h3><a href="guides/hair-salon-without-korean-phone.html" data-keep-ref>How to book a Seoul hair salon without a Korean phone number</a></h3></div><div class="card"><h3><a href="guides/head-spa-booking.html" data-keep-ref>How to book a head spa in Seoul</a></h3></div><div class="card"><h3><a href="guides/private-korean-scrub.html" data-keep-ref>How to book a private Korean body scrub in Seoul</a></h3></div><div class="card"><h3><a href="guides/korean-beauty-booking-options.html" data-keep-ref>Korean beauty booking options for tourists in Seoul</a></h3></div></div></div></section>
 <footer>
   <div class="wrap">
     <b>K-Pass Beauty</b> — booking assistance for hair salons, personal-colour studios, head spas, nails, private Korean scrubs and K-wellness spas in Seoul.<br>
@@ -583,74 +583,7 @@
   </div>
 </div>
 
-<script>
-/* Referral + booking tracking (2026-11-23)
-   ?ref=CODE in the URL is kept for the session and carried into every Tally booking link.
-   GA4 events: referral_visit (once per page load, when ?ref= is present)
-               booking_click  (every click on a Tally booking link, with ref_code or 'direct')
-   No visual change. */
-(function () {
-  var KEY = 'kpb_ref';
-  var ref = '';
-  try {
-    var m = location.search.match(/[?&]ref=([^&#]*)/);
-    if (m) ref = decodeURIComponent(m[1].replace(/\+/g, ' ')).trim().slice(0, 60);
-    if (ref) { try { sessionStorage.setItem(KEY, ref); } catch (e) {} }
-    else { try { ref = String(sessionStorage.getItem(KEY) || '').trim(); } catch (e) {} }
-  } catch (e) { ref = ''; }
-
-  function withRef(href) {
-    if (!href) return href;
-    var hash = '';
-    var h = href.indexOf('#');
-    if (h > -1) { hash = href.slice(h); href = href.slice(0, h); }
-    if (!/[?&]ref=/.test(href)) {
-      href += (href.indexOf('?') > -1 ? '&' : '?') + 'ref=' + encodeURIComponent(ref);
-    }
-    return href + hash;
-  }
-
-  function apply() {
-    if (!ref) return;
-    var links = document.querySelectorAll('a[href*="tally.so/r/vXr0r0"]');
-    for (var i = 0; i < links.length; i++) {
-      links[i].setAttribute('href', withRef(links[i].getAttribute('href')));
-    }
-  }
-
-  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', apply); }
-  else { apply(); }
-
-  function track(name, params) {
-    if (typeof window.gtag === 'function') { window.gtag('event', name, params); }
-  }
-
-  /* booking_click — fired on the Tally links (hero, bottom, sticky bar).
-     transport_type:'beacon' so the hit survives the cross-site navigation to tally.so.
-     preventDefault is not called: the ?ref= href and normal link behaviour stay as they are. */
-  function bindClicks() {
-    var links = document.querySelectorAll('a[href*="tally.so/r/vXr0r0"]');
-    for (var i = 0; i < links.length; i++) {
-      links[i].addEventListener('click', function (e) {
-        var label = (this.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 60);
-        track('booking_click', {
-          ref_code: ref || 'direct',
-          link_text: label,
-          link_url: this.href,
-          transport_type: 'beacon'
-        });
-        // middle-click / ctrl-click opens a new tab: keep the same event, no extra handling needed
-        void e;
-      });
-    }
-  }
-
-  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', bindClicks); }
-  else { bindClicks(); }
-
-  if (ref) { track('referral_visit', { ref_code: ref }); }
-})();
-</script>
+<script src="./booking-tracking.js" defer></script>
 
 </body>
 </html>
