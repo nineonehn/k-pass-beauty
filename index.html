@@ -6,6 +6,9 @@
   · 가격: $9.90 얼리버드 (정상가 $15.00) — 결제는 PayPal (paypal.me/kpassbeauty/9.9USD)
     * 결제 링크는 Tally 폼 상단·확인 화면이 안내합니다. 랜딩에는 인쇄하지 않음(결제만 먼저 오는 것 방지, 예약 접수 유도).
   · 2026-11-24: 'Klook·Creatrip에 없는 로컬 1인샵' 포지션 반영 — 히어로·비교 섹션·직답 05·FAQ 2항.
+  · 2026-11-27: 타 플랫폼 예약 유도 문구 전부 삭제 — '클룩에 있으면 클룩에서 예약'·'직접 예약하면 더 싸다' 식 선택지 제거, 경쟁사 이름은 'big booking apps'로 일반화.
+    메시지 통일: 로컬 1인살롱·헤드스파·세신방은 한국 번호·카카오톡·전화 벽 때문에 직접 예약이 어렵다 → K-Pass Beauty가 한국어로 전화해 확정.
+    '네이버 여권 인증으로 직접 예약 가능' 우회 안내는 원래 없었고, 있던 네이버 언급은 지도 링크(주소 안내)뿐이라 유지.
   · 사업자등록번호 662-38-01061 표기 — 전자상거래법상 판매자 정보 표시
   · 게시 방법: 이 파일 하나를 그대로 정적 호스팅(Netlify drop / GitHub Pages / Cloudflare Pages)에 올리면 끝.
     외부 의존은 Pretendard 웹폰트 CDN(jsdelivr) 하나뿐이고, 막혀도 시스템 폰트로 대체되어 그대로 열립니다. 외부 이미지·스크립트 0.
@@ -42,7 +45,7 @@
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="K-Pass Beauty — the Seoul salon you found on Instagram isn’t on Klook, and books only in Korean. We call and send the voucher in English.">
+<meta property="og:image:alt" content="K-Pass Beauty — the Seoul salon you found on Instagram books only in Korean. We call the venue and send the confirmed voucher in English.">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Book Seoul Hair Salons, Head Spas &amp; Korean Scrubs | K-Pass Beauty">
@@ -229,8 +232,8 @@
 <header>
   <div class="wrap">
     <div class="brand"><i></i> K-Pass Beauty · Seoul</div>
-    <h1>The Seoul spot you saved on Instagram <em>isn’t on Klook.</em></h1>
-    <p class="lead">Klook and Creatrip list the big venues — English site, e-ticket, a partnership deal. The one-chair salon, private scrub room or neighbourhood head spa you found on Instagram, TikTok or Xiaohongshu isn’t one of them: it books on Naver, KakaoTalk or a phone call, in Korean. <b>Send us the link and we book that exact shop for you</b> — English voucher, Korean card for the counter.</p>
+    <h1>The Seoul spot you saved on Instagram <em>books only in Korean.</em></h1>
+    <p class="lead">The big booking apps carry the venues that signed with them. The one-chair salon, private scrub room or neighbourhood head spa you found on Instagram, TikTok or Xiaohongshu isn’t one of them — it takes bookings on KakaoTalk, a phone call or a Korean-only app, with a Korean number, a Korean card and a reply in Korean. <b>Send us the link and we book that exact shop for you</b> — a confirmed time, an English voucher, and a Korean card for the counter.</p>
     <div class="chips">
       <span class="chip">Instagram link is enough</span>
       <span class="chip">No Korean number</span>
@@ -246,19 +249,19 @@
 <section id="why">
   <div class="wrap">
     <div class="kicker">Why this exists</div>
-    <h2>Klook lists the shops that partnered with them. You saved a different shop.</h2>
-    <p class="sub">Nobody arrives here by searching for us. They open Klook, see the big spa brands, and stop there — while the place they actually screenshotted has no English page, no ticket, and a booking line that answers in Korean. That gap is the whole service.</p>
+    <h2>Booking apps list the shops that partnered with them. You saved a different shop.</h2>
+    <p class="sub">Nobody arrives here by searching for us. They open a booking app, see the big spa brands, and stop there — while the place they actually screenshotted has no English page, no ticket, and a booking line that answers in Korean. That gap is the whole service.</p>
 
     <div class="two vs">
       <div class="card ota">
-        <span class="vstag">On Klook · Creatrip · KKday</span>
+        <span class="vstag">Big booking apps · tour sites</span>
         <h3>One tap, instant ticket</h3>
         <ul>
           <li>The big spa brands, and shops that signed a partnership</li>
           <li>English page, instant e-ticket, commission already inside the price</li>
           <li>Someone at the desk is used to English-speaking guests</li>
         </ul>
-        <div class="tagline"><b>If your place is here, book it there.</b> It’s instant and you don’t need us — we’d just add $9.90 to a booking you can already make.</div>
+        <div class="tagline"><b>Your shop isn’t in this list.</b> What you screenshotted has no page like this, no ticket, and no button to press.</div>
       </div>
 
       <div class="card ours">
@@ -266,10 +269,10 @@
         <h3>No button, anywhere</h3>
         <ul>
           <li>One-chair salons, private scrub rooms, neighbourhood head spas</li>
-          <li>Booking runs on Naver (needs a Korean number), KakaoTalk (Korean only) or a phone call</li>
+          <li>Booking runs on KakaoTalk, a phone call or a Korean-only app — Korean language, Korean number, Korean card</li>
           <li>No English page and no partnership — so no OTA lists it, and there’s no ticket to buy</li>
         </ul>
-        <div class="tagline"><b>Send us the link. That is the whole job.</b> An Instagram post, a Naver Map pin, a Kakao Map link, a screenshot — or just the shop’s name and neighbourhood.</div>
+        <div class="tagline"><b>Send us the link. That is the whole job.</b> An Instagram post, a map pin, a screenshot — or just the shop’s name and neighbourhood.</div>
       </div>
     </div>
 
@@ -289,7 +292,7 @@
         <div class="kr">1인 프라이빗 세신 · 60–90 min</div>
         <ul>
           <li>One-person room, warm bath first, then a scrub mitt over your whole body</li>
-          <li>Usually only bookable on Naver (needs a Korean phone number) or by Korean bank deposit</li>
+          <li>Usually booked by KakaoTalk, phone or Korean bank transfer — and all three want a Korean number</li>
           <li>Firmer than most massages — you choose soft, medium or strong <b>before</b> we confirm</li>
           <li class="no">No shared bathhouse floor booked by mistake: we say “1인” for you</li>
         </ul>
@@ -301,7 +304,7 @@
         <div class="kr">한방·홍삼 스파 · e.g. SPA 1978, Daechi</div>
         <ul>
           <li>Hanbang (herbal) or red-ginseng spas, 60–150 min programmes</li>
-          <li>Most big names already have an English site and sell tickets through Klook or KKday — you buy the ticket yourself</li>
+          <li>Big brand names already sell an English-language ticket — but the room you get, the intake form and the questions before the visit are still handled in Korean</li>
           <li>What we add: <b>couple/private room confirmation</b>, the pre-visit questionnaire (pressure, allergies, pregnancy), and a written answer in English</li>
           <li class="no">We never resell or mark up their tickets</li>
         </ul>
@@ -454,8 +457,8 @@
       <div class="qa-item">
         <div class="qa-n">05</div>
         <div>
-          <h3>Why not just book it on Klook or Creatrip?</h3>
-          <p>Because the shop you want isn’t on them. They list venues that signed a partnership — mostly big brands with an English desk and a commission deal. A one-chair salon or a private scrub room has no ticket to sell, so there’s nothing for an OTA to list. If your place <i>is</i> on Klook, book it there: it’s instant and cheaper than adding us. <b>We exist for the shop that only answers in Korean.</b></p>
+          <h3>Can’t I just book it myself?</h3>
+          <p>Not for this shop. Its booking sits on KakaoTalk, a phone line or a Korean-only app — a Korean number, a Korean card, and a reply in Korean. There’s no English page and no ticket to buy, so there’s no button for you to press. <b>We make the call in Korean and come back with a confirmed time</b> — or your $9.90 back the same day.</p>
         </div>
       </div>
     </div>
@@ -485,8 +488,8 @@
     </details>
 
     <details>
-      <summary>Why not just book through Klook or Creatrip?</summary>
-      <div class="a"><p>If your venue is on one of them, that is the better deal — one tap, instant ticket, and no $9.90 from us. We don’t resell their tickets and we don’t pretend to be them.</p><p>They list venues that have signed a partnership, which in practice means the big spa brands and the shops with an English desk. A one-chair salon in Yeonnam, a private scrub room in a residential building, a neighbourhood head spa that takes bookings only through Naver or KakaoTalk — none of those are on any OTA, because there is no ticket and no commission to split. That is the only thing we do: we get that specific shop on the phone, in Korean, and come back with a confirmed time or your money.</p></div>
+      <summary>Can’t I just book the venue myself?</summary>
+      <div class="a"><p>For a one-chair salon in Yeonnam, a private scrub room in a residential building or a neighbourhood head spa, booking runs through KakaoTalk, a phone call or a Korean-only app. Every one of those wants a Korean number, and the conversation happens in Korean — that is where most guests stop and give up on the shop.</p><p>Our job is narrow: we get that specific shop on the phone, in Korean, ask what the venue will ask you anyway — room type, pressure, tattoos, pregnancy, allergies — and come back with a confirmed time or your money. You send one link; the call is ours to make.</p></div>
     </details>
 
     <details>
@@ -568,12 +571,12 @@
   </div>
 </section>
 
-<section id="booking-guides"><div class="wrap"><div class="kicker">Booking guides</div><h2>Book local Seoul beauty appointments in English</h2><p class="sub">K-Pass Beauty is an independent booking assistance service for Seoul hair salons, head spas, private Korean scrubs and wellness spas. Try direct booking first; if you need help contacting a venue, send its link and preferred times.</p><div class="two"><div class="card"><h3><a href="guides/hair-salon-without-korean-phone.html" data-keep-ref>How to book a Seoul hair salon without a Korean phone number</a></h3></div><div class="card"><h3><a href="guides/head-spa-booking.html" data-keep-ref>How to book a head spa in Seoul</a></h3></div><div class="card"><h3><a href="guides/private-korean-scrub.html" data-keep-ref>How to book a private Korean body scrub in Seoul</a></h3></div><div class="card"><h3><a href="guides/korean-beauty-booking-options.html" data-keep-ref>Korean beauty booking options for tourists in Seoul</a></h3></div></div></div></section>
+<section id="booking-guides"><div class="wrap"><div class="kicker">Booking guides</div><h2>Book local Seoul beauty appointments in English</h2><p class="sub">K-Pass Beauty is an independent booking assistance service for Seoul hair salons, head spas, private Korean scrubs and wellness spas. Send the venue link and three preferred times — we contact the venue in Korean and come back with a confirmed slot.</p><div class="two"><div class="card"><h3><a href="guides/hair-salon-without-korean-phone.html" data-keep-ref>How to book a Seoul hair salon without a Korean phone number</a></h3></div><div class="card"><h3><a href="guides/head-spa-booking.html" data-keep-ref>How to book a head spa in Seoul</a></h3></div><div class="card"><h3><a href="guides/private-korean-scrub.html" data-keep-ref>How to book a private Korean body scrub in Seoul</a></h3></div><div class="card"><h3><a href="guides/korean-beauty-booking-options.html" data-keep-ref>Korean beauty booking options for tourists in Seoul</a></h3></div></div></div></section>
 <footer>
   <div class="wrap">
     <b>K-Pass Beauty</b> — booking assistance for hair salons, personal-colour studios, head spas, nails, private Korean scrubs and K-wellness spas in Seoul.<br>
     Seoul, Republic of Korea · <a href="mailto:slij2005@gmail.com">slij2005@gmail.com</a> · Business registration 662-38-01061 (Bogeo Market)<br>
-    <p class="disclaimer">We are an independent booking service and are not affiliated with, endorsed by, or acting as an agent of any venue named on this page. Klook, Creatrip, KKday and Naver are trademarks of their respective owners; we are not affiliated with or endorsed by them. Venue prices, availability, tattoos, clothing and same-sex therapist policies are set by each venue and confirmed case by case. Treatment fees are paid directly to the venue. We do not provide medical, therapeutic or diagnostic services and make no health claims. Booking fees are charged for reservation assistance only; if we cannot confirm any of your three requested times, the fee is refunded in full.</p>
+    <p class="disclaimer">We are an independent booking service and are not affiliated with, endorsed by, or acting as an agent of any venue named on this page. KakaoTalk, Naver and Instagram are trademarks of their respective owners; we are not affiliated with or endorsed by them. Venue prices, availability, tattoos, clothing and same-sex therapist policies are set by each venue and confirmed case by case. Treatment fees are paid directly to the venue. We do not provide medical, therapeutic or diagnostic services and make no health claims. Booking fees are charged for reservation assistance only; if we cannot confirm any of your three requested times, the fee is refunded in full.</p>
   </div>
 </footer>
 
