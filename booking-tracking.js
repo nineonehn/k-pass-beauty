@@ -29,7 +29,10 @@
 
   document.querySelectorAll('a[data-keep-ref]').forEach(carryRef);
 
-  document.querySelectorAll('a[href^="https://tally.so/r/vXr0r0"]').forEach(function (link) {
+  var bookingPathnames = ['/r/vXr0r0', '/r/rDPE2X', '/r/kbEZKZ'];
+  document.querySelectorAll('a[href^="https://tally.so/r/vXr0r0"], a[href^="https://tally.so/r/rDPE2X"], a[href^="https://tally.so/r/kbEZKZ"]').forEach(function (link) {
+    var bookingUrl = new URL(link.href);
+    if (bookingUrl.origin !== 'https://tally.so' || bookingPathnames.indexOf(bookingUrl.pathname) === -1) return;
     carryRef(link);
     link.addEventListener('click', function () {
       track('booking_click', {
