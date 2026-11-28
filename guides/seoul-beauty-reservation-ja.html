@@ -9,6 +9,7 @@
 <link rel="alternate" hreflang="en" href="https://nineonehn.github.io/k-pass-beauty/guides/seoul-beauty-reservation-en.html">
 <link rel="alternate" hreflang="ja" href="https://nineonehn.github.io/k-pass-beauty/guides/seoul-beauty-reservation-ja.html">
 <link rel="alternate" hreflang="zh-Hant" href="https://nineonehn.github.io/k-pass-beauty/guides/seoul-beauty-reservation-zh.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://nineonehn.github.io/k-pass-beauty/guides/seoul-beauty-reservation-zh-hans.html">
 <link rel="alternate" hreflang="x-default" href="https://nineonehn.github.io/k-pass-beauty/guides/seoul-beauty-reservation-en.html">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta property="og:type" content="article">
@@ -236,23 +237,25 @@
   .card,.note,.vs-close,.pricebox,.qa-item{min-width:0;}
   .card li,.card p,.qa-item p,.sub,.note,.disclaimer,ol.steps span{overflow-wrap:anywhere; word-break:normal;}
 </style><style>
-  /* --- language switch bar (2026-11-28) --- */
+  /* --- language switch bar: 4 languages (2026-11-28) ---
+     Desktop: inline pill next to the brand. <=430px: full-width row,
+     4 equal targets, no wrapping and no horizontal scroll at 390/360/320. */
   .brandrow{display:flex; align-items:center; justify-content:space-between; gap:10px 14px; flex-wrap:wrap;}
-  .langbar{display:inline-flex; align-items:center; gap:2px; padding:3px; margin-left:auto;
+  .langbar{display:flex; align-items:center; justify-content:flex-start; flex-wrap:wrap; gap:2px; padding:3px; margin-left:auto;
            background:rgba(255,255,255,.72); border:1px solid var(--line); border-radius:999px;
            -webkit-backdrop-filter:saturate(160%) blur(10px); backdrop-filter:saturate(160%) blur(10px);
            box-shadow:0 1px 2px rgba(18,21,26,.05); max-width:100%;}
-  .langbar a{display:block; padding:5px 11px; border-radius:999px; white-space:nowrap;
+  .langbar a{display:block; padding:5px 10px; border-radius:999px; white-space:nowrap;
              font-size:11.5px; line-height:1.4; font-weight:700; letter-spacing:-.01em;
              color:var(--sub); text-decoration:none;
              transition:background .18s ease, color .18s ease;}
   .langbar a:hover{color:var(--ink); background:#f0eee8;}
   .langbar a[aria-current="page"]{color:#fff; background:var(--ink); box-shadow:0 1px 3px rgba(18,21,26,.22);}
   .langbar a[aria-current="page"]:hover{color:#fff; background:var(--ink);}
-  @media (max-width:420px){
+  @media (max-width:430px){
     .brandrow{flex-direction:column; align-items:flex-start; gap:10px;}
-    .langbar{margin-left:0;}
-    .langbar a{padding:5px 9px;}
+    .langbar{margin-left:0; width:100%; flex-wrap:nowrap; justify-content:space-between;}
+    .langbar a{flex:1 1 0; min-width:0; text-align:center; padding:6px 3px; font-size:11px; letter-spacing:-.02em;}
   }
 </style>
 </head><body>
@@ -264,7 +267,7 @@
   <div class="wrap">
     <div class="brandrow">
       <a class="brand" href="#top" data-keep-ref><i></i> K-Pass Beauty · Seoul</a>
-      <nav class="langbar" aria-label="Language"><a href="seoul-beauty-reservation-en.html" hreflang="en" data-keep-ref>English</a><a href="seoul-beauty-reservation-ja.html" hreflang="ja" data-keep-ref aria-current="page">日本語</a><a href="seoul-beauty-reservation-zh.html" hreflang="zh-Hant" data-keep-ref>繁體中文</a></nav>
+      <nav class="langbar" aria-label="Language"><a href="seoul-beauty-reservation-en.html" hreflang="en" data-keep-ref>English</a><a href="seoul-beauty-reservation-ja.html" hreflang="ja" data-keep-ref aria-current="page">日本語</a><a href="seoul-beauty-reservation-zh.html" hreflang="zh-Hant" data-keep-ref>繁體中文</a><a href="seoul-beauty-reservation-zh-hans.html" hreflang="zh-Hans" data-keep-ref>简体中文</a></nav>
     </div>
     <h1>韓国ヘッドスパ・美容室の予約を、<em>日本語だけで</em>終わらせる</h1>
     <p class="lead">インスタで見つけたソウルのヘッドスパ。写真もメニューも住所も揃っている。ところが予約の段階で止まる。DMを送っても返事がない。電話をかければ韓国語。予約フォームは韓国の携帯番号を求めてくる。これは語学の問題ではなく、<b>予約の窓口が韓国語側にしか開いていない</b>という構造の問題です。</p>
@@ -572,7 +575,7 @@
     <h2>ソウルの予約ガイド（英語）</h2>
     <div class="two">
       <div class="card"><h3><a href="seoul-beauty-reservation-en.html" hreflang="en" data-keep-ref>English: How to book a Korean head spa without a Korean phone number</a></h3></div>
-      <div class="card"><h3><a href="seoul-beauty-reservation-zh.html" hreflang="zh-Hant" data-keep-ref>中文版（繁体字）：韓国の頭皮SPAを、韓国語の電話番号なしで予約する</a></h3></div>
+      <div class="card"><h3><a href="seoul-beauty-reservation-zh.html" hreflang="zh-Hant" data-keep-ref>中文版（繁体字）：韓国の頭皮SPAを、韓国語の電話番号なしで予約する</a></h3></div><div class="card"><h3><a href="seoul-beauty-reservation-zh-hans.html" hreflang="zh-Hans" data-keep-ref>中文版（简体字）：韓国の頭皮SPAを、韓国語の電話番号なしで予約する</a></h3></div>
       <div class="card"><h3><a href="hair-salon-without-korean-phone.html" data-keep-ref>How to book a Seoul hair salon without a Korean phone number</a></h3></div>
       <div class="card"><h3><a href="private-korean-scrub.html" data-keep-ref>How to book a private Korean body scrub in Seoul</a></h3></div>
       <div class="card"><h3><a href="head-spa-booking.html" data-keep-ref>How to book a head spa in Seoul</a></h3></div>
