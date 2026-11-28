@@ -207,6 +207,15 @@
     .langbar{margin-left:0; width:100%; flex-wrap:nowrap; justify-content:space-between;}
     .langbar a{flex:1 1 0; min-width:0; text-align:center; padding:6px 3px; font-size:11px; letter-spacing:-.02em;}
   }
+
+  /* --- payment QR cards: WeChat Pay / Alipay (2026-11-28) --- */
+  .payq{display:grid; gap:14px; margin-top:20px;}
+  .qcard{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:15px 15px 17px; text-align:center; min-width:0;}
+  .qcard .qhead{display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:7px; font-size:15px; font-weight:800; margin-bottom:11px;}
+  .qcard .qhead span{font-size:10.5px; font-weight:800; letter-spacing:.06em; color:var(--sub); background:var(--soft); border:1px solid var(--line); border-radius:999px; padding:2px 8px;}
+  .qcard img{display:block; width:100%; max-width:240px; height:auto; margin:0 auto; border-radius:10px; border:1px solid var(--line);}
+  .qcard .qnote{font-size:12.5px; color:var(--sub); margin-top:10px;}
+  @media (min-width:600px){ .payq{grid-template-columns:1fr 1fr;} }
 </style>
 </head><body>
 <script type="application/ld+json">
@@ -227,8 +236,9 @@
       <span class="chip">不用韩国银行卡转账</span>
       <span class="chip">2 小时内回复</span>
       <span class="chip">可用微信联系</span>
+      <span class="chip">微信 / 支付宝付款</span>
     </div>
-    <a class="btn" href="https://tally.so/r/kbEZKZ">提交预约需求 · <span class="price">$9.90</span> 固定费用</a>
+    <a class="btn" href="https://tally.so/r/NqoMbl">提交预约需求 · <span class="price">$9.90</span> 固定费用</a>
     <p class="fineprint">原价 $15.00 · 三个时段都订不到，全额退款</p>
   </div>
 </header>
@@ -450,7 +460,7 @@
   <div class="wrap">
     <div class="kicker">K-Pass Beauty 怎么帮你</div>
     <h2>三个步骤，全程不用说韩语</h2>
-    <p class="sub">这是为了那种情况：你想去的那家店，只接韩语电话、Kakao 或私信。表单可以用中文填写（现有表单是繁体中文界面，用简体字填完全没问题），确认单为英文；给前台看的韩语确认卡会替你把话说完。</p>
+    <p class="sub">这是为了那种情况：你想去的那家店，只接韩语电话、Kakao 或私信。预约表单是简体中文界面，直接按中文填写就行，确认单为英文；给前台看的韩语确认卡会替你把话说完。</p>
     <ol class="steps">
       <li><b>把链接发给我们</b><span>Instagram 帖子、Naver 地图地点、Kakao 地图链接、截图都行——或者只要店名和最近的地铁站。附上三个能配合的日期时段、人数、想做的项目（不确定就写"帮我推荐"），以及护理师该知道的事。</span></li>
       <li><b>我们用韩语打给店家，把时段订下来</b><span>第一个时段满了，就接着问第二、第三个。营业时间内（每天 09:00–22:00 KST）2 小时内回复，通常 2～4 小时内确认完成。</span></li>
@@ -466,13 +476,35 @@
         <li class="no">我们不陪同、不做现场口译——全程用电话和文件处理，费用才能压在这个价位</li>
         <li class="no">我们不转卖任何人的票券，也不向店家抽佣</li>
       </ul>
-      <div class="paynote">PayPal 付款 · 不用韩国号码 · 不用韩国银行账户</div>
+      <div class="paynote">PayPal · 微信支付 · 支付宝 都可付款 · 不用韩国号码 · 不用韩国银行账户</div>
     </div>
 
     <div style="margin-top:20px">
-      <a class="btn" href="https://tally.so/r/kbEZKZ">提交预约需求 · <span class="price">$9.90</span></a>
+      <a class="btn" href="https://tally.so/r/NqoMbl">提交预约需求 · <span class="price">$9.90</span></a>
       <p class="fineprint">填表两分钟，提交完就可以放下手机</p>
     </div>
+  </div>
+</section>
+
+<section id="pay">
+  <div class="wrap">
+    <div class="kicker">付款方式</div>
+    <h2>没有 PayPal，也可以扫码付款</h2>
+    <p class="sub">代订费 <b>$9.90</b>，约 70 元人民币。用微信支付或支付宝扫码即可，转完在备注里写上<b>预约邮箱和姓名</b>（例：you@example.com / ZHANG SAN），我们核对后照常在 2 小时内回复。用 PayPal 也是同一个价钱。</p>
+    <div class="payq">
+      <div class="qcard">
+        <div class="qhead">微信支付 <span>WeChat Pay</span></div>
+        <img src="../assets/pay_wechat.jpg" alt="微信支付收款二维码" loading="lazy" width="640" height="868">
+        <p class="qnote">扫码支付 · 约 70 元人民币</p>
+      </div>
+      <div class="qcard">
+        <div class="qhead">支付宝 <span>Alipay</span></div>
+        <img src="../assets/pay_alipay.jpg" alt="支付宝收款二维码" loading="lazy" width="640" height="959">
+        <p class="qnote">扫码支付 · 约 70 元人民币</p>
+      </div>
+    </div>
+    <p class="fineprint" style="text-align:left; margin-top:16px">扫码后请在备注填写预约邮箱和姓名，方便我们对上你的表单。已经用 PayPal 付过的，请不要重复付款；三个时段都订不到，全额退款。</p>
+    <p class="fineprint" style="text-align:left; margin-top:6px">想用 PayPal：<a href="https://www.paypal.me/kpassbeauty/9.9USD" data-keep-ref>paypal.me/kpassbeauty/9.9USD</a></p>
   </div>
 </section>
 
@@ -520,7 +552,7 @@
         <div class="qa-n">06</div>
         <div>
           <h3>可以用微信联系吗？</h3>
-          <p>可以。表单的"偏好的联系方式"里选 WeChat，填上微信号就行，我们会用微信跟你确认时段和细节。付款走 PayPal。</p>
+          <p>可以。表单的"偏好的联系方式"里选 WeChat，填上微信号就行，我们会用微信跟你确认时段和细节。付款可以用 PayPal，也可以用微信支付或支付宝扫码（约 70 元人民币）。</p>
         </div>
       </div>
     </div>
@@ -565,7 +597,7 @@
 
 <div class="sticky">
   <div class="inner">
-    <a class="btn" href="https://tally.so/r/kbEZKZ">提交预约需求 · $9.90</a>
+    <a class="btn" href="https://tally.so/r/NqoMbl">提交预约需求 · $9.90</a>
     <p class="sub2">时段订不到，全额退款</p>
   </div>
 </div>
