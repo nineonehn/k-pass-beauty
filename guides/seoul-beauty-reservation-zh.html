@@ -235,14 +235,37 @@
   .two,.vs,.steps{min-width:0;}
   .card,.note,.vs-close,.pricebox,.qa-item{min-width:0;}
   .card li,.card p,.qa-item p,.sub,.note,.disclaimer,ol.steps span{overflow-wrap:anywhere; word-break:normal;}
-</style></head><body>
+</style><style>
+  /* --- language switch bar (2026-11-28) --- */
+  .brandrow{display:flex; align-items:center; justify-content:space-between; gap:10px 14px; flex-wrap:wrap;}
+  .langbar{display:inline-flex; align-items:center; gap:2px; padding:3px; margin-left:auto;
+           background:rgba(255,255,255,.72); border:1px solid var(--line); border-radius:999px;
+           -webkit-backdrop-filter:saturate(160%) blur(10px); backdrop-filter:saturate(160%) blur(10px);
+           box-shadow:0 1px 2px rgba(18,21,26,.05); max-width:100%;}
+  .langbar a{display:block; padding:5px 11px; border-radius:999px; white-space:nowrap;
+             font-size:11.5px; line-height:1.4; font-weight:700; letter-spacing:-.01em;
+             color:var(--sub); text-decoration:none;
+             transition:background .18s ease, color .18s ease;}
+  .langbar a:hover{color:var(--ink); background:#f0eee8;}
+  .langbar a[aria-current="page"]{color:#fff; background:var(--ink); box-shadow:0 1px 3px rgba(18,21,26,.22);}
+  .langbar a[aria-current="page"]:hover{color:#fff; background:var(--ink);}
+  @media (max-width:420px){
+    .brandrow{flex-direction:column; align-items:flex-start; gap:10px;}
+    .langbar{margin-left:0;}
+    .langbar a{padding:5px 9px;}
+  }
+</style>
+</head><body>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"韓國頭皮SPA、美髮沙龍怎麼預約？沒有韓國手機號碼也能訂到位（首爾・2026）","description":"首爾頭皮SPA與髮廊預約卡關的四個地方、付款前該確認的12件事、實際價格的四個級距，以及不會韓語、沒有韓國號碼時把時段訂下來的方法。","inLanguage":"zh-Hant","datePublished":"2026-11-27","dateModified":"2026-11-27","mainEntityOfPage":{"@type":"WebPage","@id":"https://nineonehn.github.io/k-pass-beauty/guides/seoul-beauty-reservation-zh.html"},"author":{"@type":"Organization","name":"K-Pass Beauty","url":"https://nineonehn.github.io/k-pass-beauty/"},"publisher":{"@type":"Organization","name":"K-Pass Beauty","url":"https://nineonehn.github.io/k-pass-beauty/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"除了預約費，還要另外付訂金嗎？","acceptedAnswer":{"@type":"Answer","text":"店家若要求訂金，我們會先確認處理方式再告訴你。訂金與9.90美元的代訂費分開計算，依店家規定辦理。"}},{"@type":"Question","name":"可以挑有中文或英文服務人員的店嗎？","acceptedAnswer":{"@type":"Answer","text":"不少店掛著語言服務的招牌，但當天現場是哪位設計師或治療師值班並不固定。我們只轉述店家確認過的內容；真正可靠的是櫃檯用的韓語確認卡，即使現場沒人聽得懂你的語言也能溝通。"}},{"@type":"Question","name":"當天在店裡臨時有狀況怎麼辦？","acceptedAnswer":{"@type":"Answer","text":"傳訊息給我們，我們會在你還站在現場的時候打電話給店家。"}},{"@type":"Question","name":"兩個人可以同一間包廂嗎？","acceptedAnswer":{"@type":"Answer","text":"包廂型式各家不同，頭皮SPA多為一人一室。把需求寫進委託裡，我們會就這個條件向店家確認。"}},{"@type":"Question","name":"取消或不到場會怎樣？","acceptedAnswer":{"@type":"Answer","text":"有些店家會沒收訂金，並拒絕之後的預約。行程有變，請盡早告訴我們。"}}]}]}
 </script>
 
 <header>
   <div class="wrap">
-    <a class="brand" href="#top" data-keep-ref><i></i> K-Pass Beauty · Seoul</a>
+    <div class="brandrow">
+      <a class="brand" href="#top" data-keep-ref><i></i> K-Pass Beauty · Seoul</a>
+      <nav class="langbar" aria-label="Language"><a href="seoul-beauty-reservation-en.html" hreflang="en" data-keep-ref>English</a><a href="seoul-beauty-reservation-ja.html" hreflang="ja" data-keep-ref>日本語</a><a href="seoul-beauty-reservation-zh.html" hreflang="zh-Hant" data-keep-ref aria-current="page">繁體中文</a></nav>
+    </div>
     <h1>沒有韓國手機號碼，<em>也能訂到韓國的頭皮SPA</em></h1>
     <p class="lead">你在 Instagram 上滑到一間店——延南洞只有一張椅子的頭皮SPA，明洞的個人搓澡包廂。地址寫在貼文說明裡，價目表在照片裡，置頂貼文寫著「DM 預約」。你傳了訊息，然後就沒有然後了。<b>最後那一步——把時段真正握在手裡——只存在於韓語那一邊。</b></p>
     <div class="chips">

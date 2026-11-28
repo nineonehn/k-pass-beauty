@@ -235,14 +235,37 @@
   .two,.vs,.steps{min-width:0;}
   .card,.note,.vs-close,.pricebox,.qa-item{min-width:0;}
   .card li,.card p,.qa-item p,.sub,.note,.disclaimer,ol.steps span{overflow-wrap:anywhere; word-break:normal;}
-</style></head><body>
+</style><style>
+  /* --- language switch bar (2026-11-28) --- */
+  .brandrow{display:flex; align-items:center; justify-content:space-between; gap:10px 14px; flex-wrap:wrap;}
+  .langbar{display:inline-flex; align-items:center; gap:2px; padding:3px; margin-left:auto;
+           background:rgba(255,255,255,.72); border:1px solid var(--line); border-radius:999px;
+           -webkit-backdrop-filter:saturate(160%) blur(10px); backdrop-filter:saturate(160%) blur(10px);
+           box-shadow:0 1px 2px rgba(18,21,26,.05); max-width:100%;}
+  .langbar a{display:block; padding:5px 11px; border-radius:999px; white-space:nowrap;
+             font-size:11.5px; line-height:1.4; font-weight:700; letter-spacing:-.01em;
+             color:var(--sub); text-decoration:none;
+             transition:background .18s ease, color .18s ease;}
+  .langbar a:hover{color:var(--ink); background:#f0eee8;}
+  .langbar a[aria-current="page"]{color:#fff; background:var(--ink); box-shadow:0 1px 3px rgba(18,21,26,.22);}
+  .langbar a[aria-current="page"]:hover{color:#fff; background:var(--ink);}
+  @media (max-width:420px){
+    .brandrow{flex-direction:column; align-items:flex-start; gap:10px;}
+    .langbar{margin-left:0;}
+    .langbar a{padding:5px 9px;}
+  }
+</style>
+</head><body>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"How to Book a Korean Head Spa Without a Korean Phone Number (Seoul, 2026)","description":"Where Seoul head spa booking stops for foreign visitors, what to confirm before paying, what a treatment costs, and how to get a slot confirmed in English or Japanese.","inLanguage":"en","datePublished":"2026-11-27","dateModified":"2026-11-27","mainEntityOfPage":{"@type":"WebPage","@id":"https://nineonehn.github.io/k-pass-beauty/guides/seoul-beauty-reservation-en.html"},"author":{"@type":"Organization","name":"K-Pass Beauty","url":"https://nineonehn.github.io/k-pass-beauty/"},"publisher":{"@type":"Organization","name":"K-Pass Beauty","url":"https://nineonehn.github.io/k-pass-beauty/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do I pay a deposit on top of the booking fee?","acceptedAnswer":{"@type":"Answer","text":"If the venue requires a deposit, we confirm how it is handled and tell you before anything is arranged. It is separate from the $9.90 booking fee and follows the venue's own rules."}},{"@type":"Question","name":"Can I choose a shop where staff speak English or Japanese?","acceptedAnswer":{"@type":"Answer","text":"Many shops advertise language support, but which staff member actually speaks it varies. We tell you what the venue confirms. The Korean confirmation card works even when nobody at the counter speaks your language."}},{"@type":"Question","name":"What if something goes wrong on site?","acceptedAnswer":{"@type":"Answer","text":"Message us and we call the venue in Korean while you are standing there."}},{"@type":"Question","name":"Can two people share the same room?","acceptedAnswer":{"@type":"Answer","text":"Room types differ and many head spa rooms are single occupancy. Note it in the request and we check that specific condition with the venue."}},{"@type":"Question","name":"What happens if I cancel or do not show up?","acceptedAnswer":{"@type":"Answer","text":"Some venues keep the deposit and refuse future bookings. Tell us as early as you can if your plans change."}}]}]}
 </script>
 
 <header>
   <div class="wrap">
-    <a class="brand" href="../" data-keep-ref><i></i> K-Pass Beauty · Seoul</a>
+    <div class="brandrow">
+      <a class="brand" href="../" data-keep-ref><i></i> K-Pass Beauty · Seoul</a>
+      <nav class="langbar" aria-label="Language"><a href="seoul-beauty-reservation-en.html" hreflang="en" data-keep-ref aria-current="page">English</a><a href="seoul-beauty-reservation-ja.html" hreflang="ja" data-keep-ref>日本語</a><a href="seoul-beauty-reservation-zh.html" hreflang="zh-Hant" data-keep-ref>繁體中文</a></nav>
+    </div>
     <h1>How to book a Korean head spa <em>without a Korean phone number</em></h1>
     <p class="lead">You found the place on Instagram — a one-chair head spa in Yeonnam, a private scrub room in Myeongdong. The address is in the caption, the menu is in the photos, and the pinned post says “DM for booking”. You send a message. Nothing comes back. <b>The last step — actually holding a time — is the one that lives in Korean.</b></p>
     <div class="chips">

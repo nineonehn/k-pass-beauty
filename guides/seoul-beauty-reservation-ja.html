@@ -235,14 +235,37 @@
   .two,.vs,.steps{min-width:0;}
   .card,.note,.vs-close,.pricebox,.qa-item{min-width:0;}
   .card li,.card p,.qa-item p,.sub,.note,.disclaimer,ol.steps span{overflow-wrap:anywhere; word-break:normal;}
-</style></head><body>
+</style><style>
+  /* --- language switch bar (2026-11-28) --- */
+  .brandrow{display:flex; align-items:center; justify-content:space-between; gap:10px 14px; flex-wrap:wrap;}
+  .langbar{display:inline-flex; align-items:center; gap:2px; padding:3px; margin-left:auto;
+           background:rgba(255,255,255,.72); border:1px solid var(--line); border-radius:999px;
+           -webkit-backdrop-filter:saturate(160%) blur(10px); backdrop-filter:saturate(160%) blur(10px);
+           box-shadow:0 1px 2px rgba(18,21,26,.05); max-width:100%;}
+  .langbar a{display:block; padding:5px 11px; border-radius:999px; white-space:nowrap;
+             font-size:11.5px; line-height:1.4; font-weight:700; letter-spacing:-.01em;
+             color:var(--sub); text-decoration:none;
+             transition:background .18s ease, color .18s ease;}
+  .langbar a:hover{color:var(--ink); background:#f0eee8;}
+  .langbar a[aria-current="page"]{color:#fff; background:var(--ink); box-shadow:0 1px 3px rgba(18,21,26,.22);}
+  .langbar a[aria-current="page"]:hover{color:#fff; background:var(--ink);}
+  @media (max-width:420px){
+    .brandrow{flex-direction:column; align-items:flex-start; gap:10px;}
+    .langbar{margin-left:0;}
+    .langbar a{padding:5px 9px;}
+  }
+</style>
+</head><body>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"韓国ヘッドスパ・美容室の予約を、日本語だけで終わらせる（2026年11月・ソウル）","description":"ソウルのヘッドスパ・美容室で予約が止まる4つの地点、支払い前に確認する12項目、価格の目安、日本語と英語だけで枠を押さえる方法。","inLanguage":"ja","datePublished":"2026-11-27","dateModified":"2026-11-27","mainEntityOfPage":{"@type":"WebPage","@id":"https://nineonehn.github.io/k-pass-beauty/guides/seoul-beauty-reservation-ja.html"},"author":{"@type":"Organization","name":"K-Pass Beauty","url":"https://nineonehn.github.io/k-pass-beauty/"},"publisher":{"@type":"Organization","name":"K-Pass Beauty","url":"https://nineonehn.github.io/k-pass-beauty/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"予約金は手数料とは別に払う必要がありますか？","acceptedAnswer":{"@type":"Answer","text":"店が予約金を求める場合、当方で扱いを確認してからご案内します。手数料9.90ドルとは別で、店の規定に従います。"}},{"@type":"Question","name":"日本語対応の店を選べますか？","acceptedAnswer":{"@type":"Answer","text":"「日本語対応」を掲げていても、実際に対応するスタッフは店ごとに違います。確認できる範囲でお伝えします。確実なのは、カウンターで見せる韓国語の確認カードです。"}},{"@type":"Question","name":"当日、店で困ったらどうなりますか？","acceptedAnswer":{"@type":"Answer","text":"メッセージをいただければ、その場で店に韓国語で電話します。"}},{"@type":"Question","name":"2人で同じ部屋にできますか？","acceptedAnswer":{"@type":"Answer","text":"部屋のタイプは店ごとに異なり、1人室が多いです。ご希望を書いていただければ、その条件で店に確認します。"}},{"@type":"Question","name":"キャンセルやノーショーの場合は？","acceptedAnswer":{"@type":"Answer","text":"店によっては予約金没収・以後の予約不可があります。変更・キャンセルは分かった時点で早めにご連絡ください。"}}]}]}
 </script>
 
 <header>
   <div class="wrap">
-    <a class="brand" href="#top" data-keep-ref><i></i> K-Pass Beauty · Seoul</a>
+    <div class="brandrow">
+      <a class="brand" href="#top" data-keep-ref><i></i> K-Pass Beauty · Seoul</a>
+      <nav class="langbar" aria-label="Language"><a href="seoul-beauty-reservation-en.html" hreflang="en" data-keep-ref>English</a><a href="seoul-beauty-reservation-ja.html" hreflang="ja" data-keep-ref aria-current="page">日本語</a><a href="seoul-beauty-reservation-zh.html" hreflang="zh-Hant" data-keep-ref>繁體中文</a></nav>
+    </div>
     <h1>韓国ヘッドスパ・美容室の予約を、<em>日本語だけで</em>終わらせる</h1>
     <p class="lead">インスタで見つけたソウルのヘッドスパ。写真もメニューも住所も揃っている。ところが予約の段階で止まる。DMを送っても返事がない。電話をかければ韓国語。予約フォームは韓国の携帯番号を求めてくる。これは語学の問題ではなく、<b>予約の窓口が韓国語側にしか開いていない</b>という構造の問題です。</p>
     <div class="chips">
