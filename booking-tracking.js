@@ -29,8 +29,8 @@
 
   document.querySelectorAll('a[data-keep-ref]').forEach(carryRef);
 
-  var bookingPathnames = ['/r/vXr0r0', '/r/rDPE2X', '/r/kbEZKZ'];
-  document.querySelectorAll('a[href^="https://tally.so/r/vXr0r0"], a[href^="https://tally.so/r/rDPE2X"], a[href^="https://tally.so/r/kbEZKZ"]').forEach(function (link) {
+  var bookingPathnames = ['/r/vXr0r0', '/r/rDPE2X', '/r/kbEZKZ', '/r/NqoMbl'];
+  document.querySelectorAll('a[href^="https://tally.so/r/vXr0r0"], a[href^="https://tally.so/r/rDPE2X"], a[href^="https://tally.so/r/kbEZKZ"], a[href^="https://tally.so/r/NqoMbl"]').forEach(function (link) {
     var bookingUrl = new URL(link.href);
     if (bookingUrl.origin !== 'https://tally.so' || bookingPathnames.indexOf(bookingUrl.pathname) === -1) return;
     carryRef(link);
