@@ -170,6 +170,22 @@
   .picklinks a{display:inline-flex; align-items:center; font-size:12.5px; font-weight:700; text-decoration:none; border:1px solid var(--line); background:var(--soft); color:var(--ink2); border-radius:999px; padding:8px 13px;}
   .picknote{font-size:12.5px; color:var(--sub); margin-top:14px;}
 
+  /* ---------- by neighbourhood (2026-11-28) ---------- */
+  .areas{display:grid; gap:14px; margin-top:20px;}
+  .area .areahead{display:flex; align-items:baseline; flex-wrap:wrap; gap:4px 9px;}
+  .area .areahead h3{font-size:19.5px;}
+  .area .areahead .kr{font-size:12.5px; color:var(--sub); font-weight:600; margin:0;}
+  .area .shop{border-top:1px dashed var(--line); margin-top:14px; padding-top:14px;}
+  .area .shop:first-of-type{border-top:0; margin-top:12px; padding-top:0;}
+  .area .sname{font-size:16px; font-weight:800; letter-spacing:-.01em;}
+  .area .sname span{font-size:13px; font-weight:600; color:var(--sub); margin-left:6px;}
+  .area .stype{font-size:10.5px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin-top:3px;}
+  .area dl{margin:9px 0 0; display:grid; gap:5px; font-size:13.5px;}
+  .area dl div{display:flex; gap:9px;}
+  .area dt{flex:0 0 50px; color:var(--sub); font-weight:800; font-size:10px; letter-spacing:.08em; text-transform:uppercase; padding-top:4px;}
+  .area dd{margin:0; color:var(--ink2);}
+  .area .snote{font-size:12.5px; color:var(--sub); margin-top:8px;}
+
   /* ---------- price ---------- */
   .pricebox{background:var(--ink); color:#fff; border-radius:20px; padding:26px 20px; margin-top:20px;}
   .pricebox .amt{font-size:46px; font-weight:800; letter-spacing:-.03em; line-height:1;}
@@ -380,6 +396,125 @@
   </div>
 </section>
 
+<section id="areas">
+  <div class="wrap">
+    <div class="kicker">By neighbourhood</div>
+    <h2>No shop in mind? Four areas — and who we call first.</h2>
+    <p class="sub">Everything below we checked ourselves: the station exit, the walking time, the phone number, the hours and the shop’s own price list. Choose your area on the form and we call these shops in Korean, confirm a slot and send the voucher in English. The treatment is paid to the shop at its own price — we add nothing to it.</p>
+
+    <div class="areas">
+
+      <div class="card area">
+        <div class="areahead"><h3>Hongdae · Sinchon · Yeonnam</h3><span class="kr">홍대 · 신촌 · 연남</span></div>
+        <div class="shop">
+          <div class="sname">Head Spa Seoul <span>헤드스파서울</span></div>
+          <div class="stype">Head spa · private 1:1 room · English spoken</div>
+          <dl>
+            <div><dt>Where</dt><dd>Hongdae Stn exit 1, 7–8 min walk (540 m) · 3F, 11-1 Donggyo-ro 38an-gil, Mapo-gu</dd></div>
+            <div><dt>Hours</dt><dd>Daily 10:00–21:00 (some listings say 22:00 — we confirm your day on the phone)</dd></div>
+            <div><dt>Price</dt><dd>45 min ₩120,000 · 60 min ₩200,000–230,000 · 90 min ₩300,000 (VAT extra)</dd></div>
+            <div><dt>Phone</dt><dd>0507-791-2377</dd></div>
+          </dl>
+          <p class="snote">Bookings run through Naver’s Korean booking page, which is exactly where a foreign guest stops. Our call is the way in.</p>
+        </div>
+        <div class="shop">
+          <div class="sname">Salon de Moon <span>살롱드문</span></div>
+          <div class="stype">Hair · one chair · 1:1 appointments</div>
+          <dl>
+            <div><dt>Where</dt><dd>Hongdae Stn, 5 min walk (340 m) · 3F, 232 Donggyo-ro, Mapo-gu</dd></div>
+            <div><dt>Hours</dt><dd>Daily 10:00–21:00</dd></div>
+            <div><dt>Price</dt><dd>Cut from ₩30,000 · perm from ₩100,000</dd></div>
+            <div><dt>Phone</dt><dd>02-336-4808</dd></div>
+          </dl>
+          <p class="snote">English at the chair is not confirmed — that is our job, not yours. The stylist works one guest at a time.</p>
+        </div>
+      </div>
+
+      <div class="card area">
+        <div class="areahead"><h3>Myeongdong · Euljiro · Jongno</h3><span class="kr">명동 · 을지로 · 종로</span></div>
+        <div class="shop">
+          <div class="sname">La:Hin <span>세신샵 라힌</span></div>
+          <div class="stype">Korean scrub (seshin) · women only · private rooms</div>
+          <dl>
+            <div><dt>Where</dt><dd>Chungmuro Stn exits 1 &amp; 2, 3–4 min walk (300 m) · 3F, 210-27 Toegye-ro, Jung-gu — one stop from Myeongdong</dd></div>
+            <div><dt>Hours</dt><dd>Daily 07:00–23:00 · last booking 22:00</dd></div>
+            <div><dt>Price</dt><dd>Classic 60 min ₩99,000 · seaweed 75 min ₩132,000 · herbal 90 min ₩165,000</dd></div>
+            <div><dt>Phone</dt><dd>02-6949-5677</dd></div>
+          </dl>
+          <p class="snote">The 07:00 opening and 22:00 last slot are why it works on an arrival day or before a flight. Women only — we will not send a male guest here.</p>
+        </div>
+        <div class="shop">
+          <div class="sname">Moon Hair Salon <span>문헤어살롱</span></div>
+          <div class="stype">Hair · English price menu published</div>
+          <dl>
+            <div><dt>Where</dt><dd>Myeongdong Stn exit 6, 91 m · 3F, 43 Myeongdong 8-gil, Jung-gu</dd></div>
+            <div><dt>Hours</dt><dd>Mon–Fri 11:00–21:00 · Sat–Sun 11:00–20:00</dd></div>
+            <div><dt>Price</dt><dd>Women’s cut ₩35,000 · men’s cut ₩25,000 · colour from ₩100,000</dd></div>
+            <div><dt>Phone</dt><dd>02-752-0368</dd></div>
+          </dl>
+          <p class="snote">The shop keeps its own English menu on an English booking site, so the price you see is the price we quote.</p>
+        </div>
+      </div>
+
+      <div class="card area">
+        <div class="areahead"><h3>Seongsu · Konkuk</h3><span class="kr">성수 · 건대</span></div>
+        <div class="shop">
+          <div class="sname">Seongsu Salon <span>성수살롱</span></div>
+          <div class="stype">Hair · one stylist · Korean only</div>
+          <dl>
+            <div><dt>Where</dt><dd>Ttukseom Stn exit 5, 2–4 min walk (106 m) · 2F, 3 Sangwon 2-gil, Seongdong-gu</dd></div>
+            <div><dt>Hours</dt><dd>Mon–Fri 10:30–20:30 · Sat 10:30–18:30 · closed Sunday</dd></div>
+            <div><dt>Price</dt><dd>Women’s cut ₩28,000 · men’s cut ₩26,000 · perm from ₩100,000 · scalp clinic ₩80,000</dd></div>
+            <div><dt>Phone</dt><dd>02-463-8988</dd></div>
+          </dl>
+          <p class="snote">No English, no English channels, every price on the wall in Korean — the case our phone call exists for. Closed Sunday.</p>
+        </div>
+        <div class="shop">
+          <div class="sname">ONYAD Seongsu <span>온야드 성수점</span></div>
+          <div class="stype">Hair + head spa · English-speaking staff</div>
+          <dl>
+            <div><dt>Where</dt><dd>Seongsu Stn exit 1, 125 m · 2F, 39-1 Seongsu-ro 8-gil, Seongdong-gu</dd></div>
+            <div><dt>Hours</dt><dd>11:00–20:00 · closed Tuesday</dd></div>
+            <div><dt>Price</dt><dd>Cut + shampoo + blow-dry ₩45,000 · head spa 30 min ₩110,000 / 60 min ₩180,000</dd></div>
+            <div><dt>Phone</dt><dd>010-2353-2371</dd></div>
+          </dl>
+          <p class="snote">Five branches share the name — we read the exact one (“Seongsu-ro 8-gil 39-1, 2F”) so your taxi does not stop at another. Closed Tuesday.</p>
+        </div>
+      </div>
+
+      <div class="card area">
+        <div class="areahead"><h3>Gangnam · Apgujeong · Hannam</h3><span class="kr">강남 · 압구정 · 한남</span></div>
+        <div class="shop">
+          <div class="sname">MY SPRING, HAIR <span>나의봄헤어</span></div>
+          <div class="stype">Hair · private 1:1 · English spoken</div>
+          <dl>
+            <div><dt>Where</dt><dd>Sinsa Stn, 2–3 min walk · 1F 103, 7 Gangnam-daero 146-gil, Gangnam-gu</dd></div>
+            <div><dt>Hours</dt><dd>Mon · Tue · Wed · Fri · Sat 11:00–20:00 · closed Thursday &amp; Sunday</dd></div>
+            <div><dt>Price</dt><dd>Cut from ₩38,000</dd></div>
+            <div><dt>Phone</dt><dd><a href="tel:+827046161450">+82 70-4616-1450</a></dd></div>
+          </dl>
+          <p class="snote">Our regular Gangnam shop — the full card with menu and map links is just above.</p>
+        </div>
+        <div class="shop">
+          <div class="sname">AHEAD Head Spa <span>어헤드 헤드스파</span></div>
+          <div class="stype">Head spa · English &amp; Japanese interpretation</div>
+          <dl>
+            <div><dt>Where</dt><dd>Sinsa Stn direction, 5–10 min walk · 2F, 30-1 Apgujeong-ro 10-gil, Gangnam-gu</dd></div>
+            <div><dt>Hours</dt><dd>Daily 10:00–20:00</dd></div>
+            <div><dt>Price</dt><dd>Relaxing 60 min ₩190,000 · dual 70 min ₩230,000 · all-in-one 80 min ₩290,000</dd></div>
+            <div><dt>Phone</dt><dd>010-8296-8456</dd></div>
+          </dl>
+          <p class="snote">Walk time differs by source (5 or 10 minutes), so we give you the range and the map pin, not a promise.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note"><b>Two things that catch people out.</b> <b>La:Hin</b> is women only. <b>Seongsu Salon</b> closes on Sundays, <b>ONYAD</b> on Tuesdays, and <b>MY SPRING, HAIR</b> on Thursdays and Sundays. Hours and prices above are what each shop published as of November 2026 — length, seniority and VAT can change the final amount, so we confirm the shop’s own quote with you before you pay the shop anything.</div>
+    <p class="fineprint" style="text-align:left;margin-top:14px;">None of these are paid placements. If a shop you found yourself is in a different area, send it — we book that one instead.</p>
+  </div>
+</section>
+
 <section>
   <div class="wrap">
     <div class="kicker">How it works</div>
@@ -398,7 +533,7 @@
         <span>English voucher with the booking ID, the Korean address for the taxi driver, Naver and Kakao map links, and the Korean card. Usually within 2–4 hours. If none of your times work, the $9.90 comes back in full.</span>
       </li>
     </ol>
-    <div class="note" style="margin-top:18px"><b>No shop yet? You don’t have to choose one first.</b> Pick the area you’d like on the form — Hongdae · Sinchon, Myeongdong, Seongsu, Gangnam, or anywhere near your hotel — and we recommend a verified, foreigner-friendly shop in that area and book it for you. Same $9.90, same refund if none of your times work.</div>
+    <div class="note" style="margin-top:18px"><b>No shop yet? You don’t have to choose one first.</b> Pick the area you’d like on the form — Hongdae · Sinchon, Myeongdong, Seongsu, Gangnam, or anywhere near your hotel — and we recommend a verified, foreigner-friendly shop in that area and book it for you. Same $9.90, same refund if none of your times work. <a href="#areas" style="color:var(--accent);font-weight:700;text-decoration:underline;">See the shops we call first in each area →</a></div>
     <div class="note">We don’t escort you or interpret in person. We work by phone and document — that’s why the fee can stay at $9.90.</div>
   </div>
 </section>
@@ -577,7 +712,7 @@
 
     <details>
       <summary>Which areas and which places?</summary>
-      <div class="a"><p>Seoul — Hongdae, Yeonnam, Hapjeong, Seongsu, Gangnam, plus brand spas such as SPA 1978 in Daechi. If you already have a venue in mind, send the Instagram or Naver Map link and we check that exact branch. If you don’t, just choose the area you’d like — Hongdae · Sinchon · Yeonnam, Myeongdong · Euljiro · Jongno, Seongsu · Konkuk Univ., Gangnam · Apgujeong · Hannam, or anywhere near your hotel — and we suggest two or three verified, foreigner-friendly shops there. For hair and scalp work we usually start with <b>MY SPRING, HAIR</b> in Sinsa (private 1:1, English spoken, closed Thu &amp; Sun) — you can simply pick “Not sure yet” on the form.</p></div>
+      <div class="a"><p>Seoul — Hongdae, Yeonnam, Hapjeong, Seongsu, Gangnam, plus brand spas such as SPA 1978 in Daechi. If you already have a venue in mind, send the Instagram or Naver Map link and we check that exact branch. If you don’t, just choose the area you’d like — Hongdae · Sinchon · Yeonnam, Myeongdong · Euljiro · Jongno, Seongsu · Konkuk Univ., Gangnam · Apgujeong · Hannam, or anywhere near your hotel — and we suggest two or three verified, foreigner-friendly shops there. For hair and scalp work we usually start with <b>MY SPRING, HAIR</b> in Sinsa (private 1:1, English spoken, closed Thu &amp; Sun) — you can simply pick “Not sure yet” on the form. <a href="#areas" style="color:var(--accent);font-weight:700;text-decoration:underline;">The four areas and the shops we call first →</a></p></div>
     </details>
 
     <details>
